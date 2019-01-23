@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "noEmit": true,
+    "strict": true,
+    "types": ["cypress", "cypress-testing-library", "cypress-axe"],
+    "typeRoots": ["node_modules/@types", "./src/@types"]
+  },
+  "exclude": [".cache", "public"]
+}
