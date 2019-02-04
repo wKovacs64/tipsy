@@ -5,9 +5,6 @@ import Layout from '../components/layout';
 const IndexPage: React.FunctionComponent = () => (
   <Layout>
     <SEO />
-    <main>
-      <h1 data-testid="test">Hello from Tipsy!</h1>
-    </main>
   </Layout>
 );
 

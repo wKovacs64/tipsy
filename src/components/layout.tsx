@@ -3,13 +3,14 @@ import React from 'react';
 import { css, Global, ClassNames } from '@emotion/core';
 import styled from '@emotion/styled';
 import { IconContext } from 'react-icons';
-// import Header from './header';
-// import Main from './main';
-// import Footer from './footer';
+import Header from './header';
+import Main from './main';
+import Footer from './footer';
 
 const FullHeightContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 2rem;
 `;
 
 const Layout: React.FunctionComponent = ({ children }) => (
@@ -30,12 +31,9 @@ const Layout: React.FunctionComponent = ({ children }) => (
           `}
         />
         <FullHeightContainer>
-          {children}
-          {/*
-            <Header />
-            <Main>{children}</Main>
-            <Footer />
-            */}
+          <Header />
+          <Main>{children}</Main>
+          <Footer />
         </FullHeightContainer>
       </IconContext.Provider>
     )}
