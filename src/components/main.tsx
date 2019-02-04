@@ -5,6 +5,7 @@ const Main: React.FunctionComponent = ({ children }) => (
   <main
     css={css`
       flex: 1;
+      display: flex;
     `}
   >
     {children}

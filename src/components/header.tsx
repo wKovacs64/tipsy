@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { MdSettings } from 'react-icons/md';
+import colors from '../utils/colors';
 import { rhythm, scale } from '../utils/typography';
 import Link from './internal-link';
 
@@ -9,7 +10,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   color: white;
-  background-color: #8d6c9f;
+  background-color: ${colors.main};
 `;
 
 const HeaderLink = styled(Link)`
