@@ -15,6 +15,7 @@ const Section = styled.section`
 `;
 
 const Label = styled.label`
+  font-weight: 200;
   font-size: ${scale(1.25).fontSize};
   ${mq.sm} {
     font-size: ${scale(0.75).fontSize};
@@ -25,6 +26,7 @@ const Input = styled.input`
   border-style: solid;
   border-width: 0 0 4px 0;
   text-align: center;
+  font-weight: 200;
   font-size: ${scale(1.5).fontSize};
   width: 75vw;
   outline: none;
@@ -48,6 +50,7 @@ const Button = styled.button`
   box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   height: ${scale(1.5).lineHeight};
+  font-weight: 200;
   font-size: ${scale(1.25).fontSize};
   width: 60vw;
   max-width: ${rhythm(18)};
