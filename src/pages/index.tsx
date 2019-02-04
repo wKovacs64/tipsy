@@ -28,14 +28,14 @@ const Input = styled.input`
   text-align: center;
   font-weight: 200;
   font-size: ${scale(1.5).fontSize};
-  width: 75vw;
+  width: 100%;
+  max-width: ${rhythm(20)};
   outline: none;
   &:focus {
     border-bottom-color: ${colors.accent};
   }
   ${mq.sm} {
     font-size: ${scale(0.75).fontSize};
-    width: 30vw;
   }
   transition: 0.15s ease-in;
   transition-property: border-bottom-color;
@@ -53,8 +53,8 @@ const Button = styled.button`
   padding: ${rhythm(1.25)};
   font-weight: 200;
   font-size: ${scale(1.25).fontSize};
-  width: 75vw;
-  max-width: ${rhythm(18)};
+  width: 100%;
+  max-width: ${rhythm(20)};
   ${mq.sm} {
     font-size: ${scale(0.5).fontSize};
     padding: ${rhythm(0.25)};
