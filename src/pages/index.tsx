@@ -60,7 +60,7 @@ const Button = styled.button`
 `;
 
 const IndexPage: React.FunctionComponent = () => {
-  const [bill, setBill] = useState<number | undefined>(undefined);
+  const [bill, setBill] = useState<number>(0);
 
   return (
     <Layout>
@@ -74,7 +74,7 @@ const IndexPage: React.FunctionComponent = () => {
           min="1"
           name="bill"
           id="bill"
-          onChange={e => setBill(parseFloat(e.target.value))}
+          onChange={e => setBill(parseFloat(e.target.value) || 0)}
           value={bill}
         />
         <Button>Next</Button>
