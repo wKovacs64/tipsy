@@ -7,7 +7,7 @@ describe('Index Page', () => {
   it('has no detectable a11y violations on load', () => {
     // wait for the content to ensure the app has been rendered
     cy.get('html[lang="en"]')
-      .getByTestId('test')
+      .getByText(/bill/i)
       .checkA11y();
   });
 });
