@@ -8,22 +8,28 @@ const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: white;
+  background-color: #8d6c9f;
+`;
+
+const HeaderLink = styled(Link)`
   padding: ${rhythm(1)};
 `;
 
 const H1 = styled.h1`
+  color: currentColor;
   font-size: ${scale(1).fontSize};
   margin: 0;
 `;
 
 const Header: React.FunctionComponent = () => (
   <HeaderContainer>
-    <H1>
-      <Link to="/">Tipsy</Link>
-    </H1>
-    <Link to="/settings">
+    <HeaderLink to="/">
+      <H1>Tipsy</H1>
+    </HeaderLink>
+    <HeaderLink to="/settings">
       <MdSettings aria-label="Settings" size={scale(1).fontSize} />
-    </Link>
+    </HeaderLink>
   </HeaderContainer>
 );
 
