@@ -5,8 +5,9 @@ import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
 import SEO from '../components/seo';
 import Layout from '../components/layout';
+import toCurrency from '../utils/to-currency';
 
-const Section = styled.section`
+const Content = styled.section`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -62,25 +63,32 @@ const Button = styled.button`
 `;
 
 const IndexPage: React.FunctionComponent = () => {
-  const [bill, setBill] = useState<number>(0);
+  const [displayedAmount, setDisplayedAmount] = useState('');
+  const [billAmount, setBillAmount] = useState(0);
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const asCurrency = toCurrency(e.target.value);
+    setDisplayedAmount(asCurrency);
+    setBillAmount(parseFloat(asCurrency));
+  }
 
   return (
     <Layout>
       <SEO />
-      <Section>
+      <Content>
         <Label htmlFor="bill">Bill amount:</Label>
         <Input
           autoFocus
-          type="number"
-          step="any"
-          min="1"
-          name="bill"
           id="bill"
-          onChange={e => setBill(parseFloat(e.target.value) || 0)}
-          value={bill}
+          name="bill"
+          placeholder="0.00"
+          type="number"
+          pattern="[0-9]"
+          onChange={handleInputChange}
+          value={displayedAmount}
         />
         <Button>Next</Button>
-      </Section>
+      </Content>
     </Layout>
   );
 };
