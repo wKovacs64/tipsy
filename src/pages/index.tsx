@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'gatsby';
 import colors from '../utils/colors';
 import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
@@ -42,7 +43,7 @@ const Input = styled.input`
   transition-property: border-bottom-color;
 `;
 
-const Button = styled.button`
+const LinkButton = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -63,14 +64,7 @@ const Button = styled.button`
 `;
 
 const IndexPage: React.FunctionComponent = () => {
-  const [displayedAmount, setDisplayedAmount] = useState('');
-  const [billAmount, setBillAmount] = useState(0);
-
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const asCurrency = toCurrency(e.target.value);
-    setDisplayedAmount(asCurrency);
-    setBillAmount(parseFloat(asCurrency));
-  }
+  const [bill, setBill] = useState('');
 
   return (
     <Layout>
@@ -84,10 +78,12 @@ const IndexPage: React.FunctionComponent = () => {
           placeholder="0.00"
           type="number"
           pattern="[0-9]"
-          onChange={handleInputChange}
-          value={displayedAmount}
+          onChange={e => setBill(toCurrency(e.target.value))}
+          value={bill}
         />
-        <Button>Next</Button>
+        <LinkButton to="/calc" state={{ bill }}>
+          Next
+        </LinkButton>
       </Content>
     </Layout>
   );
