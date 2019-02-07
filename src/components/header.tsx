@@ -29,7 +29,7 @@ const Header: React.FunctionComponent = () => (
       <H1>Tipsy</H1>
     </HeaderLink>
     <HeaderLink to="/settings">
-      <MdSettings aria-label="Settings" size={scale(1).fontSize} />
+      <MdSettings aria-label="Settings" size={40} />
     </HeaderLink>
   </HeaderContainer>
 );

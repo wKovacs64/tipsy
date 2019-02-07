@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import { FaGithub } from 'react-icons/fa';
-import { rhythm, scale } from '../utils/typography';
+import { rhythm } from '../utils/typography';
 import A from './external-link';
 
 const Footer: React.FunctionComponent = () => (
@@ -14,10 +14,7 @@ const Footer: React.FunctionComponent = () => (
     `}
   >
     <A href="https://github.com/wKovacs64/tipsy">
-      <FaGithub
-        aria-label="View source on GitHub"
-        size={scale(0.75).fontSize}
-      />
+      <FaGithub aria-label="View source on GitHub" size={32} />
     </A>
   </footer>
 );
