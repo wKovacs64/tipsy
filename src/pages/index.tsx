@@ -57,6 +57,9 @@ const LinkButton = styled(Link)`
   font-size: ${scale(1.25).fontSize};
   width: 100%;
   max-width: ${rhythm(20)};
+  &:hover {
+    text-decoration: none;
+  }
   ${mq.sm} {
     font-size: ${scale(0.5).fontSize};
     padding: ${rhythm(0.25)};
