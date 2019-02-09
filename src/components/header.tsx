@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { MdSettings } from 'react-icons/md';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Location } from '@reach/router'; // comes with Gatsby
 import colors from '../utils/colors';
 import { rhythm, scale } from '../utils/typography';
 import Link from './internal-link';
@@ -28,9 +30,15 @@ const Header: React.FunctionComponent = () => (
     <HeaderLink to="/">
       <H1>Tipsy</H1>
     </HeaderLink>
-    <HeaderLink to="/settings">
-      <MdSettings aria-label="Settings" size={40} />
-    </HeaderLink>
+    <Location>
+      {({ location }) =>
+        /settings/.test(location.pathname || '') ? null : (
+          <HeaderLink to="/settings">
+            <MdSettings aria-label="Settings" size={40} />
+          </HeaderLink>
+        )
+      }
+    </Location>
   </HeaderContainer>
 );
 
