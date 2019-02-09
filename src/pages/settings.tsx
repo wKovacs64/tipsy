@@ -1,10 +1,93 @@
 import React from 'react';
-// import styled from '@emotion/styled';
-// import { scale } from '../utils/typography';
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
+import { rhythm, scale } from '../utils/typography';
+import mq from '../utils/mq';
+import useLocalStorageState from '../utils/use-local-storage-state';
 import Layout from '../components/layout';
+import Content from '../styles/content';
+import Input from '../styles/input';
+import LinkButton from '../styles/link-button';
 
-const SettingsPage: React.FunctionComponent = () => (
-  <Layout>{/* TODO */}</Layout>
-);
+const Label = styled.label`
+  display: inline-block;
+  font-weight: 200;
+  font-size: ${scale(1).fontSize};
+  line-height: ${scale(1).lineHeight};
+  ${mq.sm} {
+    font-size: ${scale(0.5).fontSize};
+    line-height: ${scale(0.5).lineHeight};
+  }
+  margin-bottom: ${rhythm(1)};
+`;
+
+const Setting = styled.div`
+  width: 100%;
+  max-width: ${rhythm(20)};
+`;
+
+const initialDefaultTipPercentage = 20;
+const initialDefaultPartySize = 1;
+
+const SettingsPage: React.FunctionComponent = () => {
+  const [defaultTipPercentage, setDefaultTipPercentage] = useLocalStorageState(
+    'defaultTipPercentage',
+    initialDefaultTipPercentage,
+  );
+  const [defaultPartySize, setDefaultPartySize] = useLocalStorageState(
+    'defaultPartySize',
+    initialDefaultPartySize,
+  );
+
+  return (
+    <Layout>
+      <Content
+        css={css`
+          justify-content: space-between;
+        `}
+      >
+        <Setting>
+          <Label htmlFor="default-tip-percentage">
+            Default tip percentage:
+          </Label>
+          <Input
+            id="default-tip-percentage"
+            name="default-tip-percentage"
+            placeholder="20"
+            type="number"
+            pattern="[0-9]"
+            onChange={e =>
+              setDefaultTipPercentage(parseInt(e.target.value, 10))
+            }
+            onBlur={() => {
+              if (!defaultTipPercentage) {
+                setDefaultTipPercentage(initialDefaultTipPercentage);
+              }
+            }}
+            value={defaultTipPercentage}
+          />
+        </Setting>
+        <Setting>
+          <Label htmlFor="default-party-size">Default party size:</Label>
+          <Input
+            id="default-party-size"
+            name="default-party-size"
+            placeholder="1"
+            type="number"
+            pattern="[0-9]"
+            onChange={e => setDefaultPartySize(parseInt(e.target.value, 10))}
+            onBlur={() => {
+              if (!defaultPartySize) {
+                setDefaultPartySize(initialDefaultPartySize);
+              }
+            }}
+            value={defaultPartySize}
+          />
+        </Setting>
+        <LinkButton to="/">Done</LinkButton>
+      </Content>
+    </Layout>
+  );
+};
 
 export default SettingsPage;
