@@ -6,14 +6,8 @@ import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
 import Layout from '../components/layout';
 import toCurrency from '../utils/to-currency';
-
-const Content = styled.section`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-`;
+import Content from '../styles/content';
+import Input from '../styles/input';
 
 const Label = styled.label`
   font-weight: 200;
@@ -21,25 +15,6 @@ const Label = styled.label`
   ${mq.sm} {
     font-size: ${scale(0.75).fontSize};
   }
-`;
-
-const Input = styled.input`
-  border-style: solid;
-  border-width: 0 0 4px 0;
-  text-align: center;
-  font-weight: 200;
-  font-size: ${scale(1.5).fontSize};
-  width: 100%;
-  max-width: ${rhythm(20)};
-  outline: none;
-  &:focus {
-    border-bottom-color: ${colors.accent};
-  }
-  ${mq.sm} {
-    font-size: ${scale(0.75).fontSize};
-  }
-  transition: 0.15s ease-in;
-  transition-property: border-bottom-color;
 `;
 
 const LinkButton = styled(Link)`
