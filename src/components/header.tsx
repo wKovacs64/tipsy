@@ -32,11 +32,11 @@ const Header: React.FunctionComponent = () => (
     </HeaderLink>
     <Location>
       {({ location }) =>
-        /settings/.test(location.pathname || '') ? null : (
+        location.pathname === '/' ? (
           <HeaderLink to="/settings">
             <MdSettings aria-label="Settings" size={40} />
           </HeaderLink>
-        )
+        ) : null
       }
     </Location>
   </HeaderContainer>
