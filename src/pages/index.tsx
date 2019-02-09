@@ -11,8 +11,10 @@ import LinkButton from '../styles/link-button';
 const Label = styled.label`
   font-weight: 200;
   font-size: ${scale(1.25).fontSize};
+  line-height: ${scale(1.25).lineHeight};
   ${mq.sm} {
     font-size: ${scale(0.75).fontSize};
+    line-height: ${scale(0.75).lineHeight};
   }
 `;
 
