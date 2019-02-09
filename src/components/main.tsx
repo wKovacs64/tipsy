@@ -7,7 +7,7 @@ const Main: React.FunctionComponent = ({ children }) => (
     css={css`
       flex: 1;
       display: flex;
-      padding: 0 ${rhythm(1)};
+      padding: ${rhythm(1)};
     `}
   >
     {children}
