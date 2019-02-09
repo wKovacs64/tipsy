@@ -3,6 +3,7 @@ import React from 'react';
 import { css, Global, ClassNames } from '@emotion/core';
 import styled from '@emotion/styled';
 import { IconContext } from 'react-icons';
+import SEO from './seo';
 import Header from './header';
 import Main from './main';
 import Footer from './footer';
@@ -30,6 +31,7 @@ const Layout: React.FunctionComponent = ({ children }) => (
             }
           `}
         />
+        <SEO />
         <FullHeightContainer>
           <Header />
           <Main>{children}</Main>

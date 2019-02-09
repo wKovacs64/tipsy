@@ -4,7 +4,6 @@ import { Link } from 'gatsby';
 import colors from '../utils/colors';
 import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
-import SEO from '../components/seo';
 import Layout from '../components/layout';
 import toCurrency from '../utils/to-currency';
 
@@ -71,7 +70,6 @@ const IndexPage: React.FunctionComponent = () => {
 
   return (
     <Layout>
-      <SEO />
       <Content>
         <Label htmlFor="bill">Bill amount:</Label>
         <Input
