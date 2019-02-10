@@ -44,7 +44,7 @@
     "gatsby-plugin-react-helmet": "3.0.6",
     "gatsby-plugin-typography": "2.2.7",
     "git-current-commit": "1.1.0",
-    "prop-types": "15.6.2",
+    "prop-types": "15.7.0",
     "react": "16.8.1",
     "react-dom": "16.8.1",
     "react-helmet": "6.0.0-beta",
