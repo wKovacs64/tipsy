@@ -68,7 +68,7 @@
     "babel-eslint": "10.0.1",
     "cypress": "3.1.5",
     "cypress-axe": "0.3.0",
-    "cypress-testing-library": "2.3.5",
+    "cypress-testing-library": "2.3.6",
     "eslint": "5.13.0",
     "eslint-plugin-cypress": "2.2.0",
     "eslint-plugin-emotion": "10.0.7",
