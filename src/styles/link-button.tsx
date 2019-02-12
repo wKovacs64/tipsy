@@ -17,7 +17,6 @@ const LinkButton = styled(Link)`
   font-weight: 200;
   font-size: ${scale(1.25).fontSize};
   width: 100%;
-  max-width: ${rhythm(20)};
   &:hover {
     text-decoration: none;
   }
