@@ -9,7 +9,12 @@ import Content from '../styles/content';
 import Input from '../styles/input';
 import LinkButton from '../styles/link-button';
 
-const Label = styled.label`
+const Setting = styled.div`
+  width: 100%;
+  max-width: ${rhythm(20)};
+`;
+
+const SettingLabel = styled.label`
   display: inline-block;
   font-weight: 200;
   font-size: ${scale(1).fontSize};
@@ -21,9 +26,15 @@ const Label = styled.label`
   margin-bottom: ${rhythm(1)};
 `;
 
-const Setting = styled.div`
+const SettingInput = styled(Input)`
   width: 100%;
   max-width: ${rhythm(20)};
+  font-size: ${scale(1.5).fontSize};
+  line-height: ${scale(1.5).lineHeight};
+  ${mq.sm} {
+    font-size: ${scale(0.75).fontSize};
+    line-height: ${scale(0.75).lineHeight};
+  }
 `;
 
 const initialDefaultTipPercentage = 20;
@@ -47,10 +58,10 @@ const SettingsPage: React.FunctionComponent = () => {
         `}
       >
         <Setting>
-          <Label htmlFor="default-tip-percentage">
+          <SettingLabel htmlFor="default-tip-percentage">
             Default tip percentage:
-          </Label>
-          <Input
+          </SettingLabel>
+          <SettingInput
             id="default-tip-percentage"
             name="default-tip-percentage"
             placeholder="20"
@@ -68,8 +79,10 @@ const SettingsPage: React.FunctionComponent = () => {
           />
         </Setting>
         <Setting>
-          <Label htmlFor="default-party-size">Default party size:</Label>
-          <Input
+          <SettingLabel htmlFor="default-party-size">
+            Default party size:
+          </SettingLabel>
+          <SettingInput
             id="default-party-size"
             name="default-party-size"
             placeholder="1"
