@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import mq from '../utils/mq';
-import { scale } from '../utils/typography';
+import { rhythm, scale } from '../utils/typography';
 import Layout from '../components/layout';
 import toCurrency from '../utils/to-currency';
 import Content from '../styles/content';
@@ -18,6 +18,17 @@ const Label = styled.label`
   }
 `;
 
+const BillInput = styled(Input)`
+  width: 100%;
+  max-width: ${rhythm(20)};
+  font-size: ${scale(1.5).fontSize};
+  line-height: ${scale(1.5).lineHeight};
+  ${mq.sm} {
+    font-size: ${scale(0.75).fontSize};
+    line-height: ${scale(0.75).lineHeight};
+  }
+`;
+
 const IndexPage: React.FunctionComponent = () => {
   const [bill, setBill] = useState('');
 
@@ -25,7 +36,7 @@ const IndexPage: React.FunctionComponent = () => {
     <Layout>
       <Content>
         <Label htmlFor="bill">Bill amount:</Label>
-        <Input
+        <BillInput
           autoFocus
           id="bill"
           name="bill"
