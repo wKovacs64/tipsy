@@ -8,6 +8,10 @@ import Layout from '../components/layout';
 import Input from '../styles/input';
 import LinkButton from '../styles/link-button';
 
+type InputFC = React.FunctionComponent<
+  React.InputHTMLAttributes<HTMLInputElement>
+>;
+
 const CalcGrid = styled.section`
   flex: 1;
   width: 100%;
@@ -49,13 +53,11 @@ const CalcInput = styled(Input)`
   }
 `;
 
-const NumberInput: React.FunctionComponent<{ placeholder?: string }> = ({
-  placeholder = '0',
-}) => <CalcInput placeholder={placeholder} type="number" pattern="[0-9]" />;
-
-const CurrencyInput: React.FunctionComponent = () => (
-  <NumberInput placeholder="0.00" />
+const NumberInput: InputFC = ({ placeholder = '0' }) => (
+  <CalcInput placeholder={placeholder} type="number" pattern="[0-9]" />
 );
+
+const CurrencyInput: InputFC = () => <NumberInput placeholder="0.00" />;
 
 const CalcPage: React.FunctionComponent = () => (
   <Layout>
