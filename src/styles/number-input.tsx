@@ -13,14 +13,6 @@ const NumberInput = styled(Input)`
     font-size: ${scale(0.25).fontSize};
     line-height: ${scale(0.25).lineHeight};
   }
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  & {
-    -moz-appearance: textfield;
-  }
 `;
 
 export default NumberInput;

@@ -6,8 +6,8 @@ const NumberInput: React.FunctionComponent<
 > = ({ placeholder = '0', ...props }) => (
   <StyledNumberInput
     placeholder={placeholder}
-    type="number"
-    pattern="[0-9]"
+    type="text"
+    inputMode="numeric"
     {...props}
   />
 );
