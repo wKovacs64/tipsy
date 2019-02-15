@@ -3,14 +3,10 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { rhythm, scale } from '../utils/typography';
-import mq from '../utils/mq';
 import Layout from '../components/layout';
-import Input from '../styles/input';
+import CurrencyInput from '../components/currency-input';
+import NumberInput from '../components/number-input';
 import LinkButton from '../styles/link-button';
-
-type InputFC = React.FunctionComponent<
-  React.InputHTMLAttributes<HTMLInputElement>
->;
 
 const CalcGrid = styled.section`
   flex: 1;
@@ -40,32 +36,6 @@ const HeroCell = styled.div`
   font-weight: 400;
   padding: ${rhythm(1.5)} 0;
 `;
-
-const CalcInput = styled(Input)`
-  border-color: rgba(0, 0, 0, 0.5);
-  border-bottom-width: ${rhythm(0.1)};
-  max-width: ${rhythm(3.25)};
-  font-size: ${scale(0.5).fontSize};
-  line-height: ${scale(0.5).lineHeight};
-  ${mq.sm} {
-    font-size: ${scale(0.25).fontSize};
-    line-height: ${scale(0.25).lineHeight};
-  }
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  & {
-    -moz-appearance: textfield;
-  }
-`;
-
-const NumberInput: InputFC = ({ placeholder = '0' }) => (
-  <CalcInput placeholder={placeholder} type="number" pattern="[0-9]" />
-);
-
-const CurrencyInput: InputFC = () => <NumberInput placeholder="0.00" />;
 
 const CalcPage: React.FunctionComponent = () => (
   <Layout>

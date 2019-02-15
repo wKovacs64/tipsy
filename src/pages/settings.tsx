@@ -5,8 +5,8 @@ import { rhythm, scale } from '../utils/typography';
 import mq from '../utils/mq';
 import useLocalStorageState from '../utils/use-local-storage-state';
 import Layout from '../components/layout';
+import NumberInput from '../components/number-input';
 import Content from '../styles/content';
-import Input from '../styles/input';
 import LinkButton from '../styles/link-button';
 
 const Setting = styled.div`
@@ -17,8 +17,8 @@ const Setting = styled.div`
 const SettingLabel = styled.label`
   display: inline-block;
   font-weight: 200;
-  font-size: ${scale(1).fontSize};
-  line-height: ${scale(1).lineHeight};
+  font-size: ${scale(0.75).fontSize};
+  line-height: ${scale(0.75).lineHeight};
   ${mq.sm} {
     font-size: ${scale(0.5).fontSize};
     line-height: ${scale(0.5).lineHeight};
@@ -26,19 +26,19 @@ const SettingLabel = styled.label`
   margin-bottom: ${rhythm(1)};
 `;
 
-const SettingInput = styled(Input)`
+const SettingInput = styled(NumberInput)`
   width: 100%;
   max-width: ${rhythm(20)};
-  font-size: ${scale(1.5).fontSize};
-  line-height: ${scale(1.5).lineHeight};
+  font-size: ${scale(1).fontSize};
+  line-height: ${scale(1).lineHeight};
   ${mq.sm} {
     font-size: ${scale(0.75).fontSize};
     line-height: ${scale(0.75).lineHeight};
   }
 `;
 
-const initialDefaultTipPercentage = 20;
 const initialDefaultPartySize = 1;
+const initialDefaultTipPercentage = 20;
 
 const SettingsPage: React.FunctionComponent = () => {
   const [defaultTipPercentage, setDefaultTipPercentage] = useLocalStorageState(
@@ -58,6 +58,25 @@ const SettingsPage: React.FunctionComponent = () => {
         `}
       >
         <Setting>
+          <SettingLabel htmlFor="default-party-size">
+            Default party size:
+          </SettingLabel>
+          <SettingInput
+            id="default-party-size"
+            name="default-party-size"
+            placeholder="1"
+            type="number"
+            pattern="[0-9]"
+            onChange={e => setDefaultPartySize(parseInt(e.target.value, 10))}
+            onBlur={() => {
+              if (!defaultPartySize) {
+                setDefaultPartySize(initialDefaultPartySize);
+              }
+            }}
+            value={defaultPartySize}
+          />
+        </Setting>
+        <Setting>
           <SettingLabel htmlFor="default-tip-percentage">
             Default tip percentage:
           </SettingLabel>
@@ -76,25 +95,6 @@ const SettingsPage: React.FunctionComponent = () => {
               }
             }}
             value={defaultTipPercentage}
-          />
-        </Setting>
-        <Setting>
-          <SettingLabel htmlFor="default-party-size">
-            Default party size:
-          </SettingLabel>
-          <SettingInput
-            id="default-party-size"
-            name="default-party-size"
-            placeholder="1"
-            type="number"
-            pattern="[0-9]"
-            onChange={e => setDefaultPartySize(parseInt(e.target.value, 10))}
-            onBlur={() => {
-              if (!defaultPartySize) {
-                setDefaultPartySize(initialDefaultPartySize);
-              }
-            }}
-            value={defaultPartySize}
           />
         </Setting>
         <LinkButton to="/">Done</LinkButton>

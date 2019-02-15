@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
 import Layout from '../components/layout';
+import CurrencyInput from '../components/currency-input';
 import toCurrency from '../utils/to-currency';
 import Content from '../styles/content';
-import Input from '../styles/input';
 import LinkButton from '../styles/link-button';
 
 const Label = styled.label`
@@ -18,7 +18,7 @@ const Label = styled.label`
   }
 `;
 
-const BillInput = styled(Input)`
+const BillInput = styled(CurrencyInput)`
   width: 100%;
   max-width: ${rhythm(20)};
   font-size: ${scale(1.5).fontSize};
@@ -40,9 +40,6 @@ const IndexPage: React.FunctionComponent = () => {
           autoFocus
           id="bill"
           name="bill"
-          placeholder="0.00"
-          type="number"
-          pattern="[0-9]"
           onChange={e => setBill(toCurrency(e.target.value))}
           value={bill}
         />
