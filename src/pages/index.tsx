@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
@@ -30,7 +30,7 @@ const BillInput = styled(CurrencyInput)`
 `;
 
 const IndexPage: React.FunctionComponent = () => {
-  const [bill, setBill] = useState('');
+  const [bill, setBill] = React.useState('');
 
   return (
     <Layout>
