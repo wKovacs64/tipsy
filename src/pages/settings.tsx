@@ -3,11 +3,15 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { rhythm, scale } from '../utils/typography';
 import mq from '../utils/mq';
-import useLocalStorageState from '../utils/use-local-storage-state';
+import { useDefaultPartySize, useDefaultTipPercent } from '../utils/state';
 import Layout from '../components/layout';
 import NumberInput from '../components/number-input';
 import Content from '../styles/content';
 import LinkButton from '../styles/link-button';
+import {
+  initialDefaultPartySize,
+  initialDefaultTipPercent,
+} from '../utils/defaults';
 
 const Setting = styled.div`
   width: 100%;
@@ -37,17 +41,12 @@ const SettingInput = styled(NumberInput)`
   }
 `;
 
-const initialDefaultPartySize = 1;
-const initialDefaultTipPercentage = 20;
-
 const SettingsPage: React.FunctionComponent = () => {
-  const [defaultTipPercentage, setDefaultTipPercentage] = useLocalStorageState(
-    'defaultTipPercentage',
-    initialDefaultTipPercentage,
-  );
-  const [defaultPartySize, setDefaultPartySize] = useLocalStorageState(
-    'defaultPartySize',
+  const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize(
     initialDefaultPartySize,
+  );
+  const [defaultTipPercent, setDefaultTipPercent] = useDefaultTipPercent(
+    initialDefaultTipPercent,
   );
 
   return (
@@ -86,15 +85,13 @@ const SettingsPage: React.FunctionComponent = () => {
             placeholder="20"
             type="number"
             pattern="[0-9]"
-            onChange={e =>
-              setDefaultTipPercentage(parseInt(e.target.value, 10))
-            }
+            onChange={e => setDefaultTipPercent(parseInt(e.target.value, 10))}
             onBlur={() => {
-              if (!defaultTipPercentage) {
-                setDefaultTipPercentage(initialDefaultTipPercentage);
+              if (Number.isNaN(defaultTipPercent)) {
+                setDefaultTipPercent(initialDefaultTipPercent);
               }
             }}
-            value={defaultTipPercentage}
+            value={defaultTipPercent}
           />
         </Setting>
         <LinkButton to="/">Done</LinkButton>
