@@ -6,7 +6,7 @@ import Layout from '../components/layout';
 import CurrencyInput from '../components/currency-input';
 import toCurrency from '../utils/to-currency';
 import Content from '../styles/content';
-import LinkButton from '../styles/link-button';
+import Button from '../styles/button';
 
 const Label = styled.label`
   font-weight: 200;
@@ -33,8 +33,16 @@ const BillInput = styled(CurrencyInput)`
   }
 `;
 
-const IndexPage: React.FunctionComponent = () => {
+const IndexPage: React.FunctionComponent<
+  import('reach__router').RouteComponentProps
+> = ({ navigate }) => {
   const [bill, setBill] = React.useState('');
+
+  function navigateToCalc() {
+    if (navigate) {
+      navigate('calc', { state: { bill } });
+    }
+  }
 
   return (
     <Layout>
@@ -44,11 +52,16 @@ const IndexPage: React.FunctionComponent = () => {
           id="bill"
           name="bill"
           onChange={e => setBill(toCurrency(e.target.value))}
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              navigateToCalc();
+            }
+          }}
           value={bill}
         />
-        <LinkButton to="/calc" state={{ bill }}>
+        <Button onClick={navigateToCalc} disabled={!bill || bill === '0.00'}>
           Next
-        </LinkButton>
+        </Button>
       </Content>
     </Layout>
   );

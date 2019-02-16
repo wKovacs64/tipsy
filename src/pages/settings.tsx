@@ -7,7 +7,7 @@ import { useDefaultPartySize, useDefaultTipPercent } from '../utils/state';
 import Layout from '../components/layout';
 import NumberInput from '../components/number-input';
 import Content from '../styles/content';
-import LinkButton from '../styles/link-button';
+import Button from '../styles/button';
 import {
   initialDefaultPartySize,
   initialDefaultTipPercent,
@@ -44,7 +44,9 @@ const SettingInput = styled(NumberInput)`
   }
 `;
 
-const SettingsPage: React.FunctionComponent = () => {
+const SettingsPage: React.FunctionComponent<
+  import('reach__router').RouteComponentProps
+> = ({ navigate }) => {
   const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize(
     initialDefaultPartySize,
   );
@@ -54,7 +56,7 @@ const SettingsPage: React.FunctionComponent = () => {
   const [partySize, setPartySize] = React.useState(String(defaultPartySize));
   const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
 
-  function persistValidValues() {
+  function saveSettings() {
     const partySizeNumber = parseInt(partySize, 10);
     const tipPercentNumber = parseInt(tipPercent, 10);
 
@@ -67,6 +69,10 @@ const SettingsPage: React.FunctionComponent = () => {
         ? initialDefaultTipPercent
         : tipPercentNumber,
     );
+
+    if (navigate) {
+      navigate('/', { replace: true });
+    }
   }
 
   return (
@@ -104,9 +110,7 @@ const SettingsPage: React.FunctionComponent = () => {
             value={tipPercent}
           />
         </Setting>
-        <LinkButton onClick={persistValidValues} to="/">
-          Save
-        </LinkButton>
+        <Button onClick={saveSettings}>Save</Button>
       </Content>
     </Layout>
   );

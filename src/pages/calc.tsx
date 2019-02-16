@@ -12,7 +12,7 @@ import CurrencyInput from '../components/currency-input';
 import NumberInput from '../components/number-input';
 import DecrementButton from '../components/decrement-button';
 import IncrementButton from '../components/increment-button';
-import LinkButton from '../styles/link-button';
+import Button from '../styles/button';
 import { useDefaultTipPercent, useDefaultPartySize } from '../utils/state';
 import {
   initialDefaultTipPercent,
@@ -108,7 +108,7 @@ interface State {
 
 const CalcPage: React.FunctionComponent<
   import('reach__router').RouteComponentProps
-> = ({ location }) => {
+> = ({ location, navigate }) => {
   const [defaultPartySize] = useDefaultPartySize(initialDefaultPartySize);
   const [defaultTipPercent] = useDefaultTipPercent(initialDefaultTipPercent);
 
@@ -220,6 +220,14 @@ const CalcPage: React.FunctionComponent<
   };
 
   const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  function startOver() {
+    if (navigate) {
+      navigate('/', {
+        replace: true,
+      });
+    }
+  }
 
   return (
     <Layout>
@@ -439,15 +447,14 @@ const CalcPage: React.FunctionComponent<
             }}
           />
         </div>
-        <LinkButton
-          to="/"
-          replace
+        <Button
           css={css`
             grid-area: done-button;
           `}
+          onClick={startOver}
         >
           Done
-        </LinkButton>
+        </Button>
       </CalcGrid>
     </Layout>
   );

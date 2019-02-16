@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import { Link } from 'gatsby';
 import colors from '../utils/colors';
 import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
 
-const LinkButton = styled(Link)`
+const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -18,15 +17,15 @@ const LinkButton = styled(Link)`
   font-size: ${scale(1).fontSize};
   line-height: ${scale(1).lineHeight};
   width: 100%;
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
   ${mq.sm} {
     font-size: ${scale(0.5).fontSize};
     line-height: ${scale(0.5).lineHeight};
     padding: ${rhythm(0.25)};
   }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
 `;
 
-export default LinkButton;
+export default Button;
