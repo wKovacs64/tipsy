@@ -38,7 +38,6 @@ const IndexPage: React.FunctionComponent = () => {
       <Content>
         <Label htmlFor="bill">Bill amount:</Label>
         <BillInput
-          autoFocus
           id="bill"
           name="bill"
           onChange={e => setBill(toCurrency(e.target.value))}
