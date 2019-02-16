@@ -39,6 +39,9 @@ const SettingInput = styled(NumberInput)`
     font-size: ${scale(0.75).fontSize};
     line-height: ${scale(0.75).lineHeight};
   }
+  &:focus::placeholder {
+    color: transparent;
+  }
 `;
 
 const SettingsPage: React.FunctionComponent = () => {
