@@ -5,9 +5,9 @@ import { rhythm, scale } from '../utils/typography';
 import mq from '../utils/mq';
 import { useDefaultPartySize, useDefaultTipPercent } from '../utils/state';
 import Layout from '../components/layout';
-import NumberInput from '../components/number-input';
+import NumericInput from '../components/numeric-input';
 import Content from '../styles/content';
-import Button from '../styles/button';
+import BrandButton from '../styles/brand-button';
 import {
   initialDefaultPartySize,
   initialDefaultTipPercent,
@@ -29,7 +29,7 @@ const SettingLabel = styled.label`
   }
 `;
 
-const SettingInput = styled(NumberInput)`
+const SettingInput = styled(NumericInput)`
   width: 100%;
   max-width: ${rhythm(20)};
   font-size: ${scale(1).fontSize};
@@ -90,8 +90,6 @@ const SettingsPage: React.FunctionComponent<
             id="default-party-size"
             name="default-party-size"
             placeholder={String(initialDefaultPartySize)}
-            type="text"
-            inputMode="numeric"
             onChange={e => setPartySize(e.target.value)}
             value={partySize}
           />
@@ -104,13 +102,11 @@ const SettingsPage: React.FunctionComponent<
             id="default-tip-percentage"
             name="default-tip-percentage"
             placeholder={String(initialDefaultTipPercent)}
-            type="text"
-            inputMode="numeric"
             onChange={e => setTipPercent(e.target.value)}
             value={tipPercent}
           />
         </Setting>
-        <Button onClick={saveSettings}>Save</Button>
+        <BrandButton onClick={saveSettings}>Save</BrandButton>
       </Content>
     </Layout>
   );

@@ -8,11 +8,10 @@ import getPreviousEvenDollar from '../utils/get-previous-even-dollar';
 import toCurrency from '../utils/to-currency';
 import toNumber from '../utils/to-number';
 import Layout from '../components/layout';
-import CurrencyInput from '../components/currency-input';
-import NumberInput from '../components/number-input';
+import NumericInput from '../components/numeric-input';
 import DecrementButton from '../components/decrement-button';
 import IncrementButton from '../components/increment-button';
-import Button from '../styles/button';
+import BrandButton from '../styles/brand-button';
 import { useDefaultTipPercent, useDefaultPartySize } from '../utils/state';
 import {
   initialDefaultTipPercent,
@@ -38,12 +37,7 @@ const CalcGrid = styled.section`
     'done-button done-button';
 `;
 
-const CalcPageCurrencyInput = styled(CurrencyInput)`
-  margin-left: ${rhythm(0.25)};
-  margin-right: ${rhythm(0.25)};
-`;
-
-const CalcPageNumberInput = styled(NumberInput)`
+const CalcInput = styled(NumericInput)`
   margin-left: ${rhythm(0.25)};
   margin-right: ${rhythm(0.25)};
 `;
@@ -252,7 +246,7 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-          <CalcPageNumberInput
+          <CalcInput
             value={state.tipPercent}
             onChange={e => {
               dispatch({
@@ -292,7 +286,7 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-          <CalcPageCurrencyInput
+          <CalcInput
             value={currency(state.tipAmount).format()}
             onChange={e => {
               dispatch({
@@ -337,7 +331,7 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-          <CalcPageCurrencyInput
+          <CalcInput
             value={currency(state.totalAmount).format()}
             onChange={e => {
               dispatch({
@@ -379,7 +373,7 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-          <CalcPageNumberInput
+          <CalcInput
             value={state.numberOfPeople}
             onChange={e => {
               dispatch({
@@ -426,7 +420,7 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-          <CalcPageCurrencyInput
+          <CalcInput
             value={currency(state.eachPersonPays).format()}
             onChange={e => {
               dispatch({
@@ -447,14 +441,14 @@ const CalcPage: React.FunctionComponent<
             }}
           />
         </div>
-        <Button
+        <BrandButton
           css={css`
             grid-area: done-button;
           `}
           onClick={startOver}
         >
           Done
-        </Button>
+        </BrandButton>
       </CalcGrid>
     </Layout>
   );

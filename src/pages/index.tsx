@@ -3,10 +3,10 @@ import styled from '@emotion/styled';
 import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
 import Layout from '../components/layout';
-import CurrencyInput from '../components/currency-input';
+import NumericInput from '../components/numeric-input';
 import toCurrency from '../utils/to-currency';
 import Content from '../styles/content';
-import Button from '../styles/button';
+import BrandButton from '../styles/brand-button';
 
 const Label = styled.label`
   font-weight: 200;
@@ -18,7 +18,7 @@ const Label = styled.label`
   }
 `;
 
-const BillInput = styled(CurrencyInput)`
+const BillInput = styled(NumericInput)`
   width: 100%;
   max-width: ${rhythm(20)};
   font-size: ${scale(1.5).fontSize};
@@ -51,6 +51,7 @@ const IndexPage: React.FunctionComponent<
         <BillInput
           id="bill"
           name="bill"
+          placeholder="0.00"
           onChange={e => setBill(toCurrency(e.target.value))}
           onKeyDown={e => {
             if (e.keyCode === 13) {
@@ -59,9 +60,12 @@ const IndexPage: React.FunctionComponent<
           }}
           value={bill}
         />
-        <Button onClick={navigateToCalc} disabled={!bill || bill === '0.00'}>
+        <BrandButton
+          onClick={navigateToCalc}
+          disabled={!bill || bill === '0.00'}
+        >
           Next
-        </Button>
+        </BrandButton>
       </Content>
     </Layout>
   );

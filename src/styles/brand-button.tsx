@@ -3,7 +3,7 @@ import colors from '../utils/colors';
 import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
 
-const Button = styled.button`
+const BrandButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -28,4 +28,4 @@ const Button = styled.button`
   }
 `;
 
-export default Button;
+export default BrandButton;
