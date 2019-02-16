@@ -445,6 +445,7 @@ const CalcPage: React.FunctionComponent<
           css={css`
             grid-area: done-button;
           `}
+          type="button"
           onClick={startOver}
         >
           Done

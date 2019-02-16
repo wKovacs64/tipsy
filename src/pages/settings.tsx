@@ -106,7 +106,9 @@ const SettingsPage: React.FunctionComponent<
             value={tipPercent}
           />
         </Setting>
-        <BrandButton onClick={saveSettings}>Save</BrandButton>
+        <BrandButton type="button" onClick={saveSettings}>
+          Save
+        </BrandButton>
       </Content>
     </Layout>
   );

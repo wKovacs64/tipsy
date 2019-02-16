@@ -61,6 +61,7 @@ const IndexPage: React.FunctionComponent<
           value={bill}
         />
         <BrandButton
+          type="button"
           onClick={navigateToCalc}
           disabled={!bill || bill === '0.00'}
         >
