@@ -3,8 +3,12 @@ import styled from '@emotion/styled';
 import { MdSettings } from 'react-icons/md';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Location } from '@reach/router'; // comes with Gatsby
+import get from 'lodash/get';
+import currency from 'currency.js';
 import colors from '../utils/colors';
-import { rhythm, scale } from '../utils/typography';
+import { rhythm } from '../utils/typography';
+import H1 from '../styles/h1';
+import H2 from '../styles/h2';
 import Link from './internal-link';
 
 const HeaderContainer = styled.header`
@@ -13,31 +17,29 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   color: white;
   background-color: ${colors.main};
-`;
-
-const HeaderLink = styled(Link)`
   padding: ${rhythm(1)};
-`;
-
-const H1 = styled.h1`
-  color: currentColor;
-  font-size: ${scale(1).fontSize};
-  margin: 0;
 `;
 
 const Header: React.FunctionComponent = () => (
   <HeaderContainer>
-    <HeaderLink to="/">
+    <Link to="/">
       <H1>Tipsy</H1>
-    </HeaderLink>
+    </Link>
     <Location>
-      {({ location }) =>
-        location.pathname === '/' ? (
-          <HeaderLink to="/settings">
-            <MdSettings aria-label="Settings" size={40} />
-          </HeaderLink>
-        ) : null
-      }
+      {({ location }) => {
+        if (location.pathname === '/') {
+          return (
+            <Link to="/settings">
+              <MdSettings aria-label="Settings" size={40} />
+            </Link>
+          );
+        }
+
+        if (get(location, 'state.bill')) {
+          return <H2>{currency(location.state.bill).format(true)}</H2>;
+        }
+        return null;
+      }}
     </Location>
   </HeaderContainer>
 );
