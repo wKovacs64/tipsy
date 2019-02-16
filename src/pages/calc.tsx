@@ -131,31 +131,89 @@ const CalcPage: React.FunctionComponent<
 
   const reducer = (state: State, action: Action): State => {
     switch (action.type) {
-      case ActionType.CHANGE_TIP_PERCENT:
+      case ActionType.CHANGE_TIP_PERCENT: {
+        const tipAmount = currency(action.payload)
+          .divide(100)
+          .multiply(billAmount).value;
+        const totalAmount = currency(billAmount).add(tipAmount).value;
+        const eachPersonPays = currency(totalAmount).distribute(
+          state.numberOfPeople,
+        )[0].value;
+
         return {
-          ...state,
           tipPercent: action.payload,
+          tipAmount,
+          totalAmount,
+          numberOfPeople: state.numberOfPeople,
+          eachPersonPays,
         };
-      case ActionType.CHANGE_TIP_AMOUNT:
+      }
+
+      case ActionType.CHANGE_TIP_AMOUNT: {
+        const tipPercent = currency(action.payload)
+          .divide(billAmount)
+          .multiply(100).value;
+        const totalAmount = currency(billAmount).add(action.payload).value;
+        const eachPersonPays = currency(totalAmount).distribute(
+          state.numberOfPeople,
+        )[0].value;
+
         return {
-          ...state,
+          tipPercent,
           tipAmount: action.payload,
+          totalAmount,
+          numberOfPeople: state.numberOfPeople,
+          eachPersonPays,
         };
-      case ActionType.CHANGE_TOTAL_AMOUNT:
+      }
+
+      case ActionType.CHANGE_TOTAL_AMOUNT: {
+        const tipAmount = currency(action.payload).subtract(billAmount).value;
+        const tipPercent = currency(tipAmount)
+          .divide(billAmount)
+          .multiply(100).value;
+        const eachPersonPays = currency(action.payload).distribute(
+          state.numberOfPeople,
+        )[0].value;
+
         return {
-          ...state,
+          tipPercent,
+          tipAmount,
           totalAmount: action.payload,
+          numberOfPeople: state.numberOfPeople,
+          eachPersonPays,
         };
-      case ActionType.CHANGE_NUMBER_OF_PEOPLE:
+      }
+
+      case ActionType.CHANGE_NUMBER_OF_PEOPLE: {
+        const eachPersonPays = currency(state.totalAmount).distribute(
+          action.payload,
+        )[0].value;
+
         return {
           ...state,
           numberOfPeople: action.payload,
+          eachPersonPays,
         };
-      case ActionType.CHANGE_EACH_PERSON_PAYS:
+      }
+
+      case ActionType.CHANGE_EACH_PERSON_PAYS: {
+        const totalAmount = currency(action.payload).multiply(
+          state.numberOfPeople,
+        ).value;
+        const tipAmount = currency(totalAmount).subtract(billAmount).value;
+        const tipPercent = currency(tipAmount)
+          .divide(billAmount)
+          .multiply(100).value;
+
         return {
-          ...state,
+          tipPercent,
+          tipAmount,
+          totalAmount,
+          numberOfPeople: state.numberOfPeople,
           eachPersonPays: action.payload,
         };
+      }
       default:
         throw new Error('Unrecognized state reducer action type!');
     }
