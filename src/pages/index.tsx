@@ -28,6 +28,9 @@ const BillInput = styled(CurrencyInput)`
     line-height: ${scale(0.75).lineHeight};
     margin: ${rhythm(1)} 0;
   }
+  &:focus::placeholder {
+    color: transparent;
+  }
 `;
 
 const IndexPage: React.FunctionComponent = () => {
