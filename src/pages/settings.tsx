@@ -27,7 +27,6 @@ const SettingLabel = styled.label`
     font-size: ${scale(0.5).fontSize};
     line-height: ${scale(0.5).lineHeight};
   }
-  margin-bottom: ${rhythm(1)};
 `;
 
 const SettingInput = styled(NumberInput)`
@@ -35,6 +34,7 @@ const SettingInput = styled(NumberInput)`
   max-width: ${rhythm(20)};
   font-size: ${scale(1).fontSize};
   line-height: ${scale(1).lineHeight};
+  margin: ${rhythm(1)} 0;
   ${mq.sm} {
     font-size: ${scale(0.75).fontSize};
     line-height: ${scale(0.75).lineHeight};

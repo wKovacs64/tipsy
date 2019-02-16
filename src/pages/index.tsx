@@ -26,6 +26,7 @@ const BillInput = styled(CurrencyInput)`
   ${mq.sm} {
     font-size: ${scale(0.75).fontSize};
     line-height: ${scale(0.75).lineHeight};
+    margin: ${rhythm(1)} 0;
   }
 `;
 
