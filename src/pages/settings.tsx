@@ -48,6 +48,23 @@ const SettingsPage: React.FunctionComponent = () => {
   const [defaultTipPercent, setDefaultTipPercent] = useDefaultTipPercent(
     initialDefaultTipPercent,
   );
+  const [partySize, setPartySize] = React.useState(String(defaultPartySize));
+  const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
+
+  function persistValidValues() {
+    const partySizeNumber = parseInt(partySize, 10);
+    const tipPercentNumber = parseInt(tipPercent, 10);
+
+    setDefaultPartySize(
+      Number.isNaN(partySizeNumber) ? initialDefaultPartySize : partySizeNumber,
+    );
+
+    setDefaultTipPercent(
+      Number.isNaN(tipPercentNumber)
+        ? initialDefaultTipPercent
+        : tipPercentNumber,
+    );
+  }
 
   return (
     <Layout>
@@ -63,16 +80,11 @@ const SettingsPage: React.FunctionComponent = () => {
           <SettingInput
             id="default-party-size"
             name="default-party-size"
-            placeholder="1"
-            type="number"
-            pattern="[0-9]"
-            onChange={e => setDefaultPartySize(parseInt(e.target.value, 10))}
-            onBlur={() => {
-              if (!defaultPartySize) {
-                setDefaultPartySize(initialDefaultPartySize);
-              }
-            }}
-            value={defaultPartySize}
+            placeholder={String(initialDefaultPartySize)}
+            type="text"
+            inputMode="numeric"
+            onChange={e => setPartySize(e.target.value)}
+            value={partySize}
           />
         </Setting>
         <Setting>
@@ -82,19 +94,16 @@ const SettingsPage: React.FunctionComponent = () => {
           <SettingInput
             id="default-tip-percentage"
             name="default-tip-percentage"
-            placeholder="20"
-            type="number"
-            pattern="[0-9]"
-            onChange={e => setDefaultTipPercent(parseInt(e.target.value, 10))}
-            onBlur={() => {
-              if (Number.isNaN(defaultTipPercent)) {
-                setDefaultTipPercent(initialDefaultTipPercent);
-              }
-            }}
-            value={defaultTipPercent}
+            placeholder={String(initialDefaultTipPercent)}
+            type="text"
+            inputMode="numeric"
+            onChange={e => setTipPercent(e.target.value)}
+            value={tipPercent}
           />
         </Setting>
-        <LinkButton to="/">Done</LinkButton>
+        <LinkButton onClick={persistValidValues} to="/">
+          Save
+        </LinkButton>
       </Content>
     </Layout>
   );
