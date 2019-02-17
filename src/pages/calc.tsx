@@ -11,6 +11,7 @@ import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import DecrementButton from '../components/decrement-button';
 import IncrementButton from '../components/increment-button';
+import Content from '../styles/content';
 import BrandButton from '../styles/brand-button';
 import { useDefaultTipPercent, useDefaultPartySize } from '../utils/state';
 import {
@@ -21,7 +22,6 @@ import {
 const CalcGrid = styled.section`
   flex: 1;
   width: 100%;
-  max-width: ${rhythm(20)};
   font-weight: 200;
   font-size: ${scale(0.25).fontSize};
   line-height: ${scale(0.25).lineHeight};
@@ -232,226 +232,230 @@ const CalcPage: React.FunctionComponent<
 
   return (
     <Layout>
-      <CalcGrid>
-        <Cell
-          css={css`
-            grid-area: tip-percent-label;
-          `}
-        >
-          Tip Percent (%)
-        </Cell>
-        <Cell
-          css={css`
-            grid-area: tip-percent-input;
-          `}
-        >
-          <DecrementButton
-            onClick={() => {
-              dispatch({
-                type: ActionType.CHANGE_TIP_PERCENT,
-                payload: state.tipPercent < 1 ? 0 : state.tipPercent - 1,
-              });
-            }}
-          />
-          <CalcInput
-            value={state.tipPercent}
-            onChange={e => {
-              dispatch({
-                type: ActionType.CHANGE_TIP_PERCENT,
-                payload: toNumber(e.target.value),
-              });
-            }}
-          />
-          <IncrementButton
-            onClick={() => {
-              dispatch({
-                type: ActionType.CHANGE_TIP_PERCENT,
-                payload: state.tipPercent + 1,
-              });
-            }}
-          />
-        </Cell>
-        <Cell
-          css={css`
-            grid-area: tip-amount-label;
-          `}
-        >
-          Tip Amount
-        </Cell>
-        <Cell
-          css={css`
-            grid-area: tip-amount-input;
-          `}
-        >
-          <DecrementButton
-            onClick={() => {
-              const current = currency(state.tipAmount, { increment: 1 });
-              const previousEvenDollar = getPreviousEvenDollar(current);
-              dispatch({
-                type: ActionType.CHANGE_TIP_AMOUNT,
-                payload: current.value < 1 ? 0 : previousEvenDollar,
-              });
-            }}
-          />
-          <CalcInput
-            value={currency(state.tipAmount).format()}
-            onChange={e => {
-              dispatch({
-                type: ActionType.CHANGE_TIP_AMOUNT,
-                payload: toNumber(toCurrency(e.target.value)),
-              });
-            }}
-          />
-          <IncrementButton
-            onClick={() => {
-              dispatch({
-                type: ActionType.CHANGE_TIP_AMOUNT,
-                payload: currency(state.tipAmount, { increment: 1 })
-                  .add(1)
-                  .dollars(),
-              });
-            }}
-          />
-        </Cell>
-        <HeroCell
-          css={css`
-            grid-area: total-amount-label;
-          `}
-        >
-          Total Amount
-        </HeroCell>
-        <HeroCell
-          css={css`
-            grid-area: total-amount-input;
-          `}
-        >
-          <DecrementButton
-            onClick={() => {
-              const current = currency(state.totalAmount, { increment: 1 });
-              const previousEvenDollar = getPreviousEvenDollar(current);
-              dispatch({
-                type: ActionType.CHANGE_TOTAL_AMOUNT,
-                payload:
-                  previousEvenDollar < billAmount
-                    ? billAmount
-                    : previousEvenDollar,
-              });
-            }}
-          />
-          <CalcInput
-            value={currency(state.totalAmount).format()}
-            onChange={e => {
-              dispatch({
-                type: ActionType.CHANGE_TOTAL_AMOUNT,
-                // TODO: deal with manually setting below billAmount
-                payload: toNumber(toCurrency(e.target.value)),
-              });
-            }}
-          />
-          <IncrementButton
-            onClick={() => {
-              dispatch({
-                type: ActionType.CHANGE_TOTAL_AMOUNT,
-                payload: currency(state.totalAmount, { increment: 1 })
-                  .add(1)
-                  .dollars(),
-              });
-            }}
-          />
-        </HeroCell>
-        <Cell
-          css={css`
-            grid-area: number-of-people-label;
-          `}
-        >
-          Number of People
-        </Cell>
-        <Cell
-          css={css`
-            grid-area: number-of-people-input;
-          `}
-        >
-          <DecrementButton
-            onClick={() => {
-              dispatch({
-                type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
-                payload:
-                  state.numberOfPeople < 2 ? 1 : state.numberOfPeople - 1,
-              });
-            }}
-          />
-          <CalcInput
-            value={state.numberOfPeople}
-            onChange={e => {
-              dispatch({
-                type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
-                // TODO: deal with manually setting to 0
-                payload: toNumber(e.target.value),
-              });
-            }}
-          />
-          <IncrementButton
-            onClick={() => {
-              dispatch({
-                type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
-                payload: state.numberOfPeople + 1,
-              });
-            }}
-          />
-        </Cell>
-        <Cell
-          css={css`
-            grid-area: each-person-pays-label;
-          `}
-        >
-          Each Person Pays
-        </Cell>
-        <Cell
-          css={css`
-            grid-area: each-person-pays-input;
-          `}
-        >
-          <DecrementButton
-            onClick={() => {
-              const current = currency(state.eachPersonPays, { increment: 1 });
-              const previousEvenDollar = getPreviousEvenDollar(current);
-              const minPerPerson = currency(billAmount).distribute(
-                state.numberOfPeople,
-              )[0].value;
-              dispatch({
-                type: ActionType.CHANGE_EACH_PERSON_PAYS,
-                payload:
-                  previousEvenDollar < minPerPerson
-                    ? minPerPerson
-                    : previousEvenDollar,
-              });
-            }}
-          />
-          <CalcInput
-            value={currency(state.eachPersonPays).format()}
-            onChange={e => {
-              dispatch({
-                type: ActionType.CHANGE_EACH_PERSON_PAYS,
-                // TODO: deal with manually setting below minPerPerson
-                payload: toNumber(toCurrency(e.target.value)),
-              });
-            }}
-          />
-          <IncrementButton
-            onClick={() => {
-              dispatch({
-                type: ActionType.CHANGE_EACH_PERSON_PAYS,
-                payload: currency(state.eachPersonPays, { increment: 1 })
-                  .add(1)
-                  .dollars(),
-              });
-            }}
-          />
-        </Cell>
-      </CalcGrid>
-      <BrandButton type="button" onClick={startOver}>
-        Done
-      </BrandButton>
+      <Content>
+        <CalcGrid>
+          <Cell
+            css={css`
+              grid-area: tip-percent-label;
+            `}
+          >
+            Tip Percent (%)
+          </Cell>
+          <Cell
+            css={css`
+              grid-area: tip-percent-input;
+            `}
+          >
+            <DecrementButton
+              onClick={() => {
+                dispatch({
+                  type: ActionType.CHANGE_TIP_PERCENT,
+                  payload: state.tipPercent < 1 ? 0 : state.tipPercent - 1,
+                });
+              }}
+            />
+            <CalcInput
+              value={state.tipPercent}
+              onChange={e => {
+                dispatch({
+                  type: ActionType.CHANGE_TIP_PERCENT,
+                  payload: toNumber(e.target.value),
+                });
+              }}
+            />
+            <IncrementButton
+              onClick={() => {
+                dispatch({
+                  type: ActionType.CHANGE_TIP_PERCENT,
+                  payload: state.tipPercent + 1,
+                });
+              }}
+            />
+          </Cell>
+          <Cell
+            css={css`
+              grid-area: tip-amount-label;
+            `}
+          >
+            Tip Amount
+          </Cell>
+          <Cell
+            css={css`
+              grid-area: tip-amount-input;
+            `}
+          >
+            <DecrementButton
+              onClick={() => {
+                const current = currency(state.tipAmount, { increment: 1 });
+                const previousEvenDollar = getPreviousEvenDollar(current);
+                dispatch({
+                  type: ActionType.CHANGE_TIP_AMOUNT,
+                  payload: current.value < 1 ? 0 : previousEvenDollar,
+                });
+              }}
+            />
+            <CalcInput
+              value={currency(state.tipAmount).format()}
+              onChange={e => {
+                dispatch({
+                  type: ActionType.CHANGE_TIP_AMOUNT,
+                  payload: toNumber(toCurrency(e.target.value)),
+                });
+              }}
+            />
+            <IncrementButton
+              onClick={() => {
+                dispatch({
+                  type: ActionType.CHANGE_TIP_AMOUNT,
+                  payload: currency(state.tipAmount, { increment: 1 })
+                    .add(1)
+                    .dollars(),
+                });
+              }}
+            />
+          </Cell>
+          <HeroCell
+            css={css`
+              grid-area: total-amount-label;
+            `}
+          >
+            Total Amount
+          </HeroCell>
+          <HeroCell
+            css={css`
+              grid-area: total-amount-input;
+            `}
+          >
+            <DecrementButton
+              onClick={() => {
+                const current = currency(state.totalAmount, { increment: 1 });
+                const previousEvenDollar = getPreviousEvenDollar(current);
+                dispatch({
+                  type: ActionType.CHANGE_TOTAL_AMOUNT,
+                  payload:
+                    previousEvenDollar < billAmount
+                      ? billAmount
+                      : previousEvenDollar,
+                });
+              }}
+            />
+            <CalcInput
+              value={currency(state.totalAmount).format()}
+              onChange={e => {
+                dispatch({
+                  type: ActionType.CHANGE_TOTAL_AMOUNT,
+                  // TODO: deal with manually setting below billAmount
+                  payload: toNumber(toCurrency(e.target.value)),
+                });
+              }}
+            />
+            <IncrementButton
+              onClick={() => {
+                dispatch({
+                  type: ActionType.CHANGE_TOTAL_AMOUNT,
+                  payload: currency(state.totalAmount, { increment: 1 })
+                    .add(1)
+                    .dollars(),
+                });
+              }}
+            />
+          </HeroCell>
+          <Cell
+            css={css`
+              grid-area: number-of-people-label;
+            `}
+          >
+            Number of People
+          </Cell>
+          <Cell
+            css={css`
+              grid-area: number-of-people-input;
+            `}
+          >
+            <DecrementButton
+              onClick={() => {
+                dispatch({
+                  type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
+                  payload:
+                    state.numberOfPeople < 2 ? 1 : state.numberOfPeople - 1,
+                });
+              }}
+            />
+            <CalcInput
+              value={state.numberOfPeople}
+              onChange={e => {
+                dispatch({
+                  type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
+                  // TODO: deal with manually setting to 0
+                  payload: toNumber(e.target.value),
+                });
+              }}
+            />
+            <IncrementButton
+              onClick={() => {
+                dispatch({
+                  type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
+                  payload: state.numberOfPeople + 1,
+                });
+              }}
+            />
+          </Cell>
+          <Cell
+            css={css`
+              grid-area: each-person-pays-label;
+            `}
+          >
+            Each Person Pays
+          </Cell>
+          <Cell
+            css={css`
+              grid-area: each-person-pays-input;
+            `}
+          >
+            <DecrementButton
+              onClick={() => {
+                const current = currency(state.eachPersonPays, {
+                  increment: 1,
+                });
+                const previousEvenDollar = getPreviousEvenDollar(current);
+                const minPerPerson = currency(billAmount).distribute(
+                  state.numberOfPeople,
+                )[0].value;
+                dispatch({
+                  type: ActionType.CHANGE_EACH_PERSON_PAYS,
+                  payload:
+                    previousEvenDollar < minPerPerson
+                      ? minPerPerson
+                      : previousEvenDollar,
+                });
+              }}
+            />
+            <CalcInput
+              value={currency(state.eachPersonPays).format()}
+              onChange={e => {
+                dispatch({
+                  type: ActionType.CHANGE_EACH_PERSON_PAYS,
+                  // TODO: deal with manually setting below minPerPerson
+                  payload: toNumber(toCurrency(e.target.value)),
+                });
+              }}
+            />
+            <IncrementButton
+              onClick={() => {
+                dispatch({
+                  type: ActionType.CHANGE_EACH_PERSON_PAYS,
+                  payload: currency(state.eachPersonPays, { increment: 1 })
+                    .add(1)
+                    .dollars(),
+                });
+              }}
+            />
+          </Cell>
+        </CalcGrid>
+        <BrandButton type="button" onClick={startOver}>
+          Done
+        </BrandButton>
+      </Content>
     </Layout>
   );
 };
