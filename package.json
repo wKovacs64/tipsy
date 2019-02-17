@@ -51,7 +51,6 @@
     "react-helmet": "6.0.0-beta",
     "react-icons": "3.4.0",
     "react-typography": "0.16.18",
-    "react-use": "5.3.1",
     "typography": "0.16.18",
     "typography-theme-moraga": "0.16.18",
     "use-persisted-state": "0.3.0"
