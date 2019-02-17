@@ -15,6 +15,5 @@ module.exports = {
         assert: 'either',
       },
     ],
-    'jsx-a11y/label-has-for': 'off',
   },
 };
