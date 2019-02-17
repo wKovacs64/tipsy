@@ -32,6 +32,7 @@ const SettingLabel = styled.label`
 const SettingInput = styled(NumericInput)`
   width: 100%;
   max-width: ${rhythm(20)};
+  font-weight: 200;
   font-size: ${scale(1).fontSize};
   line-height: ${scale(1).lineHeight};
   margin: ${rhythm(1)} 0;

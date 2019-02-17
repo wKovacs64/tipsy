@@ -6,7 +6,6 @@ const Input = styled.input`
   border-style: solid;
   border-width: 0 0 4px 0;
   text-align: center;
-  font-weight: 200;
   outline: none;
   &:focus {
     border-bottom-color: ${colors.accent};

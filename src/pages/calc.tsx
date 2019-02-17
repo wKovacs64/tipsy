@@ -22,7 +22,6 @@ import {
 const CalcGrid = styled.section`
   flex: 1;
   width: 100%;
-  font-weight: 400;
   font-size: ${scale(0.25).fontSize};
   line-height: ${scale(0.25).lineHeight};
   display: grid;
@@ -38,7 +37,6 @@ const CalcGrid = styled.section`
 `;
 
 const CalcInput = styled(NumericInput)`
-  font-weight: 400;
   margin-left: ${rhythm(0.25)};
   margin-right: ${rhythm(0.25)};
   font-size: ${scale(0.25).fontSize};

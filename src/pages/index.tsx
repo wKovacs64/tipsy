@@ -21,6 +21,7 @@ const Label = styled.label`
 const BillInput = styled(NumericInput)`
   width: 100%;
   max-width: ${rhythm(20)};
+  font-weight: 200;
   font-size: ${scale(1.5).fontSize};
   line-height: ${scale(1.5).lineHeight};
   ${mq.sm} {
