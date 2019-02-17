@@ -22,7 +22,7 @@ import {
 const CalcGrid = styled.section`
   flex: 1;
   width: 100%;
-  font-weight: 200;
+  font-weight: 400;
   font-size: ${scale(0.25).fontSize};
   line-height: ${scale(0.25).lineHeight};
   display: grid;
@@ -38,6 +38,7 @@ const CalcGrid = styled.section`
 `;
 
 const CalcInput = styled(NumericInput)`
+  font-weight: 400;
   margin-left: ${rhythm(0.25)};
   margin-right: ${rhythm(0.25)};
   font-size: ${scale(0.25).fontSize};
@@ -55,7 +56,7 @@ const HeroCell = styled(Cell)`
   border-right: 0;
   border-top-width: ${rhythm(0.05)};
   border-bottom-width: ${rhythm(0.05)};
-  font-weight: 400;
+  font-weight: 600;
   padding: ${rhythm(1.5)} 0;
 `;
 
@@ -340,6 +341,9 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <CalcInput
+              css={css`
+                font-weight: 600;
+              `}
               value={currency(state.totalAmount).format()}
               onChange={e => {
                 dispatch({
