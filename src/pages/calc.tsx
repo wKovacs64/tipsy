@@ -223,9 +223,7 @@ const CalcPage: React.FunctionComponent<
 
   function startOver() {
     if (navigate) {
-      navigate('/', {
-        replace: true,
-      });
+      navigate('/', { replace: true });
     }
   }
 
@@ -238,7 +236,7 @@ const CalcPage: React.FunctionComponent<
               grid-area: tip-percent-label;
             `}
           >
-            Tip Percent (%)
+            <label htmlFor="tip-percent">Tip Percent (%)</label>
           </Cell>
           <Cell
             css={css`
@@ -254,6 +252,8 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <CalcInput
+              id="tip-percent"
+              name="tip-percent"
               value={state.tipPercent}
               onChange={e => {
                 dispatch({
@@ -276,7 +276,7 @@ const CalcPage: React.FunctionComponent<
               grid-area: tip-amount-label;
             `}
           >
-            Tip Amount
+            <label htmlFor="tip-amount">Tip Amount</label>
           </Cell>
           <Cell
             css={css`
@@ -294,6 +294,8 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <CalcInput
+              id="tip-amount"
+              name="tip-amount"
               value={currency(state.tipAmount).format()}
               onChange={e => {
                 dispatch({
@@ -318,7 +320,7 @@ const CalcPage: React.FunctionComponent<
               grid-area: total-amount-label;
             `}
           >
-            Total Amount
+            <label htmlFor="total-amount">Total Amount</label>
           </HeroCell>
           <HeroCell
             css={css`
@@ -342,6 +344,8 @@ const CalcPage: React.FunctionComponent<
               css={css`
                 font-weight: 600;
               `}
+              id="total-amount"
+              name="total-amount"
               value={currency(state.totalAmount).format()}
               onChange={e => {
                 dispatch({
@@ -367,7 +371,7 @@ const CalcPage: React.FunctionComponent<
               grid-area: number-of-people-label;
             `}
           >
-            Number of People
+            <label htmlFor="number-of-people">Number of People</label>
           </Cell>
           <Cell
             css={css`
@@ -384,6 +388,8 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <CalcInput
+              id="number-of-people"
+              name="number-of-people"
               value={state.numberOfPeople}
               onChange={e => {
                 dispatch({
@@ -407,7 +413,7 @@ const CalcPage: React.FunctionComponent<
               grid-area: each-person-pays-label;
             `}
           >
-            Each Person Pays
+            <label htmlFor="each-person-pays">Each Person Pays</label>
           </Cell>
           <Cell
             css={css`
@@ -433,6 +439,8 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <CalcInput
+              id="each-person-pays"
+              name="each-person-pays"
               value={currency(state.eachPersonPays).format()}
               onChange={e => {
                 dispatch({
