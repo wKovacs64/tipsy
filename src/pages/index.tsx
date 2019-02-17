@@ -40,7 +40,7 @@ const IndexPage: React.FunctionComponent<
 
   function navigateToCalc() {
     if (navigate) {
-      navigate('calc', { state: { bill } });
+      navigate('calc', { state: { bill }, replace: true });
     }
   }
 
