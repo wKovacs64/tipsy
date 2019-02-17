@@ -29,7 +29,7 @@ const HeaderContainer = styled.header`
 const Header: React.FunctionComponent = () => (
   <HeaderContainer>
     <HeaderContent>
-      <Link to="/">
+      <Link to="/" replace>
         <H1>Tipsy</H1>
       </Link>
       <Location>
