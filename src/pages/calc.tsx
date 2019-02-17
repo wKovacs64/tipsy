@@ -457,7 +457,7 @@ const CalcPage: React.FunctionComponent<
           </Cell>
         </CalcGrid>
         <BrandButton type="button" onClick={startOver}>
-          Done
+          Start Over
         </BrandButton>
       </Content>
     </Layout>
