@@ -26,3 +26,11 @@
 
 import 'cypress-axe';
 import 'cypress-testing-library/add-commands';
+
+Cypress.Commands.add('toggleDarkMode', () => {
+  cy.getByLabelText(/settings/i)
+    .click()
+    .getByLabelText(/dark mode:/i)
+    .click({ force: true })
+    .go('back');
+});
