@@ -7,5 +7,14 @@ module.exports = {
     'emotion/import-from-emotion': 'error',
     'emotion/styled-import': 'error',
     'emotion/syntax-preference': ['error', 'string'],
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        labelComponents: ['Label'],
+        controlComponents: ['BillInput', 'CalcInput'],
+        assert: 'either',
+      },
+    ],
+    'jsx-a11y/label-has-for': 'off',
   },
 };
