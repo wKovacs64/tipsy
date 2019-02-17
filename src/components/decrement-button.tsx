@@ -6,7 +6,7 @@ const DecrementButton: React.FunctionComponent<
   import('react').HTMLAttributes<HTMLButtonElement>
 > = props => (
   <ClearButton type="button" {...props}>
-    <FiChevronDown size={32} />
+    <FiChevronDown size={26} />
   </ClearButton>
 );
 

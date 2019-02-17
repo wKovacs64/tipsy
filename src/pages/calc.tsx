@@ -23,8 +23,8 @@ const CalcGrid = styled.section`
   width: 100%;
   max-width: ${rhythm(20)};
   font-weight: 200;
-  font-size: ${scale(0.4).fontSize};
-  line-height: ${scale(0.4).lineHeight};
+  font-size: ${scale(0.25).fontSize};
+  line-height: ${scale(0.25).lineHeight};
   display: grid;
   grid-row-gap: ${rhythm(2)};
   grid-template-columns: 1fr auto;
@@ -33,16 +33,23 @@ const CalcGrid = styled.section`
     'tip-amount-label tip-amount-input'
     'total-amount-label total-amount-input'
     'number-of-people-label number-of-people-input'
-    'each-person-pays-label each-person-pays-input'
-    'done-button done-button';
+    'each-person-pays-label each-person-pays-input';
+  margin-bottom: ${rhythm(2)};
 `;
 
 const CalcInput = styled(NumericInput)`
   margin-left: ${rhythm(0.25)};
   margin-right: ${rhythm(0.25)};
+  font-size: ${scale(0.25).fontSize};
+  line-height: ${scale(0.25).lineHeight};
 `;
 
-const HeroCell = styled.div`
+const Cell = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const HeroCell = styled(Cell)`
   border-style: solid;
   border-left: 0;
   border-right: 0;
@@ -226,14 +233,14 @@ const CalcPage: React.FunctionComponent<
   return (
     <Layout>
       <CalcGrid>
-        <div
+        <Cell
           css={css`
             grid-area: tip-percent-label;
           `}
         >
           Tip Percent (%)
-        </div>
-        <div
+        </Cell>
+        <Cell
           css={css`
             grid-area: tip-percent-input;
           `}
@@ -263,15 +270,15 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-        </div>
-        <div
+        </Cell>
+        <Cell
           css={css`
             grid-area: tip-amount-label;
           `}
         >
           Tip Amount
-        </div>
-        <div
+        </Cell>
+        <Cell
           css={css`
             grid-area: tip-amount-input;
           `}
@@ -305,7 +312,7 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-        </div>
+        </Cell>
         <HeroCell
           css={css`
             grid-area: total-amount-label;
@@ -352,14 +359,14 @@ const CalcPage: React.FunctionComponent<
             }}
           />
         </HeroCell>
-        <div
+        <Cell
           css={css`
             grid-area: number-of-people-label;
           `}
         >
           Number of People
-        </div>
-        <div
+        </Cell>
+        <Cell
           css={css`
             grid-area: number-of-people-input;
           `}
@@ -391,15 +398,15 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-        </div>
-        <div
+        </Cell>
+        <Cell
           css={css`
             grid-area: each-person-pays-label;
           `}
         >
           Each Person Pays
-        </div>
-        <div
+        </Cell>
+        <Cell
           css={css`
             grid-area: each-person-pays-input;
           `}
@@ -440,17 +447,11 @@ const CalcPage: React.FunctionComponent<
               });
             }}
           />
-        </div>
-        <BrandButton
-          css={css`
-            grid-area: done-button;
-          `}
-          type="button"
-          onClick={startOver}
-        >
-          Done
-        </BrandButton>
+        </Cell>
       </CalcGrid>
+      <BrandButton type="button" onClick={startOver}>
+        Done
+      </BrandButton>
     </Layout>
   );
 };

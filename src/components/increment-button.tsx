@@ -6,7 +6,7 @@ const IncrementButton: React.FunctionComponent<
   import('react').HTMLAttributes<HTMLButtonElement>
 > = props => (
   <ClearButton type="button" {...props}>
-    <FiChevronUp size={32} />
+    <FiChevronUp size={26} />
   </ClearButton>
 );
 

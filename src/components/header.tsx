@@ -30,7 +30,7 @@ const Header: React.FunctionComponent = () => (
         if (location.pathname === '/') {
           return (
             <Link to="/settings">
-              <MdSettings aria-label="Settings" size={40} />
+              <MdSettings aria-label="Settings" size={32} />
             </Link>
           );
         }
