@@ -9376,10 +9376,10 @@ react-typography@0.16.18:
   resolved "https://registry.yarnpkg.com/react-typography/-/react-typography-0.16.18.tgz#89341b63d615f1dfcf5e471797df5acce5bde1f3"
   integrity sha512-BFkw59H2mkYRLLtHOT2UZve/9/RticAvL7o7rheOo/+tlwQyfF61wF2XzGRcA3IWASg+DbXnNViyywHBFlNj6A==
 
-react-use@5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/react-use/-/react-use-5.3.0.tgz#2a3da301082dfba2822f2e4d8369974aa7e15f27"
-  integrity sha512-gF5gGQyHIKpHmyIoEPzq1oCgf8p1l0AS3RBsGeLcVUJXZmatQsYwhjv1190CwNpmjxIQsrMCBakycZxoy9tXcA==
+react-use@5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/react-use/-/react-use-5.3.1.tgz#622785bf7a43f3c1720d5ea096fbf48a83e34cb1"
+  integrity sha512-11lY1NuWkJYtVGvgzf0Bji32NbwWp+dg0cuCMJNS2XXb9ltvtUTxMf+QBjHNdl59gdkikY2YuLLDwg+GIn0CtQ==
   dependencies:
     "@types/react" "^16.8.2"
     keyboardjs "^2.5.1"
