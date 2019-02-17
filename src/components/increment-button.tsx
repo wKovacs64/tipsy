@@ -3,7 +3,7 @@ import { FiChevronUp } from 'react-icons/fi';
 import ClearButton from '../styles/clear-button';
 
 const IncrementButton: React.FunctionComponent<
-  import('react').HTMLAttributes<HTMLButtonElement>
+  React.HTMLAttributes<HTMLButtonElement>
 > = props => (
   <ClearButton type="button" {...props}>
     <FiChevronUp size={26} />
