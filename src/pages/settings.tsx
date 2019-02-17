@@ -1,21 +1,40 @@
 import React from 'react';
+import Switch from 'react-switch';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import { rhythm, scale } from '../utils/typography';
 import mq from '../utils/mq';
-import { useDefaultPartySize, useDefaultTipPercent } from '../utils/state';
+import {
+  useDarkMode,
+  useDefaultPartySize,
+  useDefaultTipPercent,
+} from '../utils/state';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import Content from '../styles/content';
 import BrandButton from '../styles/brand-button';
 import {
+  initialDefaultDarkMode,
   initialDefaultPartySize,
   initialDefaultTipPercent,
 } from '../utils/defaults';
+import { palette } from '../theme';
+
+const SettingsGrid = styled.section`
+  flex: 1;
+  width: 100%;
+  display: grid;
+  grid-row-gap: ${rhythm(2)};
+  margin-bottom: ${rhythm(2)};
+`;
 
 const Setting = styled.div`
   width: 100%;
-  max-width: ${rhythm(20)};
+`;
+
+const SingleRowSetting = styled(Setting)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const SettingLabel = styled.label`
@@ -48,6 +67,7 @@ const SettingInput = styled(NumericInput)`
 const SettingsPage: React.FunctionComponent<
   import('reach__router').RouteComponentProps
 > = ({ navigate }) => {
+  const darkMode = useDarkMode(initialDefaultDarkMode);
   const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize(
     initialDefaultPartySize,
   );
@@ -78,35 +98,42 @@ const SettingsPage: React.FunctionComponent<
 
   return (
     <Layout>
-      <Content
-        css={css`
-          justify-content: space-between;
-        `}
-      >
-        <Setting>
-          <SettingLabel htmlFor="default-party-size">
-            Default party size:
-          </SettingLabel>
-          <SettingInput
-            id="default-party-size"
-            name="default-party-size"
-            placeholder={String(initialDefaultPartySize)}
-            onChange={e => setPartySize(e.target.value)}
-            value={partySize}
-          />
-        </Setting>
-        <Setting>
-          <SettingLabel htmlFor="default-tip-percentage">
-            Default tip percentage:
-          </SettingLabel>
-          <SettingInput
-            id="default-tip-percentage"
-            name="default-tip-percentage"
-            placeholder={String(initialDefaultTipPercent)}
-            onChange={e => setTipPercent(e.target.value)}
-            value={tipPercent}
-          />
-        </Setting>
+      <Content>
+        <SettingsGrid>
+          <SingleRowSetting>
+            <SettingLabel htmlFor="dark-mode">Dark mode:</SettingLabel>
+            <Switch
+              id="dark-mode"
+              checked={darkMode.value}
+              onChange={darkMode.toggle}
+              onColor={palette.primary}
+            />
+          </SingleRowSetting>
+          <Setting>
+            <SettingLabel htmlFor="default-party-size">
+              Default party size:
+            </SettingLabel>
+            <SettingInput
+              id="default-party-size"
+              name="default-party-size"
+              placeholder={String(initialDefaultPartySize)}
+              onChange={e => setPartySize(e.target.value)}
+              value={partySize}
+            />
+          </Setting>
+          <Setting>
+            <SettingLabel htmlFor="default-tip-percentage">
+              Default tip percentage:
+            </SettingLabel>
+            <SettingInput
+              id="default-tip-percentage"
+              name="default-tip-percentage"
+              placeholder={String(initialDefaultTipPercent)}
+              onChange={e => setTipPercent(e.target.value)}
+              value={tipPercent}
+            />
+          </Setting>
+        </SettingsGrid>
         <BrandButton type="button" onClick={saveSettings}>
           Save
         </BrandButton>

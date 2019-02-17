@@ -10,7 +10,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': [
       'error',
       {
-        labelComponents: ['Label'],
+        labelComponents: ['Label', 'SettingLabel'],
         controlComponents: ['BillInput', 'CalcInput'],
         assert: 'either',
       },

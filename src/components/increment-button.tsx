@@ -1,13 +1,13 @@
 import React from 'react';
 import { FiChevronUp } from 'react-icons/fi';
-import ClearButton from '../styles/clear-button';
+import ThemedIconButton from '../styles/themed-icon-button';
 
 const IncrementButton: React.FunctionComponent<
   React.HTMLAttributes<HTMLButtonElement>
 > = props => (
-  <ClearButton type="button" {...props}>
+  <ThemedIconButton type="button" {...props}>
     <FiChevronUp aria-label="Increment" size={26} />
-  </ClearButton>
+  </ThemedIconButton>
 );
 
 export default IncrementButton;

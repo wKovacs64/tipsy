@@ -1,15 +1,18 @@
 import styled from '@emotion/styled';
-import colors from '../utils/colors';
+import hexRgb from 'hex-rgb';
 import { rhythm, scale } from '../utils/typography';
+import { palette } from '../theme';
+
+const rgb = hexRgb(palette.primary);
 
 const BrandButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   color: white;
-  background-color: ${colors.main};
+  background-color: ${palette.primary};
   border: none;
-  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 8px 0px rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, 0.4);
   cursor: pointer;
   padding: ${rhythm(0.25)};
   font-weight: 200;

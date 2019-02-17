@@ -5,11 +5,11 @@ import { MdSettings } from 'react-icons/md';
 import { Location } from '@reach/router'; // comes with Gatsby
 import get from 'lodash/get';
 import currency from 'currency.js';
-import colors from '../utils/colors';
 import { rhythm } from '../utils/typography';
 import Content from '../styles/content';
 import H1 from '../styles/h1';
 import H2 from '../styles/h2';
+import { palette } from '../theme';
 import Link from './internal-link';
 
 const HeaderContent = styled(Content)`
@@ -22,7 +22,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: center;
   color: white;
-  background-color: ${colors.main};
+  background-color: ${palette.primary};
   padding: ${rhythm(1)};
 `;
 
