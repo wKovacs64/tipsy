@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import { MdSettings } from 'react-icons/md';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -26,30 +27,63 @@ const HeaderContainer = styled.header`
   padding: ${rhythm(1)};
 `;
 
-const Header: React.FunctionComponent = () => (
-  <HeaderContainer>
-    <HeaderContent>
-      <Link to="/" replace>
-        <H1>Tipsy</H1>
-      </Link>
-      <Location>
-        {({ location }) => {
-          if (location.pathname === '/') {
+const HeaderTitle: React.FunctionComponent = () => {
+  const {
+    site: {
+      siteMetadata: { pwaShortName },
+    },
+  } = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          pwaShortName
+        }
+      }
+    }
+  `);
+
+  return <H1>{pwaShortName}</H1>;
+};
+
+const Header: React.FunctionComponent = () => {
+  return (
+    <HeaderContainer>
+      <HeaderContent>
+        {/* left */}
+        <Location>
+          {({ location }) => {
+            if (location.pathname === '/') {
+              return <HeaderTitle />;
+            }
+
             return (
-              <Link to="/settings">
-                <MdSettings aria-label="Settings" size={32} />
+              <Link to="/" replace>
+                <HeaderTitle />
               </Link>
             );
-          }
+          }}
+        </Location>
+        {/* right */}
+        <Location>
+          {({ location }) => {
+            if (location.pathname === '/') {
+              return (
+                <Link to="/settings">
+                  <MdSettings aria-label="Settings" size={32} />
+                </Link>
+              );
+            }
 
-          if (get(location, 'state.bill')) {
-            return <H2>{currency(location.state.bill).format(true)}</H2>;
-          }
-          return null;
-        }}
-      </Location>
-    </HeaderContent>
-  </HeaderContainer>
-);
+            if (get(location, 'state.bill')) {
+              return <H2>{currency(location.state.bill).format(true)}</H2>;
+            }
+
+            return null;
+          }}
+        </Location>
+      </HeaderContent>
+    </HeaderContainer>
+  );
+};
 
 export default Header;

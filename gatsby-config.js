@@ -5,6 +5,7 @@ module.exports = {
   siteMetadata: {
     title: siteConfig.title,
     description: siteConfig.description,
+    pwaShortName: siteConfig.pwaShortName,
     buildInfo: {
       commit: buildInfo.commit,
       version: buildInfo.version,
