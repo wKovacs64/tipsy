@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import mq from '../utils/mq';
 import { rhythm, scale } from '../utils/typography';
 import Layout from '../components/layout';
@@ -47,7 +48,11 @@ const IndexPage: React.FunctionComponent<
 
   return (
     <Layout>
-      <Content>
+      <Content
+        css={css`
+          justify-content: space-around;
+        `}
+      >
         <Label htmlFor="bill">Bill amount:</Label>
         <BillInput
           id="bill"

@@ -20,7 +20,6 @@ import {
 } from '../utils/defaults';
 
 const CalcGrid = styled.section`
-  flex: 1;
   width: 100%;
   font-size: ${scale(0.25).fontSize};
   line-height: ${scale(0.25).lineHeight};

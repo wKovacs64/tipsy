@@ -20,7 +20,6 @@ import {
 import { palette } from '../theme';
 
 const SettingsGrid = styled.section`
-  flex: 1;
   width: 100%;
   display: grid;
   grid-row-gap: ${rhythm(2)};
