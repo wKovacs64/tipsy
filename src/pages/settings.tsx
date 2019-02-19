@@ -82,11 +82,13 @@ const SettingsPage: React.FunctionComponent<
     const tipPercentNumber = parseInt(tipPercent, 10);
 
     setDefaultPartySize(
-      Number.isNaN(partySizeNumber) ? initialDefaultPartySize : partySizeNumber,
+      Number.isNaN(partySizeNumber) || partySizeNumber < 1
+        ? initialDefaultPartySize
+        : partySizeNumber,
     );
 
     setDefaultTipPercent(
-      Number.isNaN(tipPercentNumber)
+      Number.isNaN(tipPercentNumber) || tipPercentNumber < 0
         ? initialDefaultTipPercent
         : tipPercentNumber,
     );
