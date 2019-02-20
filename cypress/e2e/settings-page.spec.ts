@@ -55,8 +55,8 @@ describe('Settings Page', () => {
       .should('not.have.value', '24')
       .getByLabelText(/default tip percentage/i)
       .should('not.have.value', '42')
-      .getByLabelText(/default party size/i);
-    fillOutSettings()
+      .getByLabelText(/default party size/i)
+      .then(fillOutSettings)
       .getByText(/save/i)
       .click()
       .getByLabelText(/settings/i)
