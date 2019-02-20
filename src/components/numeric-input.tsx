@@ -16,6 +16,7 @@ const NumericInput: React.FunctionComponent<
           ref.current.blur();
         }
       }}
+      onFocus={e => e.target.select()}
       {...props}
     />
   );
