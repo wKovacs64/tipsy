@@ -1,6 +1,5 @@
 describe('Index Page', () => {
   beforeEach(() => {
-    cy.server();
     cy.visit('/').injectAxe();
     // wait for the content to ensure the app has been rendered
     cy.get('html[lang="en"]');
