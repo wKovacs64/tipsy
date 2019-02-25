@@ -7,6 +7,7 @@ function setupCalcTests(): Cypress.Chainable {
     .click();
 }
 
+// eslint-disable-next-line jest/no-disabled-tests
 describe.skip('Calc Page', () => {
   beforeEach(() => {
     cy.visit('/').injectAxe();
