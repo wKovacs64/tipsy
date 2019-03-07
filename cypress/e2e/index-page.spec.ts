@@ -5,6 +5,10 @@ describe('Index Page', () => {
     cy.get('html[lang="en"]');
   });
 
+  afterEach(() => {
+    cy.clearLocalStorageForReal();
+  });
+
   it('has no detectable a11y violations (light mode)', () => {
     cy.get('body').should('not.have.class', 'dark-mode');
     cy.getByLabelText(/bill/i).checkA11y();
