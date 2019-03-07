@@ -1,3 +1,8 @@
+import {
+  appDefaultPartySize,
+  appDefaultTipPercent,
+} from '../../src/utils/app-defaults';
+
 function setupCalcTests(): Cypress.Chainable {
   return cy
     .getByLabelText(/bill amount/i)
@@ -37,5 +42,26 @@ describe('Calc Page', () => {
     setupCalcTests()
       .getByText('$12.35')
       .should('exist');
+  });
+
+  it('populates initial values', () => {
+    setupCalcTests()
+      .getByLabelText(/tip percent/i)
+      .should('have.value', String(appDefaultTipPercent))
+      .getByLabelText(/tip amount/i)
+      .should('have.value', '2.47')
+      .getByLabelText(/total amount/i)
+      .should('have.value', '14.82')
+      .getByLabelText(/number of people/i)
+      .should('have.value', String(appDefaultPartySize))
+      .getByLabelText(/each person pays/i)
+      .should('have.value', '14.82');
+  });
+
+  it('has a working Start Over button', () => {
+    setupCalcTests()
+      .getByText(/start over/i)
+      .click();
+    cy.url().should('eq', `${Cypress.config().baseUrl}/`);
   });
 });
