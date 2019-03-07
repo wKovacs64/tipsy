@@ -13,11 +13,11 @@ import DecrementButton from '../components/decrement-button';
 import IncrementButton from '../components/increment-button';
 import Content from '../styles/content';
 import BrandButton from '../styles/brand-button';
-import { useDefaultTipPercent, useDefaultPartySize } from '../utils/state';
+import { useDefaultPartySize, useDefaultTipPercent } from '../utils/state';
 import {
-  initialDefaultTipPercent,
-  initialDefaultPartySize,
-} from '../utils/defaults';
+  appDefaultPartySize,
+  appDefaultTipPercent,
+} from '../utils/app-defaults';
 
 const CalcGrid = styled.section`
   width: 100%;
@@ -108,23 +108,23 @@ interface State {
 const CalcPage: React.FunctionComponent<
   import('reach__router').RouteComponentProps
 > = ({ location, navigate }) => {
-  const [defaultPartySize] = useDefaultPartySize(initialDefaultPartySize);
-  const [defaultTipPercent] = useDefaultTipPercent(initialDefaultTipPercent);
+  const [initialPartySize] = useDefaultPartySize(appDefaultPartySize);
+  const [initialTipPercent] = useDefaultTipPercent(appDefaultTipPercent);
 
   const billAmount = get(location, 'state.bill', 0);
   const initialTipAmount = currency(billAmount)
-    .multiply(defaultTipPercent)
+    .multiply(initialTipPercent)
     .divide(100).value;
   const initialTotalAmount = currency(billAmount).add(initialTipAmount).value;
   const initialEachPersonPays = currency(initialTotalAmount).distribute(
-    defaultPartySize,
+    initialPartySize,
   )[0].value;
 
   const initialState: State = {
-    tipPercent: defaultTipPercent,
+    tipPercent: initialTipPercent,
     tipAmount: initialTipAmount,
     totalAmount: initialTotalAmount,
-    numberOfPeople: defaultPartySize,
+    numberOfPeople: initialPartySize,
     eachPersonPays: initialEachPersonPays,
   };
 

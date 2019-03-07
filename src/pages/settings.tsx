@@ -13,10 +13,10 @@ import NumericInput from '../components/numeric-input';
 import Content from '../styles/content';
 import BrandButton from '../styles/brand-button';
 import {
-  initialDefaultDarkMode,
-  initialDefaultPartySize,
-  initialDefaultTipPercent,
-} from '../utils/defaults';
+  appDefaultDarkMode,
+  appDefaultPartySize,
+  appDefaultTipPercent,
+} from '../utils/app-defaults';
 import { palette } from '../theme';
 
 const SettingsGrid = styled.section`
@@ -66,12 +66,12 @@ const SettingInput = styled(NumericInput)`
 const SettingsPage: React.FunctionComponent<
   import('reach__router').RouteComponentProps
 > = ({ navigate }) => {
-  const darkMode = useDarkMode(initialDefaultDarkMode);
+  const darkMode = useDarkMode(appDefaultDarkMode);
   const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize(
-    initialDefaultPartySize,
+    appDefaultPartySize,
   );
   const [defaultTipPercent, setDefaultTipPercent] = useDefaultTipPercent(
-    initialDefaultTipPercent,
+    appDefaultTipPercent,
   );
   const [partySize, setPartySize] = React.useState(String(defaultPartySize));
   const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
@@ -82,13 +82,13 @@ const SettingsPage: React.FunctionComponent<
 
     setDefaultPartySize(
       Number.isNaN(partySizeNumber) || partySizeNumber < 1
-        ? initialDefaultPartySize
+        ? appDefaultPartySize
         : partySizeNumber,
     );
 
     setDefaultTipPercent(
       Number.isNaN(tipPercentNumber) || tipPercentNumber < 0
-        ? initialDefaultTipPercent
+        ? appDefaultTipPercent
         : tipPercentNumber,
     );
 
@@ -117,7 +117,7 @@ const SettingsPage: React.FunctionComponent<
             <SettingInput
               id="default-party-size"
               name="default-party-size"
-              placeholder={String(initialDefaultPartySize)}
+              placeholder={String(appDefaultPartySize)}
               onChange={e => setPartySize(e.target.value)}
               value={partySize}
             />
@@ -129,7 +129,7 @@ const SettingsPage: React.FunctionComponent<
             <SettingInput
               id="default-tip-percentage"
               name="default-tip-percentage"
-              placeholder={String(initialDefaultTipPercent)}
+              placeholder={String(appDefaultTipPercent)}
               onChange={e => setTipPercent(e.target.value)}
               value={tipPercent}
             />
