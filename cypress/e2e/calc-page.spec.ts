@@ -7,7 +7,8 @@ function setupCalcTests(): Cypress.Chainable {
     .click();
 }
 
-describe('Calc Page', () => {
+// eslint-disable-next-line jest/no-disabled-tests
+describe.skip('Calc Page', () => {
   beforeEach(() => {
     cy.visit('/').injectAxe();
     // wait for the content to ensure the app has been rendered
