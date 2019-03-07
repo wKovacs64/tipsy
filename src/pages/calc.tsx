@@ -108,8 +108,24 @@ interface State {
 const CalcPage: React.FunctionComponent<
   import('reach__router').RouteComponentProps
 > = ({ location, navigate }) => {
-  const [initialPartySize] = useDefaultPartySize(appDefaultPartySize);
-  const [initialTipPercent] = useDefaultTipPercent(appDefaultTipPercent);
+  const [initialPartySizeFromStorage] = useDefaultPartySize(
+    appDefaultPartySize,
+  );
+  const [initialTipPercentFromStorage] = useDefaultTipPercent(
+    appDefaultTipPercent,
+  );
+
+  // HACK: null check to prevent Cypress tests from crashing because for some
+  // reason the values returned from these persisted state hooks are null
+  // occasionally (only in Cypress)
+  const initialPartySize =
+    initialPartySizeFromStorage !== null
+      ? initialPartySizeFromStorage
+      : appDefaultPartySize;
+  const initialTipPercent =
+    initialTipPercentFromStorage !== null
+      ? initialTipPercentFromStorage
+      : appDefaultTipPercent;
 
   const billAmount = get(location, 'state.bill', 0);
   const initialTipAmount = currency(billAmount)
