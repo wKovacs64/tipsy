@@ -6,6 +6,7 @@ describe('Index Page', () => {
   });
 
   it('has no detectable a11y violations (light mode)', () => {
+    cy.get('body').should('not.have.class', 'dark-mode');
     cy.getByLabelText(/bill/i).checkA11y();
     cy.getByLabelText(/bill/i)
       .click()
@@ -14,8 +15,10 @@ describe('Index Page', () => {
   });
 
   it('has no detectable a11y violations (dark mode)', () => {
+    cy.get('body').should('not.have.class', 'dark-mode');
     cy.getByLabelText(/bill/i);
     cy.toggleDarkMode();
+    cy.get('body').should('have.class', 'dark-mode');
     cy.checkA11y();
     cy.getByLabelText(/bill/i)
       .click()
