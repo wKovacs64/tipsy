@@ -53,10 +53,10 @@
     "react-helmet": "6.0.0-beta",
     "react-icons": "3.5.0",
     "react-switch": "4.1.0",
-    "react-typography": "0.16.18",
+    "react-typography": "0.16.19",
     "terser": "3.16.1",
-    "typography": "0.16.18",
-    "typography-theme-moraga": "0.16.18",
+    "typography": "0.16.19",
+    "typography-theme-moraga": "0.16.19",
     "use-dark-mode": "2.3.1",
     "use-persisted-state": "0.3.0"
   },
