@@ -259,6 +259,7 @@ const CalcPage: React.FunctionComponent<
             `}
           >
             <DecrementButton
+              aria-label="decrement tip percent"
               onClick={() => {
                 dispatch({
                   type: ActionType.CHANGE_TIP_PERCENT,
@@ -278,6 +279,7 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <IncrementButton
+              aria-label="increment tip percent"
               onClick={() => {
                 dispatch({
                   type: ActionType.CHANGE_TIP_PERCENT,
@@ -299,6 +301,7 @@ const CalcPage: React.FunctionComponent<
             `}
           >
             <DecrementButton
+              aria-label="decrement tip amount"
               onClick={() => {
                 const current = currency(state.tipAmount, { increment: 1 });
                 const previousEvenDollar = getPreviousEvenDollar(current);
@@ -320,6 +323,7 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <IncrementButton
+              aria-label="increment tip amount"
               onClick={() => {
                 dispatch({
                   type: ActionType.CHANGE_TIP_AMOUNT,
@@ -343,6 +347,7 @@ const CalcPage: React.FunctionComponent<
             `}
           >
             <DecrementButton
+              aria-label="decrement total amount"
               onClick={() => {
                 const current = currency(state.totalAmount, { increment: 1 });
                 const previousEvenDollar = getPreviousEvenDollar(current);
@@ -371,6 +376,7 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <IncrementButton
+              aria-label="increment total amount"
               onClick={() => {
                 dispatch({
                   type: ActionType.CHANGE_TOTAL_AMOUNT,
@@ -394,6 +400,7 @@ const CalcPage: React.FunctionComponent<
             `}
           >
             <DecrementButton
+              aria-label="decrement number of people"
               onClick={() => {
                 dispatch({
                   type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
@@ -415,6 +422,7 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <IncrementButton
+              aria-label="increment number of people"
               onClick={() => {
                 dispatch({
                   type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
@@ -436,6 +444,7 @@ const CalcPage: React.FunctionComponent<
             `}
           >
             <DecrementButton
+              aria-label="decrement each person pays"
               onClick={() => {
                 const current = currency(state.eachPersonPays, {
                   increment: 1,
@@ -466,6 +475,7 @@ const CalcPage: React.FunctionComponent<
               }}
             />
             <IncrementButton
+              aria-label="increment each person pays"
               onClick={() => {
                 dispatch({
                   type: ActionType.CHANGE_EACH_PERSON_PAYS,
