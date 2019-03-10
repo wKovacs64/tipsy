@@ -6,6 +6,7 @@ import { MdSettings } from 'react-icons/md';
 import { Location } from '@reach/router'; // comes with Gatsby
 import get from 'lodash/get';
 import currency from 'currency.js';
+import * as pkg from '../../package.json';
 import { rhythm } from '../utils/typography';
 import Content from '../styles/content';
 import H1 from '../styles/h1';
@@ -72,6 +73,10 @@ const Header: React.FunctionComponent = () => {
                   <MdSettings aria-label="Settings" size={32} />
                 </Link>
               );
+            }
+
+            if (/^\/settings\/?/.test(location.pathname)) {
+              return <H2>v{pkg.version}</H2>;
             }
 
             if (get(location, 'state.bill')) {

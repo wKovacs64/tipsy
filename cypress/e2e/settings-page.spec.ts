@@ -1,3 +1,5 @@
+import * as pkg from '../../package.json';
+
 function fillOutSettings(): Cypress.Chainable {
   return cy
     .getByLabelText(/default party size/i)
@@ -39,6 +41,10 @@ describe('Settings Page', () => {
     cy.getByLabelText(/dark mode/i).click({ force: true });
     cy.get('body').should('have.class', 'dark-mode');
     cy.checkA11y();
+  });
+
+  it('displays the version', () => {
+    cy.getByText(`v${pkg.version}`).should('exist');
   });
 
   it('toggles dark mode', () => {
