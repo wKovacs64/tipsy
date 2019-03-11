@@ -32,8 +32,8 @@
   },
   "private": true,
   "dependencies": {
-    "@emotion/core": "10.0.7",
-    "@emotion/styled": "10.0.7",
+    "@emotion/core": "10.0.9",
+    "@emotion/styled": "10.0.9",
     "@wkovacs64/normalize.css": "8.0.1",
     "currency.js": "1.2.1",
     "gatsby": "2.1.27",
