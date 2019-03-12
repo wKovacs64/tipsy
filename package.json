@@ -65,7 +65,7 @@
     "@cypress/browserify-preprocessor": "2.0.0",
     "@types/cypress-axe": "0.4.0",
     "@types/hex-rgb": "3.0.0",
-    "@types/node": "10.12.30",
+    "@types/node": "10.14.0",
     "@types/react": "16.8.7",
     "@types/react-dom": "16.8.2",
     "@types/react-helmet": "5.0.8",
