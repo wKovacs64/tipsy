@@ -20,8 +20,8 @@ const Layout: React.FunctionComponent = ({ children }) => (
       <IconContext.Provider
         value={{
           className: classNameFromCss`
-                vertical-align: middle;
-              `,
+            vertical-align: middle;
+          `,
         }}
       >
         <Global
