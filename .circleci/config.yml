@@ -22,7 +22,7 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache
-      - run: yarn semantic-release --debug
+      - run: yarn semantic-release
 
 workflows:
   build:
