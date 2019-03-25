@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 module.exports = {
   branch: 'master',
   plugins: [
@@ -8,7 +9,6 @@ module.exports = {
       '@semantic-release/git',
       {
         assets: ['package.json'],
-        // eslint-disable-next-line no-template-curly-in-string
         message: 'chore(release): ${nextRelease.version} [skip ci]',
       },
     ],
