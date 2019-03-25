@@ -39,12 +39,23 @@ const IndexPage: React.FunctionComponent<
   import('reach__router').RouteComponentProps
 > = ({ navigate }) => {
   const [bill, setBill] = React.useState('');
+  const [billInputDisabled, setBillInputDisabled] = React.useState(false);
+  const [nextButtonDisabled, setNextButtonDisabled] = React.useState(true);
 
   function navigateToCalc() {
+    setBillInputDisabled(true);
+    setNextButtonDisabled(true);
     if (navigate) {
       navigate('calc', { state: { bill }, replace: true });
     }
   }
+
+  const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    const { value } = e.target;
+    const valueAsCurrency = toCurrency(value);
+    setBill(valueAsCurrency);
+    setNextButtonDisabled(!valueAsCurrency || valueAsCurrency === '0.00');
+  };
 
   return (
     <Layout>
@@ -58,18 +69,19 @@ const IndexPage: React.FunctionComponent<
           id="bill"
           name="bill"
           placeholder="0.00"
-          onChange={e => setBill(toCurrency(e.target.value))}
+          onChange={handleBillChange}
           onKeyDown={e => {
             if (e.keyCode === 13) {
               navigateToCalc();
             }
           }}
           value={bill}
+          disabled={billInputDisabled}
         />
         <BrandButton
           type="button"
           onClick={navigateToCalc}
-          disabled={!bill || bill === '0.00'}
+          disabled={nextButtonDisabled}
         >
           Next
         </BrandButton>
