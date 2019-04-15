@@ -52,7 +52,7 @@
     "gatsby-plugin-typography": "2.2.13",
     "gatsby-plugin-use-dark-mode": "1.1.0",
     "git-current-commit": "1.1.0",
-    "hex-rgb": "4.0.0",
+    "hex-rgb": "4.1.0",
     "lodash": "4.17.11",
     "prop-types": "15.7.2",
     "react": "16.8.6",
