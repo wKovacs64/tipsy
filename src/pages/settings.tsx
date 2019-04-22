@@ -105,6 +105,7 @@ const SettingsPage: React.FunctionComponent<
             <SettingLabel htmlFor="dark-mode">Dark mode:</SettingLabel>
             <Switch
               id="dark-mode"
+              aria-checked={darkMode.value}
               checked={darkMode.value}
               onChange={darkMode.toggle}
               onColor={palette.primary}

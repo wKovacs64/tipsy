@@ -15,15 +15,6 @@ function fillOutSettings(): Cypress.Chainable {
 describe('Settings Page', () => {
   beforeEach(() => {
     cy.visit('/settings').injectAxe();
-    cy.configureAxe({
-      rules: [
-        {
-          // https://github.com/markusenglund/react-switch/issues/34
-          id: 'aria-required-attr',
-          enabled: false,
-        },
-      ],
-    });
     // wait for the content to ensure the app has been rendered
     cy.get('html[lang="en"]');
   });
