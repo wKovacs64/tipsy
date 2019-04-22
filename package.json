@@ -40,6 +40,7 @@
   "dependencies": {
     "@emotion/core": "10.0.10",
     "@emotion/styled": "10.0.10",
+    "@quid/merge-refs": "1.38.1",
     "@wkovacs64/normalize.css": "8.0.1",
     "currency.js": "1.2.1",
     "gatsby": "2.3.25",

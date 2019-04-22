@@ -1,16 +1,18 @@
 import React from 'react';
+import mergeRefs from '@quid/merge-refs';
 import NumberInput from '../styles/number-input';
 
-const NumericInput: React.FunctionComponent<
-  React.InputHTMLAttributes<HTMLInputElement>
-> = props => {
+const NumericInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentPropsWithRef<typeof NumberInput>
+>((props, userRef) => {
   const ref = React.useRef<HTMLInputElement>(null);
 
   return (
     <NumberInput
       type="text"
       inputMode="numeric"
-      ref={ref}
+      ref={mergeRefs(ref, userRef)}
       onKeyDown={e => {
         if (e.keyCode === 13 && ref && ref.current) {
           ref.current.blur();
@@ -20,6 +22,6 @@ const NumericInput: React.FunctionComponent<
       {...props}
     />
   );
-};
+});
 
 export default NumericInput;
