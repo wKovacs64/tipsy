@@ -3,14 +3,10 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import get from 'lodash/get';
 import currency from 'currency.js';
-import useStepper, {
-  State as StepperState,
-  Action as StepperAction,
-} from 'use-stepper';
+import useStepper from 'use-stepper';
 import { rhythm, scale } from '../utils/typography';
-import getPreviousEvenDollar from '../utils/get-previous-even-dollar';
+import { createDollarReducer, createIntReducer } from '../utils/stepper';
 import toCurrency from '../utils/to-currency';
-import toNumber from '../utils/to-number';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import DecrementButton from '../components/decrement-button';
@@ -71,27 +67,27 @@ enum ActionType {
 
 interface ChangeTipPercent {
   type: ActionType.CHANGE_TIP_PERCENT;
-  payload: number;
+  payload: string;
 }
 
 interface ChangeTipAmount {
   type: ActionType.CHANGE_TIP_AMOUNT;
-  payload: number;
+  payload: string;
 }
 
 interface ChangeTotalAmount {
   type: ActionType.CHANGE_TOTAL_AMOUNT;
-  payload: number;
+  payload: string;
 }
 
 interface ChangeNumberOfPeople {
   type: ActionType.CHANGE_NUMBER_OF_PEOPLE;
-  payload: number;
+  payload: string;
 }
 
 interface ChangeEachPersonPays {
   type: ActionType.CHANGE_EACH_PERSON_PAYS;
-  payload: number;
+  payload: string;
 }
 
 type Action =
@@ -102,11 +98,11 @@ type Action =
   | ChangeEachPersonPays;
 
 interface State {
-  tipPercent: number;
-  tipAmount: number;
-  totalAmount: number;
-  numberOfPeople: number;
-  eachPersonPays: number;
+  tipPercent: string;
+  tipAmount: string;
+  totalAmount: string;
+  numberOfPeople: string;
+  eachPersonPays: string;
 }
 
 const CalcPage: React.FunctionComponent<
@@ -141,14 +137,18 @@ const CalcPage: React.FunctionComponent<
   )[0].value;
 
   const initialState: State = {
-    tipPercent: initialTipPercent,
-    tipAmount: initialTipAmount,
-    totalAmount: initialTotalAmount,
-    numberOfPeople: initialPartySize,
-    eachPersonPays: initialEachPersonPays,
+    tipPercent: String(initialTipPercent),
+    tipAmount: toCurrency(String(initialTipAmount)),
+    totalAmount: toCurrency(String(initialTotalAmount)),
+    numberOfPeople: String(initialPartySize),
+    eachPersonPays: toCurrency(String(initialEachPersonPays)),
   };
 
   const reducer = (state: State, action: Action): State => {
+    // console.log(`ACTION (${action.type}): ${action.payload}`);
+    // console.log('INCOMING STATE:');
+    // console.table(state);
+
     switch (action.type) {
       case ActionType.CHANGE_TIP_PERCENT: {
         const tipAmount = currency(action.payload)
@@ -156,15 +156,15 @@ const CalcPage: React.FunctionComponent<
           .multiply(billAmount).value;
         const totalAmount = currency(billAmount).add(tipAmount).value;
         const eachPersonPays = currency(totalAmount).distribute(
-          state.numberOfPeople,
+          parseInt(state.numberOfPeople, 10),
         )[0].value;
 
         return {
           tipPercent: action.payload,
-          tipAmount,
-          totalAmount,
+          tipAmount: toCurrency(String(tipAmount)),
+          totalAmount: toCurrency(String(totalAmount)),
           numberOfPeople: state.numberOfPeople,
-          eachPersonPays,
+          eachPersonPays: toCurrency(String(eachPersonPays)),
         };
       }
 
@@ -174,15 +174,15 @@ const CalcPage: React.FunctionComponent<
           .multiply(100).value;
         const totalAmount = currency(billAmount).add(action.payload).value;
         const eachPersonPays = currency(totalAmount).distribute(
-          state.numberOfPeople,
+          parseInt(state.numberOfPeople, 10),
         )[0].value;
 
         return {
-          tipPercent,
+          tipPercent: String(tipPercent),
           tipAmount: action.payload,
-          totalAmount,
+          totalAmount: toCurrency(String(totalAmount)),
           numberOfPeople: state.numberOfPeople,
-          eachPersonPays,
+          eachPersonPays: toCurrency(String(eachPersonPays)),
         };
       }
 
@@ -191,28 +191,30 @@ const CalcPage: React.FunctionComponent<
         const tipPercent = currency(tipAmount)
           .divide(billAmount)
           .multiply(100).value;
-        const eachPersonPays = currency(action.payload).distribute(
-          state.numberOfPeople,
-        )[0].value;
+        const eachPersonPays = toCurrency(
+          currency(action.payload)
+            .distribute(parseInt(state.numberOfPeople, 10))[0]
+            .toString(),
+        );
 
         return {
-          tipPercent,
-          tipAmount,
+          tipPercent: String(tipPercent),
+          tipAmount: toCurrency(String(tipAmount)),
           totalAmount: action.payload,
           numberOfPeople: state.numberOfPeople,
-          eachPersonPays,
+          eachPersonPays: toCurrency(String(eachPersonPays)),
         };
       }
 
       case ActionType.CHANGE_NUMBER_OF_PEOPLE: {
         const eachPersonPays = currency(state.totalAmount).distribute(
-          action.payload,
+          parseInt(action.payload, 10),
         )[0].value;
 
         return {
           ...state,
           numberOfPeople: action.payload,
-          eachPersonPays,
+          eachPersonPays: toCurrency(String(eachPersonPays)),
         };
       }
 
@@ -226,9 +228,9 @@ const CalcPage: React.FunctionComponent<
           .multiply(100).value;
 
         return {
-          tipPercent,
-          tipAmount,
-          totalAmount,
+          tipPercent: String(tipPercent),
+          tipAmount: toCurrency(String(tipAmount)),
+          totalAmount: toCurrency(String(totalAmount)),
           numberOfPeople: state.numberOfPeople,
           eachPersonPays: action.payload,
         };
@@ -240,115 +242,348 @@ const CalcPage: React.FunctionComponent<
 
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  function getNextEvenDollar(amount: currency): number {
-    return amount.add(1).dollars();
-  }
+  // NEW REDUCERS
 
-  function formatCurrency(newValue: currency.Any): string {
-    return currency(newValue).format();
-  }
+  const tipPercentStepper = useStepper({
+    defaultValue: initialTipPercent,
+    stateReducer: createIntReducer({ min: 0 }),
+  });
 
-  function dollarReducer(
-    totalAmountState: StepperState,
-    action: StepperAction,
-  ) {
-    const currentNumericValue = parseFloat(totalAmountState.value);
-    const currentCurrencyValue = currency(currentNumericValue);
-    switch (action.type) {
-      case useStepper.actionTypes.increment: {
-        const newValue = formatCurrency(
-          Math.max(getNextEvenDollar(currentCurrencyValue), billAmount),
-        );
-        if (newValue !== totalAmountState.value) {
-          return { value: newValue };
-        }
-        return totalAmountState;
-      }
-      case useStepper.actionTypes.decrement: {
-        const previousEvenDollar = getPreviousEvenDollar(currentCurrencyValue);
-        const newValue = formatCurrency(
-          Math.max(previousEvenDollar, billAmount),
-        );
-        if (newValue !== totalAmountState.value) {
-          return { value: newValue };
-        }
-        return totalAmountState;
-      }
-      case useStepper.actionTypes.coerce: {
-        return totalAmountState;
-      }
-      case useStepper.actionTypes.setValue: {
-        if (
-          action.payload !== undefined &&
-          action.payload !== totalAmountState.value
-        ) {
-          const newValue = currency(
-            toNumber(toCurrency(action.payload)),
-          ).format();
-          return { value: newValue };
-        }
-        return totalAmountState;
-      }
-      default:
-        return useStepper.defaultReducer(totalAmountState, action);
-    }
-  }
+  const tipAmountStepper = useStepper({
+    defaultValue: initialTipAmount,
+    stateReducer: createDollarReducer({ min: 0 }),
+  });
 
   const totalAmountStepper = useStepper({
     defaultValue: initialTotalAmount,
-    min: billAmount,
-    stateReducer: dollarReducer,
+    stateReducer: createDollarReducer({ min: billAmount }),
   });
 
+  const numberOfPeopleStepper = useStepper({
+    defaultValue: initialPartySize,
+    stateReducer: createIntReducer({ min: 1 }),
+  });
+
+  const eachPersonPaysStepper = useStepper({
+    defaultValue: initialEachPersonPays,
+    stateReducer: createDollarReducer({
+      min: billAmount / initialPartySize,
+    }),
+  });
+
+  /*
+
+  // DISPATCHER EFFECTS
+
+  // tipPercent changed
   React.useEffect(() => {
+    console.log(`tipPercent changed (${tipPercentStepper.value})`);
+    dispatch({
+      type: ActionType.CHANGE_TIP_PERCENT,
+      payload: tipPercentStepper.value,
+      // payload: parseInt(tipPercentStepper.value, 10),
+    });
+  }, [tipPercentStepper.value]);
+
+  // tipAmount changed
+  React.useEffect(() => {
+    console.log(`tipAmount changed (${tipAmountStepper.value})`);
+    dispatch({
+      type: ActionType.CHANGE_TIP_AMOUNT,
+      payload: tipAmountStepper.value,
+      // payload: parseFloat(tipAmountStepper.value),
+    });
+  }, [tipAmountStepper.value]);
+
+  // totalAmount changed
+  React.useEffect(() => {
+    console.log(`totalAmount changed (${totalAmountStepper.value})`);
     dispatch({
       type: ActionType.CHANGE_TOTAL_AMOUNT,
-      payload: currency(totalAmountStepper.value).value,
+      payload: totalAmountStepper.value,
+      // payload: parseFloat(totalAmountStepper.value),
     });
   }, [totalAmountStepper.value]);
 
-  // console.log(
-  //   `state.totalAmount (${typeof state.totalAmount}): ${state.totalAmount}`,
+  // numberOfPeople changed
+  React.useEffect(() => {
+    console.log(`numberOfPeople changed (${numberOfPeopleStepper.value})`);
+    dispatch({
+      type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
+      payload: numberOfPeopleStepper.value,
+      // payload: parseInt(numberOfPeopleStepper.value, 10),
+    });
+  }, [numberOfPeopleStepper.value]);
+
+  // eachPersonPays changed
+  React.useEffect(() => {
+    console.log(`eachPersonPays changed (${eachPersonPaysStepper.value})`);
+    dispatch({
+      type: ActionType.CHANGE_EACH_PERSON_PAYS,
+      payload: eachPersonPaysStepper.value,
+      // payload: parseFloat(eachPersonPaysStepper.value),
+    });
+  }, [eachPersonPaysStepper.value]);
+
+  // MAIN STATE EFFECT
+
+  React.useEffect(() => {
+    const {
+      tipPercent,
+      tipAmount,
+      totalAmount,
+      numberOfPeople,
+      eachPersonPays,
+    } = state;
+
+    console.log('STATE CHANGED');
+    console.table({
+      tipPercent,
+      tipAmount,
+      totalAmount,
+      numberOfPeople,
+      eachPersonPays,
+    });
+
+    tipPercentStepper.setValue(String(tipPercent));
+    console.log(`SETTING TIP AMOUNT: ${tipAmount}`);
+    tipAmountStepper.setValue(String(tipAmount));
+    console.log(`SETTING TOTAL AMOUNT: ${totalAmount}`);
+    totalAmountStepper.setValue(String(totalAmount));
+    numberOfPeopleStepper.setValue(String(numberOfPeople));
+    console.log(`SETTING EPP: ${eachPersonPays}`);
+    eachPersonPaysStepper.setValue(String(eachPersonPays));
+  }, [JSON.stringify(state)]);
+
+  */
+  /*
+
+  // TAKE 2 (memoize reducer creation)
+
+  // const tipPercentReducer = React.useMemo(
+  //   () => createIntReducer({ min: 0 }),
+  //   [],
   // );
-  // console.log(
-  //   `totalAmountStepper.value (${typeof totalAmountStepper.value}): ${
-  //     totalAmountStepper.value
-  //   }`,
+  // const tipAmountReducer = React.useMemo(
+  //   () => createDollarReducer({ min: 0 }),
+  //   [],
+  // );
+  // const totalAmountReducer = React.useMemo(
+  //   () => createDollarReducer({ min: billAmount }),
+  //   [billAmount],
+  // );
+  // const numberOfPeopleReducer = React.useMemo(
+  //   () => createIntReducer({ min: 1 }),
+  //   [],
+  // );
+  // const eachPersonPaysReducer = React.useMemo(
+  //   () =>
+  //     createDollarReducer({
+  //       min: billAmount / initialPartySize,
+  //     }),
+  //   [billAmount, initialPartySize],
   // );
 
-  // React.useEffect(() => {
-  //   console.log(
-  //     `dispatching CHANGE_TOTAL_AMOUNT: ${toNumber(
-  //       toCurrency(totalAmountStepper.value),
-  //     )}`,
-  //   );
-  //   dispatch({
-  //     type: ActionType.CHANGE_TOTAL_AMOUNT,
-  //     // TODO: deal with manually setting below billAmount
-  //     payload: toNumber(toCurrency(totalAmountStepper.value)),
-  //   });
-  // }, [totalAmountStepper.value]);
+  // const tipPercentStepper = useStepper({
+  //   defaultValue: initialTipPercent,
+  //   stateReducer: tipPercentReducer,
+  // });
 
-  // React.useEffect(() => {
-  //   if (String(state.totalAmount) !== totalAmountStepper.value) {
-  //     console.log(
-  //       `DIVERGENCE DETECTED - syncing stepper with app state (state.totalAmount: ${
-  //         state.totalAmount
-  //       }, totalAmountStepper.value: ${totalAmountStepper.value})`,
-  //     );
-  //     totalAmountStepper.setValue(state.totalAmount);
-  //   }
-  // }, [state.totalAmount, totalAmountStepper.value]);
+  // const tipAmountStepper = useStepper({
+  //   defaultValue: initialTipAmount,
+  //   stateReducer: tipAmountReducer,
+  // });
 
-  // function getTotalAmountStepperInputProps(userTotalAmountInputProps) {
-  //   const { ref, ...inputProps } = totalAmountStepper.getInputProps(
-  //     userTotalAmountInputProps,
-  //   );
-  //   return {
-  //     innerRef: ref,
-  //     ...inputProps,
-  //   };
-  // }
+  // const totalAmountStepper = useStepper({
+  //   defaultValue: initialTotalAmount,
+  //   stateReducer: totalAmountReducer,
+  // });
+
+  // const numberOfPeopleStepper = useStepper({
+  //   defaultValue: initialPartySize,
+  //   stateReducer: numberOfPeopleReducer,
+  // });
+
+  // const eachPersonPaysStepper = useStepper({
+  //   defaultValue: initialEachPersonPays,
+  //   stateReducer: eachPersonPaysReducer,
+  // });
+
+  // TAKE 3 (memoize stepper options object)
+
+  // const tipPercentStepper = useStepper(
+  //   React.useMemo(
+  //     () => ({
+  //       defaultValue: initialTipPercent,
+  //       stateReducer: createIntReducer({ min: 0 }),
+  //     }),
+  //     [initialTipPercent],
+  //   ),
+  // );
+
+  // const tipAmountStepper = useStepper(
+  //   React.useMemo(
+  //     () => ({
+  //       defaultValue: initialTipAmount,
+  //       stateReducer: createDollarReducer({ min: 0 }),
+  //     }),
+  //     [initialTipAmount],
+  //   ),
+  // );
+
+  // const totalAmountStepper = useStepper(
+  //   React.useMemo(
+  //     () => ({
+  //       defaultValue: initialTotalAmount,
+  //       stateReducer: createDollarReducer({ min: billAmount }),
+  //     }),
+  //     [initialTotalAmount, billAmount],
+  //   ),
+  // );
+
+  // const numberOfPeopleStepper = useStepper(
+  //   React.useMemo(
+  //     () => ({
+  //       defaultValue: initialPartySize,
+  //       stateReducer: createIntReducer({ min: 1 }),
+  //     }),
+  //     [initialPartySize],
+  //   ),
+  // );
+
+  // const eachPersonPaysStepper = useStepper(
+  //   React.useMemo(
+  //     () => ({
+  //       defaultValue: initialEachPersonPays,
+  //       stateReducer: createDollarReducer({
+  //         min: billAmount / initialPartySize,
+  //       }),
+  //     }),
+  //     [initialEachPersonPays, billAmount, initialPartySize],
+  //   ),
+  // );
+
+  */
+
+  /*
+
+  // BUGGY EFFECTS! 🤣
+
+  // tipPercent changed
+  React.useEffect(() => {
+    console.log(`tipPercent changed (${tipPercentStepper.value})`);
+    const tipAmount = currency(tipPercentStepper.value)
+      .divide(100)
+      .multiply(billAmount).value;
+    console.log('TCL: tipAmount', tipAmount);
+    const totalAmount = currency(billAmount).add(tipAmount).value;
+    console.log('TCL: totalAmount', totalAmount);
+    const eachPersonPays = currency(totalAmount).distribute(
+      parseInt(numberOfPeopleStepper.value, 10),
+    )[0].value;
+    console.log('TCL: eachPersonPays', eachPersonPays);
+
+    tipAmountStepper.setValue(String(tipAmount));
+    totalAmountStepper.setValue(String(totalAmount));
+    eachPersonPaysStepper.setValue(String(eachPersonPays));
+  }, [
+    tipPercentStepper.value,
+    // tipPercentStepper,
+    // billAmount,
+    // numberOfPeopleStepper.value,
+    // tipAmountStepper,
+    // totalAmountStepper,
+    // eachPersonPaysStepper,
+  ]);
+
+  // tipAmount changed
+  React.useEffect(() => {
+    console.log('tipAmount changed');
+    const tipPercent = currency(tipAmountStepper.value)
+      .divide(billAmount)
+      .multiply(100).value;
+    const totalAmount = currency(billAmount).add(tipAmountStepper.value).value;
+    const eachPersonPays = currency(totalAmount).distribute(
+      parseInt(eachPersonPaysStepper.value, 10),
+    )[0].value;
+
+    tipPercentStepper.setValue(String(tipPercent));
+    totalAmountStepper.setValue(String(totalAmount));
+    eachPersonPaysStepper.setValue(String(eachPersonPays));
+  }, [
+    tipAmountStepper.value,
+    // billAmount,
+    // tipPercentStepper,
+    // totalAmountStepper,
+    // eachPersonPaysStepper,
+  ]);
+
+  // totalAmount changed
+  React.useEffect(() => {
+    console.log(`totalAmount changed (${totalAmountStepper.value})`);
+    const tipAmount = currency(totalAmountStepper.value).subtract(billAmount)
+      .value;
+    console.log('TCL: tipAmount', tipAmount);
+    const tipPercent = currency(tipAmount)
+      .divide(billAmount)
+      .multiply(100).value;
+    console.log('TCL: tipPercent', tipPercent);
+    const eachPersonPays = currency(totalAmountStepper.value).distribute(
+      parseInt(numberOfPeopleStepper.value, 10),
+    )[0].value;
+    console.log('TCL: eachPersonPays', eachPersonPays);
+
+    tipPercentStepper.setValue(String(tipPercent));
+    tipAmountStepper.setValue(String(tipAmount));
+    eachPersonPaysStepper.setValue(String(eachPersonPays));
+  }, [
+    totalAmountStepper.value,
+    // billAmount,
+    // numberOfPeopleStepper.value,
+    // tipPercentStepper,
+    // tipAmountStepper,
+    // eachPersonPaysStepper.value,
+    // eachPersonPaysStepper,
+  ]);
+
+  // numberOfPeople changed
+  React.useEffect(() => {
+    console.log('numberOfPeople changed');
+    const eachPersonPays = currency(totalAmountStepper.value).distribute(
+      parseInt(numberOfPeopleStepper.value, 10),
+    )[0].value;
+
+    eachPersonPaysStepper.setValue(String(eachPersonPays));
+  }, [
+    // totalAmountStepper.value,
+    numberOfPeopleStepper.value,
+    // eachPersonPaysStepper,
+  ]);
+
+  // eachPersonPays changed
+  React.useEffect(() => {
+    console.log('eachPersonPays changed');
+    const totalAmount = currency(eachPersonPaysStepper.value).multiply(
+      parseInt(numberOfPeopleStepper.value, 10),
+    ).value;
+    const tipAmount = currency(totalAmount).subtract(billAmount).value;
+    const tipPercent = currency(tipAmount)
+      .divide(billAmount)
+      .multiply(100).value;
+
+    tipPercentStepper.setValue(String(tipPercent));
+    tipAmountStepper.setValue(String(tipAmount));
+    totalAmountStepper.setValue(String(totalAmount));
+  }, [
+    eachPersonPaysStepper.value,
+    // numberOfPeopleStepper.value,
+    // billAmount,
+    // tipPercentStepper,
+    // tipAmountStepper,
+    // totalAmountStepper,
+  ]);
+
+  */
 
   function startOver() {
     if (navigate) {
@@ -374,32 +609,16 @@ const CalcPage: React.FunctionComponent<
           >
             <DecrementButton
               aria-label="decrement tip percent"
-              onClick={() => {
-                dispatch({
-                  type: ActionType.CHANGE_TIP_PERCENT,
-                  payload: state.tipPercent < 1 ? 0 : state.tipPercent - 1,
-                });
-              }}
+              {...tipPercentStepper.getDecrementProps()}
             />
             <CalcInput
               id="tip-percent"
               name="tip-percent"
-              value={state.tipPercent}
-              onChange={e => {
-                dispatch({
-                  type: ActionType.CHANGE_TIP_PERCENT,
-                  payload: toNumber(e.target.value),
-                });
-              }}
+              {...tipPercentStepper.getInputProps()}
             />
             <IncrementButton
               aria-label="increment tip percent"
-              onClick={() => {
-                dispatch({
-                  type: ActionType.CHANGE_TIP_PERCENT,
-                  payload: state.tipPercent + 1,
-                });
-              }}
+              {...tipPercentStepper.getIncrementProps()}
             />
           </Cell>
           <Cell
@@ -416,36 +635,18 @@ const CalcPage: React.FunctionComponent<
           >
             <DecrementButton
               aria-label="decrement tip amount"
-              onClick={() => {
-                const current = currency(state.tipAmount, { increment: 1 });
-                const previousEvenDollar = getPreviousEvenDollar(current);
-                dispatch({
-                  type: ActionType.CHANGE_TIP_AMOUNT,
-                  payload: current.value < 1 ? 0 : previousEvenDollar,
-                });
-              }}
+              {...tipAmountStepper.getDecrementProps()}
             />
             <CalcInput
               id="tip-amount"
               name="tip-amount"
-              value={currency(state.tipAmount).format()}
-              onChange={e => {
-                dispatch({
-                  type: ActionType.CHANGE_TIP_AMOUNT,
-                  payload: toNumber(toCurrency(e.target.value)),
-                });
-              }}
+              {...tipAmountStepper.getInputProps({
+                onChange: () => {},
+              })}
             />
             <IncrementButton
               aria-label="increment tip amount"
-              onClick={() => {
-                dispatch({
-                  type: ActionType.CHANGE_TIP_AMOUNT,
-                  payload: currency(state.tipAmount, { increment: 1 })
-                    .add(1)
-                    .dollars(),
-                });
-              }}
+              {...tipAmountStepper.getIncrementProps()}
             />
           </Cell>
           <HeroCell
@@ -462,7 +663,9 @@ const CalcPage: React.FunctionComponent<
           >
             <DecrementButton
               aria-label="decrement total amount"
-              {...totalAmountStepper.getDecrementProps({})}
+              {...totalAmountStepper.getDecrementProps({
+                onClick: () => {},
+              })}
             />
             <CalcInput
               css={css`
@@ -470,12 +673,16 @@ const CalcPage: React.FunctionComponent<
               `}
               id="total-amount"
               name="total-amount"
-              {...totalAmountStepper.getInputProps()}
+              {...totalAmountStepper.getInputProps({
+                onChange: e => {},
+              })}
               // value={currency(state.totalAmount).format()}
             />
             <IncrementButton
               aria-label="increment total amount"
-              {...totalAmountStepper.getIncrementProps({})}
+              {...totalAmountStepper.getIncrementProps({
+                onClick: () => {},
+              })}
             />
           </HeroCell>
           <Cell
@@ -492,34 +699,16 @@ const CalcPage: React.FunctionComponent<
           >
             <DecrementButton
               aria-label="decrement number of people"
-              onClick={() => {
-                dispatch({
-                  type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
-                  payload:
-                    state.numberOfPeople < 2 ? 1 : state.numberOfPeople - 1,
-                });
-              }}
+              {...numberOfPeopleStepper.getDecrementProps()}
             />
             <CalcInput
               id="number-of-people"
               name="number-of-people"
-              value={state.numberOfPeople}
-              onChange={e => {
-                dispatch({
-                  type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
-                  // TODO: deal with manually setting to 0
-                  payload: toNumber(e.target.value),
-                });
-              }}
+              {...numberOfPeopleStepper.getInputProps()}
             />
             <IncrementButton
               aria-label="increment number of people"
-              onClick={() => {
-                dispatch({
-                  type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
-                  payload: state.numberOfPeople + 1,
-                });
-              }}
+              {...numberOfPeopleStepper.getIncrementProps()}
             />
           </Cell>
           <Cell
@@ -536,45 +725,16 @@ const CalcPage: React.FunctionComponent<
           >
             <DecrementButton
               aria-label="decrement each person pays"
-              onClick={() => {
-                const current = currency(state.eachPersonPays, {
-                  increment: 1,
-                });
-                const previousEvenDollar = getPreviousEvenDollar(current);
-                const minPerPerson = currency(billAmount).distribute(
-                  state.numberOfPeople,
-                )[0].value;
-                dispatch({
-                  type: ActionType.CHANGE_EACH_PERSON_PAYS,
-                  payload:
-                    previousEvenDollar < minPerPerson
-                      ? minPerPerson
-                      : previousEvenDollar,
-                });
-              }}
+              {...eachPersonPaysStepper.getDecrementProps()}
             />
             <CalcInput
               id="each-person-pays"
               name="each-person-pays"
-              value={currency(state.eachPersonPays).format()}
-              onChange={e => {
-                dispatch({
-                  type: ActionType.CHANGE_EACH_PERSON_PAYS,
-                  // TODO: deal with manually setting below minPerPerson
-                  payload: toNumber(toCurrency(e.target.value)),
-                });
-              }}
+              {...eachPersonPaysStepper.getInputProps()}
             />
             <IncrementButton
               aria-label="increment each person pays"
-              onClick={() => {
-                dispatch({
-                  type: ActionType.CHANGE_EACH_PERSON_PAYS,
-                  payload: currency(state.eachPersonPays, { increment: 1 })
-                    .add(1)
-                    .dollars(),
-                });
-              }}
+              {...eachPersonPaysStepper.getIncrementProps()}
             />
           </Cell>
         </CalcGrid>
