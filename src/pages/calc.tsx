@@ -3,6 +3,10 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import get from 'lodash/get';
 import currency from 'currency.js';
+import useStepper, {
+  State as StepperState,
+  Action as StepperAction,
+} from 'use-stepper';
 import { rhythm, scale } from '../utils/typography';
 import getPreviousEvenDollar from '../utils/get-previous-even-dollar';
 import toCurrency from '../utils/to-currency';
@@ -236,6 +240,116 @@ const CalcPage: React.FunctionComponent<
 
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
+  function getNextEvenDollar(amount: currency): number {
+    return amount.add(1).dollars();
+  }
+
+  function formatCurrency(newValue: currency.Any): string {
+    return currency(newValue).format();
+  }
+
+  function dollarReducer(
+    totalAmountState: StepperState,
+    action: StepperAction,
+  ) {
+    const currentNumericValue = parseFloat(totalAmountState.value);
+    const currentCurrencyValue = currency(currentNumericValue);
+    switch (action.type) {
+      case useStepper.actionTypes.increment: {
+        const newValue = formatCurrency(
+          Math.max(getNextEvenDollar(currentCurrencyValue), billAmount),
+        );
+        if (newValue !== totalAmountState.value) {
+          return { value: newValue };
+        }
+        return totalAmountState;
+      }
+      case useStepper.actionTypes.decrement: {
+        const previousEvenDollar = getPreviousEvenDollar(currentCurrencyValue);
+        const newValue = formatCurrency(
+          Math.max(previousEvenDollar, billAmount),
+        );
+        if (newValue !== totalAmountState.value) {
+          return { value: newValue };
+        }
+        return totalAmountState;
+      }
+      case useStepper.actionTypes.coerce: {
+        return totalAmountState;
+      }
+      case useStepper.actionTypes.setValue: {
+        if (
+          action.payload !== undefined &&
+          action.payload !== totalAmountState.value
+        ) {
+          const newValue = currency(
+            toNumber(toCurrency(action.payload)),
+          ).format();
+          return { value: newValue };
+        }
+        return totalAmountState;
+      }
+      default:
+        return useStepper.defaultReducer(totalAmountState, action);
+    }
+  }
+
+  const totalAmountStepper = useStepper({
+    defaultValue: initialTotalAmount,
+    min: billAmount,
+    stateReducer: dollarReducer,
+  });
+
+  React.useEffect(() => {
+    dispatch({
+      type: ActionType.CHANGE_TOTAL_AMOUNT,
+      payload: currency(totalAmountStepper.value).value,
+    });
+  }, [totalAmountStepper.value]);
+
+  // console.log(
+  //   `state.totalAmount (${typeof state.totalAmount}): ${state.totalAmount}`,
+  // );
+  // console.log(
+  //   `totalAmountStepper.value (${typeof totalAmountStepper.value}): ${
+  //     totalAmountStepper.value
+  //   }`,
+  // );
+
+  // React.useEffect(() => {
+  //   console.log(
+  //     `dispatching CHANGE_TOTAL_AMOUNT: ${toNumber(
+  //       toCurrency(totalAmountStepper.value),
+  //     )}`,
+  //   );
+  //   dispatch({
+  //     type: ActionType.CHANGE_TOTAL_AMOUNT,
+  //     // TODO: deal with manually setting below billAmount
+  //     payload: toNumber(toCurrency(totalAmountStepper.value)),
+  //   });
+  // }, [totalAmountStepper.value]);
+
+  // React.useEffect(() => {
+  //   if (String(state.totalAmount) !== totalAmountStepper.value) {
+  //     console.log(
+  //       `DIVERGENCE DETECTED - syncing stepper with app state (state.totalAmount: ${
+  //         state.totalAmount
+  //       }, totalAmountStepper.value: ${totalAmountStepper.value})`,
+  //     );
+  //     totalAmountStepper.setValue(state.totalAmount);
+  //   }
+  // }, [state.totalAmount, totalAmountStepper.value]);
+
+  // function getTotalAmountStepperInputProps(userTotalAmountInputProps) {
+  //   const { ref, ...inputProps } = totalAmountStepper.getInputProps(
+  //     userTotalAmountInputProps,
+  //   );
+  //   return {
+  //     innerRef: ref,
+  //     ...inputProps,
+  //   };
+  // }
+
   function startOver() {
     if (navigate) {
       navigate('/', { replace: true });
@@ -348,17 +462,7 @@ const CalcPage: React.FunctionComponent<
           >
             <DecrementButton
               aria-label="decrement total amount"
-              onClick={() => {
-                const current = currency(state.totalAmount, { increment: 1 });
-                const previousEvenDollar = getPreviousEvenDollar(current);
-                dispatch({
-                  type: ActionType.CHANGE_TOTAL_AMOUNT,
-                  payload:
-                    previousEvenDollar < billAmount
-                      ? billAmount
-                      : previousEvenDollar,
-                });
-              }}
+              {...totalAmountStepper.getDecrementProps({})}
             />
             <CalcInput
               css={css`
@@ -366,25 +470,12 @@ const CalcPage: React.FunctionComponent<
               `}
               id="total-amount"
               name="total-amount"
-              value={currency(state.totalAmount).format()}
-              onChange={e => {
-                dispatch({
-                  type: ActionType.CHANGE_TOTAL_AMOUNT,
-                  // TODO: deal with manually setting below billAmount
-                  payload: toNumber(toCurrency(e.target.value)),
-                });
-              }}
+              {...totalAmountStepper.getInputProps()}
+              // value={currency(state.totalAmount).format()}
             />
             <IncrementButton
               aria-label="increment total amount"
-              onClick={() => {
-                dispatch({
-                  type: ActionType.CHANGE_TOTAL_AMOUNT,
-                  payload: currency(state.totalAmount, { increment: 1 })
-                    .add(1)
-                    .dollars(),
-                });
-              }}
+              {...totalAmountStepper.getIncrementProps({})}
             />
           </HeroCell>
           <Cell

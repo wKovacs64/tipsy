@@ -65,7 +65,8 @@
     "typography": "0.16.19",
     "typography-theme-moraga": "0.16.19",
     "use-dark-mode": "2.3.1",
-    "use-persisted-state": "0.3.0"
+    "use-persisted-state": "0.3.0",
+    "use-stepper": "2.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",

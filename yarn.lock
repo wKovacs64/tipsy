@@ -14410,6 +14410,11 @@ use-persisted-state@0.3.0, use-persisted-state@^0.3.0:
   dependencies:
     "@use-it/event-listener" "^0.1.2"
 
+use-stepper@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/use-stepper/-/use-stepper-2.0.0.tgz#1aec57355931dd2f544f4c7fec83a65a969ff32d"
+  integrity sha512-up9YplwqWt13eFF11iTCCv7gwQjDrdsin/DneSqq4m56W5cOgx7HM+9uWIoRk076G8RZV5+TOO6O2Tte4ocKIg==
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
