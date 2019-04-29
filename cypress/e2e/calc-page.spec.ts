@@ -46,15 +46,15 @@ function expectValues({
   eachPersonPays: string;
 }): Cypress.Chainable {
   return cy
-    .getByLabelText(/tip percent/i)
+    .getByLabelText(/^tip percent \(%\)$/i)
     .should('have.value', tipPercent)
-    .getByLabelText(/tip amount/i)
+    .getByLabelText(/^tip amount$/i)
     .should('have.value', tipAmount)
-    .getByLabelText(/total amount/i)
+    .getByLabelText(/^total amount$/i)
     .should('have.value', totalAmount)
-    .getByLabelText(/number of people/i)
+    .getByLabelText(/^number of people$/i)
     .should('have.value', numberOfPeople)
-    .getByLabelText(/each person pays/i)
+    .getByLabelText(/^each person pays$/i)
     .should('have.value', eachPersonPays);
 }
 
@@ -151,7 +151,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Tip Percent', () => {
     setupCalcTests()
-      .getByLabelText(/tip percent/i)
+      .getByLabelText(/^tip percent \(%\)$/i)
       .click()
       .type('15');
     expectValues({
@@ -191,7 +191,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Tip Amount', () => {
     setupCalcTests()
-      .getByLabelText(/tip amount/i)
+      .getByLabelText(/^tip amount$/i)
       .click()
       .type('285');
     expectValues({
@@ -231,7 +231,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Total Amount', () => {
     setupCalcTests()
-      .getByLabelText(/total amount/i)
+      .getByLabelText(/^total amount$/i)
       .click()
       .type('1600');
     expectValues({
@@ -271,7 +271,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Number of People', () => {
     setupCalcTests()
-      .getByLabelText(/number of people/i)
+      .getByLabelText(/^number of people$/i)
       .click()
       .type('3');
     expectValues({
@@ -311,7 +311,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Each Person Pays', () => {
     setupCalcTests()
-      .getByLabelText(/each person pays/i)
+      .getByLabelText(/^each person pays$/i)
       .click()
       .type('1600');
     expectValues({
