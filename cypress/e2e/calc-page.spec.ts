@@ -154,7 +154,6 @@ describe('Calc Page', () => {
       .getByLabelText(/^tip percent \(%\)$/i)
       .click()
       .type('15');
-    cy.wait(10);
     expectValues({
       tipPercent: '15',
       tipAmount: '1.85',
@@ -195,7 +194,6 @@ describe('Calc Page', () => {
       .getByLabelText(/^tip amount$/i)
       .click()
       .type('285');
-    cy.wait(10);
     expectValues({
       tipPercent: '23',
       tipAmount: '2.85',
@@ -236,7 +234,6 @@ describe('Calc Page', () => {
       .getByLabelText(/^total amount$/i)
       .click()
       .type('1600');
-    cy.wait(10);
     expectValues({
       tipPercent: '30',
       tipAmount: '3.65',
@@ -277,7 +274,6 @@ describe('Calc Page', () => {
       .getByLabelText(/^number of people$/i)
       .click()
       .type('3');
-    cy.wait(10);
     expectValues({
       tipPercent: '20',
       tipAmount: '2.47',
@@ -318,7 +314,6 @@ describe('Calc Page', () => {
       .getByLabelText(/^each person pays$/i)
       .click()
       .type('1600');
-    cy.wait(10);
     expectValues({
       tipPercent: '30',
       tipAmount: '3.65',
