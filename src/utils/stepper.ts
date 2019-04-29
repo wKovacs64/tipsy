@@ -100,8 +100,9 @@ export function createIntReducer(
       case useStepper.actionTypes.setValue: {
         if (action.payload !== undefined) {
           const desiredInt = parseInt(action.payload || '0', 10);
+          const newValue = String(desiredInt);
           if (!Number.isNaN(desiredInt)) {
-            const newValue = validValueClosestTo(desiredInt);
+            // const newValue = validValueClosestTo(desiredInt);
             if (newValue !== intReducerState.value) {
               return { value: newValue };
             }
