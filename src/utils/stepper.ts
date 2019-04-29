@@ -5,6 +5,7 @@ import useStepper, {
 } from 'use-stepper';
 import getPreviousEvenDollar from './get-previous-even-dollar';
 import getNextEvenDollar from './get-next-even-dollar';
+import toCurrency from './to-currency';
 
 export function formatCurrency(newValue: currency.Any): string {
   return currency(newValue).format();
@@ -30,31 +31,19 @@ export function createDollarReducer(
         const newValue = validValueClosestTo(
           getNextEvenDollar(currentCurrencyValue),
         );
-        if (newValue !== dollarReducerState.value) {
-          return { value: newValue };
-        }
-        return dollarReducerState;
+        return { value: newValue };
       }
       case useStepper.actionTypes.decrement: {
         const previousEvenDollar = getPreviousEvenDollar(currentCurrencyValue);
         const newValue = validValueClosestTo(previousEvenDollar);
-        if (newValue !== dollarReducerState.value) {
-          return { value: newValue };
-        }
-        return dollarReducerState;
+        return { value: newValue };
       }
       case useStepper.actionTypes.coerce: {
         return dollarReducerState;
       }
       case useStepper.actionTypes.setValue: {
-        // console.log(`--- dollarStepper setValue: ${action.payload}`);
-        if (
-          action.payload !== undefined &&
-          action.payload !== dollarReducerState.value
-        ) {
-          const newValue = formatCurrency(action.payload);
-          // const newValue = toCurrency(action.payload);
-          // console.log('TCL: newValue', newValue);
+        if (action.payload !== undefined) {
+          const newValue = toCurrency(action.payload);
           return { value: newValue };
         }
         return dollarReducerState;
@@ -82,17 +71,11 @@ export function createIntReducer(
     switch (action.type) {
       case useStepper.actionTypes.increment: {
         const newValue = validValueClosestTo(integerValue + 1);
-        if (newValue !== intReducerState.value) {
-          return { value: newValue };
-        }
-        return intReducerState;
+        return { value: newValue };
       }
       case useStepper.actionTypes.decrement: {
         const newValue = validValueClosestTo(integerValue - 1);
-        if (newValue !== intReducerState.value) {
-          return { value: newValue };
-        }
-        return intReducerState;
+        return { value: newValue };
       }
       case useStepper.actionTypes.coerce: {
         return intReducerState;
@@ -102,10 +85,7 @@ export function createIntReducer(
           const desiredInt = parseInt(action.payload || '0', 10);
           if (!Number.isNaN(desiredInt)) {
             const newValue = validValueClosestTo(desiredInt);
-            // const newValue = String(desiredInt);
-            if (newValue !== intReducerState.value) {
-              return { value: newValue };
-            }
+            return { value: newValue };
           }
         }
         return intReducerState;

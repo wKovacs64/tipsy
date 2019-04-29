@@ -5,11 +5,7 @@ import get from 'lodash/get';
 import currency from 'currency.js';
 import useStepper from 'use-stepper';
 import { rhythm, scale } from '../utils/typography';
-import {
-  createDollarReducer,
-  createIntReducer,
-  formatCurrency,
-} from '../utils/stepper';
+import { createDollarReducer, createIntReducer } from '../utils/stepper';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import DecrementButton from '../components/decrement-button';
@@ -91,11 +87,11 @@ const CalcPage: React.FunctionComponent<
   const billAmount = get(location, 'state.bill', 0);
   const initialTipAmount = currency(billAmount)
     .multiply(initialTipPercent)
-    .divide(100).value;
-  const initialTotalAmount = currency(billAmount).add(initialTipAmount).value;
+    .divide(100);
+  const initialTotalAmount = currency(billAmount).add(initialTipAmount);
   const initialEachPersonPays = currency(initialTotalAmount).distribute(
     initialPartySize,
-  )[0].value;
+  )[0];
 
   const tipPercentStepper = useStepper({
     defaultValue: initialTipPercent,
@@ -103,7 +99,7 @@ const CalcPage: React.FunctionComponent<
   });
 
   const tipAmountStepper = useStepper({
-    defaultValue: initialTipAmount,
+    defaultValue: initialTipAmount.value,
     stateReducer: createDollarReducer({ min: 0 }),
   });
 
@@ -113,14 +109,14 @@ const CalcPage: React.FunctionComponent<
   });
 
   const totalAmountStepper = useStepper({
-    defaultValue: initialTotalAmount,
+    defaultValue: initialTotalAmount.value,
     stateReducer: createDollarReducer({
       min: billAmount / parseInt(numberOfPeopleStepper.value, 10),
     }),
   });
 
   const eachPersonPaysStepper = useStepper({
-    defaultValue: initialEachPersonPays,
+    defaultValue: initialEachPersonPays.value,
     stateReducer: createDollarReducer({
       min: billAmount / parseInt(numberOfPeopleStepper.value, 10),
     }),
@@ -137,87 +133,121 @@ const CalcPage: React.FunctionComponent<
     if (tipPercentUpdated.current) {
       const tipAmount = currency(tipPercentStepper.value)
         .divide(100)
-        .multiply(billAmount).value;
-      const totalAmount = currency(billAmount).add(tipAmount).value;
+        .multiply(billAmount);
+      const totalAmount = currency(billAmount).add(tipAmount);
       const eachPersonPays = currency(totalAmount).distribute(
         parseInt(numberOfPeopleStepper.value, 10),
-      )[0].value;
+      )[0];
 
-      tipAmountStepper.setValue(formatCurrency(tipAmount));
-      totalAmountStepper.setValue(formatCurrency(totalAmount));
-      eachPersonPaysStepper.setValue(formatCurrency(eachPersonPays));
+      tipAmountStepper.setValue(String(tipAmount.intValue));
+      totalAmountStepper.setValue(String(totalAmount.intValue));
+      eachPersonPaysStepper.setValue(String(eachPersonPays.intValue));
 
       tipPercentUpdated.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tipPercentUpdated.current]);
+  }, [
+    tipPercentStepper.value,
+    billAmount,
+    eachPersonPaysStepper,
+    numberOfPeopleStepper.value,
+    tipAmountStepper,
+    totalAmountStepper,
+  ]);
 
   // tipAmount updated
   React.useEffect(() => {
-    const tipPercent = currency(tipAmountStepper.value)
-      .divide(billAmount)
-      .multiply(100).value;
-    const totalAmount = currency(billAmount).add(tipAmountStepper.value).value;
-    const eachPersonPays = currency(totalAmount).distribute(
-      parseInt(numberOfPeopleStepper.value, 10),
-    )[0].value;
+    if (tipAmountUpdated.current) {
+      const tipPercent = currency(tipAmountStepper.value)
+        .divide(billAmount)
+        .multiply(100);
+      const totalAmount = currency(billAmount).add(tipAmountStepper.value);
+      const eachPersonPays = currency(totalAmount).distribute(
+        parseInt(numberOfPeopleStepper.value, 10),
+      )[0];
 
-    tipPercentStepper.setValue(String(tipPercent));
-    totalAmountStepper.setValue(formatCurrency(totalAmount));
-    eachPersonPaysStepper.setValue(formatCurrency(eachPersonPays));
+      tipPercentStepper.setValue(String(tipPercent.value));
+      totalAmountStepper.setValue(String(totalAmount.intValue));
+      eachPersonPaysStepper.setValue(String(eachPersonPays.intValue));
 
-    tipAmountUpdated.current = false;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tipAmountUpdated.current]);
+      tipAmountUpdated.current = false;
+    }
+  }, [
+    billAmount,
+    eachPersonPaysStepper,
+    numberOfPeopleStepper.value,
+    tipAmountStepper.value,
+    tipPercentStepper,
+    totalAmountStepper,
+  ]);
 
   // totalAmount updated
   React.useEffect(() => {
-    const tipAmount = currency(totalAmountStepper.value).subtract(billAmount)
-      .value;
-    const tipPercent = currency(tipAmount)
-      .divide(billAmount)
-      .multiply(100).value;
-    const eachPersonPays = currency(totalAmountStepper.value).distribute(
-      parseInt(numberOfPeopleStepper.value, 10),
-    )[0].value;
+    if (totalAmountUpdated.current) {
+      const tipAmount = currency(totalAmountStepper.value).subtract(billAmount);
+      const tipPercent = currency(tipAmount)
+        .divide(billAmount)
+        .multiply(100);
+      const eachPersonPays = currency(totalAmountStepper.value).distribute(
+        parseInt(numberOfPeopleStepper.value, 10),
+      )[0];
 
-    tipPercentStepper.setValue(String(tipPercent));
-    tipAmountStepper.setValue(formatCurrency(tipAmount));
-    eachPersonPaysStepper.setValue(formatCurrency(eachPersonPays));
+      tipPercentStepper.setValue(String(tipPercent.value));
+      tipAmountStepper.setValue(String(tipAmount.intValue));
+      eachPersonPaysStepper.setValue(String(eachPersonPays.intValue));
 
-    totalAmountUpdated.current = false;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalAmountUpdated.current]);
+      totalAmountUpdated.current = false;
+    }
+  }, [
+    billAmount,
+    eachPersonPaysStepper,
+    numberOfPeopleStepper.value,
+    tipAmountStepper,
+    tipPercentStepper,
+    totalAmountStepper.value,
+  ]);
 
   // numberOfPeople updated
   React.useEffect(() => {
-    const eachPersonPays = currency(totalAmountStepper.value).distribute(
-      parseInt(numberOfPeopleStepper.value, 10),
-    )[0].value;
+    if (numberOfPeopleUpdated.current) {
+      const eachPersonPays = currency(totalAmountStepper.value).distribute(
+        parseInt(numberOfPeopleStepper.value, 10),
+      )[0];
 
-    eachPersonPaysStepper.setValue(formatCurrency(eachPersonPays));
+      eachPersonPaysStepper.setValue(String(eachPersonPays.intValue));
 
-    numberOfPeopleUpdated.current = false;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [numberOfPeopleUpdated.current]);
+      numberOfPeopleUpdated.current = false;
+    }
+  }, [
+    eachPersonPaysStepper,
+    numberOfPeopleStepper.value,
+    totalAmountStepper.value,
+  ]);
 
   // eachPersonPays updated
   React.useEffect(() => {
-    const totalAmount = currency(eachPersonPaysStepper.value).multiply(
-      parseInt(numberOfPeopleStepper.value, 10),
-    ).value;
-    const tipAmount = currency(totalAmount).subtract(billAmount).value;
-    const tipPercent = currency(tipAmount)
-      .divide(billAmount)
-      .multiply(100).value;
+    if (eachPersonPaysUpdated.current) {
+      const totalAmount = currency(eachPersonPaysStepper.value).multiply(
+        parseInt(numberOfPeopleStepper.value, 10),
+      );
+      const tipAmount = currency(totalAmount).subtract(billAmount);
+      const tipPercent = currency(tipAmount)
+        .divide(billAmount)
+        .multiply(100);
 
-    totalAmountStepper.setValue(formatCurrency(totalAmount));
-    tipAmountStepper.setValue(formatCurrency(tipAmount));
-    tipPercentStepper.setValue(String(tipPercent));
+      tipPercentStepper.setValue(String(tipPercent.value));
+      tipAmountStepper.setValue(String(tipAmount.intValue));
+      totalAmountStepper.setValue(String(totalAmount.intValue));
 
-    eachPersonPaysUpdated.current = false;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [eachPersonPaysUpdated.current]);
+      eachPersonPaysUpdated.current = false;
+    }
+  }, [
+    billAmount,
+    eachPersonPaysStepper.value,
+    numberOfPeopleStepper.value,
+    tipAmountStepper,
+    totalAmountStepper,
+    tipPercentStepper,
+  ]);
 
   return (
     <Layout>
