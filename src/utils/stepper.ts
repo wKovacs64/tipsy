@@ -5,8 +5,6 @@ import useStepper, {
 } from 'use-stepper';
 import getPreviousEvenDollar from './get-previous-even-dollar';
 import getNextEvenDollar from './get-next-even-dollar';
-import toNumber from './to-number';
-import toCurrency from './to-currency';
 
 export function formatCurrency(newValue: currency.Any): string {
   return currency(newValue).format();
@@ -54,7 +52,8 @@ export function createDollarReducer(
           action.payload !== undefined &&
           action.payload !== dollarReducerState.value
         ) {
-          const newValue = toCurrency(action.payload);
+          const newValue = formatCurrency(action.payload);
+          // const newValue = toCurrency(action.payload);
           // console.log('TCL: newValue', newValue);
           return { value: newValue };
         }
