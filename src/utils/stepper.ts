@@ -11,13 +11,12 @@ export function formatCurrency(newValue: currency.Any): string {
   return currency(newValue).format();
 }
 
-export function createDollarReducer(
-  { min }: { min: number } = { min: -Number.MAX_VALUE },
-): typeof useStepper.defaultReducer {
+export function createDollarReducer({
+  min = -Number.MAX_VALUE,
+  max = Number.MAX_VALUE,
+}: { min?: number; max?: number } = {}): typeof useStepper.defaultReducer {
   function validValueClosestTo(desiredFloat: number): string {
-    return formatCurrency(
-      Math.min(Number.MAX_VALUE, Math.max(desiredFloat, min)),
-    );
+    return formatCurrency(Math.min(max, Math.max(desiredFloat, min)));
   }
 
   function dollarReducer(
@@ -56,11 +55,12 @@ export function createDollarReducer(
   return dollarReducer;
 }
 
-export function createIntReducer(
-  { min }: { min: number } = { min: -Number.MAX_VALUE },
-): typeof useStepper.defaultReducer {
+export function createIntReducer({
+  min = Number.MIN_SAFE_INTEGER,
+  max = Number.MAX_SAFE_INTEGER,
+}: { min?: number; max?: number } = {}): typeof useStepper.defaultReducer {
   function validValueClosestTo(desiredInt: number): string {
-    return String(Math.min(Number.MAX_SAFE_INTEGER, Math.max(desiredInt, min)));
+    return String(Math.min(max, Math.max(desiredInt, min)));
   }
 
   function intReducer(
