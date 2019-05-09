@@ -1,13 +1,10 @@
 import currency from 'currency.js';
-import useStepper, {
-  State as StepperState,
-  Action as StepperAction,
-} from 'use-stepper';
+import useStepper from 'use-stepper';
 import getPreviousEvenDollar from './get-previous-even-dollar';
 import getNextEvenDollar from './get-next-even-dollar';
 import toCurrency from './to-currency';
 
-export function formatCurrency(newValue: currency.Any): string {
+function formatCurrency(newValue: currency.Any): string {
   return currency(newValue).format();
 }
 
@@ -20,9 +17,9 @@ export function createDollarReducer({
   }
 
   function dollarReducer(
-    dollarReducerState: StepperState,
-    action: StepperAction,
-  ): StepperState {
+    dollarReducerState: import('use-stepper').State,
+    action: import('use-stepper').Action,
+  ): import('use-stepper').State {
     const currentNumericValue = parseFloat(dollarReducerState.value);
     const currentCurrencyValue = currency(currentNumericValue);
     switch (action.type) {
@@ -64,9 +61,9 @@ export function createIntReducer({
   }
 
   function intReducer(
-    intReducerState: StepperState,
-    action: StepperAction,
-  ): StepperState {
+    intReducerState: import('use-stepper').State,
+    action: import('use-stepper').Action,
+  ): import('use-stepper').State {
     const integerValue = parseInt(intReducerState.value, 10);
     switch (action.type) {
       case useStepper.actionTypes.increment: {
