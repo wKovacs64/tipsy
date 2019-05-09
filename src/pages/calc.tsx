@@ -129,7 +129,7 @@ const CalcPage: React.FunctionComponent<
   }
 
   // tipPercent updated
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (tipPercentUpdated.current) {
       const tipAmount = currency(tipPercentStepper.value)
         .divide(100)
@@ -155,7 +155,7 @@ const CalcPage: React.FunctionComponent<
   ]);
 
   // tipAmount updated
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (tipAmountUpdated.current) {
       const tipPercent = currency(tipAmountStepper.value)
         .divide(billAmount)
@@ -181,7 +181,7 @@ const CalcPage: React.FunctionComponent<
   ]);
 
   // totalAmount updated
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (totalAmountUpdated.current) {
       const tipAmount = currency(totalAmountStepper.value).subtract(billAmount);
       const tipPercent = currency(tipAmount)
@@ -207,7 +207,7 @@ const CalcPage: React.FunctionComponent<
   ]);
 
   // numberOfPeople updated
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (numberOfPeopleUpdated.current) {
       const eachPersonPays = currency(totalAmountStepper.value).distribute(
         parseInt(numberOfPeopleStepper.value, 10),
@@ -224,7 +224,7 @@ const CalcPage: React.FunctionComponent<
   ]);
 
   // eachPersonPays updated
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (eachPersonPaysUpdated.current) {
       const totalAmount = currency(eachPersonPaysStepper.value).multiply(
         parseInt(numberOfPeopleStepper.value, 10),
