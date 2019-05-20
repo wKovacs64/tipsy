@@ -51,7 +51,7 @@
     "gatsby-plugin-react-helmet": "3.0.12",
     "gatsby-plugin-typescript": "2.0.14",
     "gatsby-plugin-typography": "2.2.13",
-    "gatsby-plugin-use-dark-mode": "1.1.0",
+    "gatsby-plugin-use-dark-mode": "1.1.1",
     "git-current-commit": "1.1.0",
     "hex-rgb": "4.1.0",
     "lodash": "4.17.11",
