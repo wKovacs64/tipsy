@@ -1529,10 +1529,10 @@
     string-width "^2.0.0"
     strip-ansi "^3"
 
-"@quid/merge-refs@1.38.1":
-  version "1.38.1"
-  resolved "https://registry.yarnpkg.com/@quid/merge-refs/-/merge-refs-1.38.1.tgz#eea1e94066726f07d1bdf8ea07aae0e21f2b228b"
-  integrity sha512-ZmNE8DTcia8eNqDnrz9O/unKXVXRwCYuopG6ervXV6WUBGohz8q3fRn45GiiySXS1+gmzPWp8BjE2sMJr+pRZg==
+"@quid/merge-refs@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@quid/merge-refs/-/merge-refs-2.0.0.tgz#6f3ffbd72c5251aff08324d4f9643e8ba2102013"
+  integrity sha512-Gy7xMKrFvPRiRuGaXRYfPPAS9NlbK3Yw28Az3udzQJ+2NzK75iSsJcmO+nFZ/jhnM3UhRI3qw24Y+ijtrws1Xg==
 
 "@reach/router@^1.1.1":
   version "1.2.1"
