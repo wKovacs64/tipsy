@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import 'cypress-axe';
-import 'cypress-testing-library/add-commands';
+import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add('toggleDarkMode', () => {
   cy.getByLabelText(/settings/i)
