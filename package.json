@@ -71,7 +71,7 @@
     "@babel/core": "7.4.5",
     "@commitlint/cli": "8.0.0",
     "@commitlint/config-conventional": "8.0.0",
-    "@cypress/browserify-preprocessor": "2.1.0",
+    "@cypress/browserify-preprocessor": "2.1.1",
     "@semantic-release/git": "7.0.8",
     "@testing-library/cypress": "4.0.3",
     "@types/cypress-axe": "0.4.0",
