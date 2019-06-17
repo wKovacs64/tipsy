@@ -10,7 +10,7 @@ module.exports = {
       '@semantic-release/git',
       {
         assets: ['package.json'],
-        message: 'chore(release): ${nextRelease.version} [skip circleci]',
+        message: 'chore(release): ${nextRelease.version}',
       },
     ],
   ],
