@@ -30,3 +30,6 @@ workflows:
       - release:
           requires:
             - validate
+          filters:
+            branches:
+              only: master
