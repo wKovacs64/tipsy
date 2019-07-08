@@ -1802,10 +1802,10 @@
     string-width "^2.0.0"
     strip-ansi "^3"
 
-"@quid/merge-refs@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@quid/merge-refs/-/merge-refs-2.0.0.tgz#6f3ffbd72c5251aff08324d4f9643e8ba2102013"
-  integrity sha512-Gy7xMKrFvPRiRuGaXRYfPPAS9NlbK3Yw28Az3udzQJ+2NzK75iSsJcmO+nFZ/jhnM3UhRI3qw24Y+ijtrws1Xg==
+"@quid/merge-refs@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@quid/merge-refs/-/merge-refs-3.0.0.tgz#37f256c3276a53c2eac6ba98b34907b847c83bac"
+  integrity sha512-sHcaPhejpaogb0aP1dFNQohKBGkVLQAHBfpL0wJKUOkc0Zzwi3UrWXp+pP9VptrMk2BmC7n40gsXmkUUl/MOIg==
 
 "@reach/router@^1.1.1":
   version "1.2.1"
