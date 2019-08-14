@@ -42,7 +42,7 @@ const IndexPage: React.FunctionComponent<
   const [billInputDisabled, setBillInputDisabled] = React.useState(false);
   const [nextButtonDisabled, setNextButtonDisabled] = React.useState(true);
 
-  function navigateToCalc() {
+  function navigateToCalc(): void {
     setBillInputDisabled(true);
     setNextButtonDisabled(true);
     if (navigate) {
