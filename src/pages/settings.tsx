@@ -76,7 +76,7 @@ const SettingsPage: React.FunctionComponent<
   const [partySize, setPartySize] = React.useState(String(defaultPartySize));
   const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
 
-  function saveSettings() {
+  function saveSettings(): void {
     const partySizeNumber = parseInt(partySize, 10);
     const tipPercentNumber = parseInt(tipPercent, 10);
 

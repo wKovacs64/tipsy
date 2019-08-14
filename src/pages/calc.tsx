@@ -236,7 +236,7 @@ const CalcPage: React.FunctionComponent<
 
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  function startOver() {
+  function startOver(): void {
     if (navigate) {
       navigate('/', { replace: true });
     }
