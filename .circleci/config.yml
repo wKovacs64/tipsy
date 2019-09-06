@@ -22,6 +22,8 @@ workflows:
     jobs:
       - cypress/run:
           yarn: true
+          executor: cypress/browsers-chrome76
+          browser: chrome
           start: yarn serve
           wait-on: '--timeout 60000 http://localhost:8000'
       - validate:
