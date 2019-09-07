@@ -63,6 +63,9 @@ describe('Calc Page', () => {
     cy.visit('/').injectAxe();
     // wait for the content to ensure the app has been rendered
     cy.get('html[lang="en"]');
+    // wait for Cypress resources to load in hopes of combating intermittent CI
+    // failures
+    cy.wait(2000);
   });
 
   afterEach(() => {
