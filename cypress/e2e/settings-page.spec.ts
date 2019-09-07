@@ -29,6 +29,9 @@ describe('Settings Page', () => {
   });
 
   it('has no detectable a11y violations (dark mode)', () => {
+    // wait for Cypress resources to load in hopes of combating intermittent CI
+    // failures
+    cy.wait(2000);
     cy.getByLabelText(/dark mode/i).click({ force: true });
     cy.get('body').should('have.class', 'dark-mode');
     cy.checkA11y();
@@ -39,6 +42,9 @@ describe('Settings Page', () => {
   });
 
   it('toggles dark mode', () => {
+    // wait for Cypress resources to load in hopes of combating intermittent CI
+    // failures
+    cy.wait(2000);
     cy.get('body')
       .should('not.have.class', 'dark-mode')
       .getByLabelText(/dark mode:/i)
