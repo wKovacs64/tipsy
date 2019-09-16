@@ -11,24 +11,24 @@ function changeDefaults({
   tipPercent: number;
 }): Cypress.Chainable {
   return cy
-    .getByLabelText(/settings/i)
+    .findByLabelText(/settings/i)
     .click()
-    .getByLabelText(/default party size/i)
+    .findByLabelText(/default party size/i)
     .click()
     .type(String(partySize))
-    .getByLabelText(/default tip percentage/i)
+    .findByLabelText(/default tip percentage/i)
     .click()
     .type(String(tipPercent))
-    .getByText(/save/i)
+    .findByText(/save/i)
     .click();
 }
 
 function setupCalcTests(): Cypress.Chainable {
   return cy
-    .getByLabelText(/bill amount/i)
+    .findByLabelText(/bill amount/i)
     .click()
     .type('1235')
-    .getByText(/next/i)
+    .findByText(/next/i)
     .click();
 }
 
@@ -46,15 +46,15 @@ function expectValues({
   eachPersonPays: string;
 }): Cypress.Chainable {
   return cy
-    .getByLabelText(/^tip percent \(%\)$/i)
+    .findByLabelText(/^tip percent \(%\)$/i)
     .should('have.value', tipPercent)
-    .getByLabelText(/^tip amount$/i)
+    .findByLabelText(/^tip amount$/i)
     .should('have.value', tipAmount)
-    .getByLabelText(/^total amount$/i)
+    .findByLabelText(/^total amount$/i)
     .should('have.value', totalAmount)
-    .getByLabelText(/^number of people$/i)
+    .findByLabelText(/^number of people$/i)
     .should('have.value', numberOfPeople)
-    .getByLabelText(/^each person pays$/i)
+    .findByLabelText(/^each person pays$/i)
     .should('have.value', eachPersonPays);
 }
 
@@ -86,7 +86,7 @@ describe('Calc Page', () => {
 
   it('displays the bill amount', () => {
     setupCalcTests()
-      .getByText('$12.35')
+      .findByText('$12.35')
       .should('exist');
   });
 
@@ -118,14 +118,14 @@ describe('Calc Page', () => {
 
   it('has a working Start Over button', () => {
     setupCalcTests()
-      .getByText(/start over/i)
+      .findByText(/start over/i)
       .click();
     cy.url().should('eq', `${Cypress.config().baseUrl}/`);
   });
 
   it('recalculates on decrementing Tip Percent', () => {
     setupCalcTests()
-      .getByLabelText(/decrement tip percent/i)
+      .findByLabelText(/decrement tip percent/i)
       .click();
     expectValues({
       tipPercent: String(appDefaultTipPercent - 1),
@@ -138,7 +138,7 @@ describe('Calc Page', () => {
 
   it('recalculates on incrementing Tip Percent', () => {
     setupCalcTests()
-      .getByLabelText(/increment tip percent/i)
+      .findByLabelText(/increment tip percent/i)
       .click();
     expectValues({
       tipPercent: String(appDefaultTipPercent + 1),
@@ -151,7 +151,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Tip Percent', () => {
     setupCalcTests()
-      .getByLabelText(/^tip percent \(%\)$/i)
+      .findByLabelText(/^tip percent \(%\)$/i)
       .click()
       .type('15');
     expectValues({
@@ -165,7 +165,7 @@ describe('Calc Page', () => {
 
   it('recalculates on decrementing Tip Amount', () => {
     setupCalcTests()
-      .getByLabelText(/decrement tip amount/i)
+      .findByLabelText(/decrement tip amount/i)
       .click();
     expectValues({
       tipPercent: '16',
@@ -178,7 +178,7 @@ describe('Calc Page', () => {
 
   it('recalculates on incrementing Tip Amount', () => {
     setupCalcTests()
-      .getByLabelText(/increment tip amount/i)
+      .findByLabelText(/increment tip amount/i)
       .click();
     expectValues({
       tipPercent: '24',
@@ -191,7 +191,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Tip Amount', () => {
     setupCalcTests()
-      .getByLabelText(/^tip amount$/i)
+      .findByLabelText(/^tip amount$/i)
       .click()
       .type('285');
     expectValues({
@@ -205,7 +205,7 @@ describe('Calc Page', () => {
 
   it('recalculates on decrementing Total Amount', () => {
     setupCalcTests()
-      .getByLabelText(/decrement total amount/i)
+      .findByLabelText(/decrement total amount/i)
       .click();
     expectValues({
       tipPercent: '13',
@@ -218,7 +218,7 @@ describe('Calc Page', () => {
 
   it('recalculates on incrementing Total Amount', () => {
     setupCalcTests()
-      .getByLabelText(/increment total amount/i)
+      .findByLabelText(/increment total amount/i)
       .click();
     expectValues({
       tipPercent: '21',
@@ -231,7 +231,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Total Amount', () => {
     setupCalcTests()
-      .getByLabelText(/^total amount$/i)
+      .findByLabelText(/^total amount$/i)
       .click()
       .type('1600');
     expectValues({
@@ -245,7 +245,7 @@ describe('Calc Page', () => {
 
   it('recalculates on decrementing Number of People', () => {
     setupCalcTests()
-      .getByLabelText(/decrement number of people/i)
+      .findByLabelText(/decrement number of people/i)
       .click();
     expectValues({
       tipPercent: '20',
@@ -258,7 +258,7 @@ describe('Calc Page', () => {
 
   it('recalculates on incrementing Number of People', () => {
     setupCalcTests()
-      .getByLabelText(/increment number of people/i)
+      .findByLabelText(/increment number of people/i)
       .click();
     expectValues({
       tipPercent: '20',
@@ -271,7 +271,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Number of People', () => {
     setupCalcTests()
-      .getByLabelText(/^number of people$/i)
+      .findByLabelText(/^number of people$/i)
       .click()
       .type('3');
     expectValues({
@@ -285,7 +285,7 @@ describe('Calc Page', () => {
 
   it('recalculates on decrementing Each Person Pays', () => {
     setupCalcTests()
-      .getByLabelText(/decrement each person pays/i)
+      .findByLabelText(/decrement each person pays/i)
       .click();
     expectValues({
       tipPercent: '13',
@@ -298,7 +298,7 @@ describe('Calc Page', () => {
 
   it('recalculates on incrementing Each Person Pays', () => {
     setupCalcTests()
-      .getByLabelText(/increment each person pays/i)
+      .findByLabelText(/increment each person pays/i)
       .click();
     expectValues({
       tipPercent: '21',
@@ -311,7 +311,7 @@ describe('Calc Page', () => {
 
   it('recalculates on manually adjusting Each Person Pays', () => {
     setupCalcTests()
-      .getByLabelText(/^each person pays$/i)
+      .findByLabelText(/^each person pays$/i)
       .click()
       .type('1600');
     expectValues({
@@ -325,12 +325,12 @@ describe('Calc Page', () => {
 
   it('recalculates on multiple changes', () => {
     setupCalcTests()
-      .getByLabelText(/increment total amount/i)
+      .findByLabelText(/increment total amount/i)
       .click()
       .click()
-      .getByLabelText(/increment number of people/i)
+      .findByLabelText(/increment number of people/i)
       .click()
-      .getByLabelText(/decrement tip amount/i)
+      .findByLabelText(/decrement tip amount/i)
       .click();
     expectValues({
       tipPercent: '24',

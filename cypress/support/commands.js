@@ -28,9 +28,9 @@ import 'cypress-axe';
 import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add('toggleDarkMode', () => {
-  cy.getByLabelText(/settings/i)
+  cy.findByLabelText(/settings/i)
     .click()
-    .getByLabelText(/dark mode:/i)
+    .findByLabelText(/dark mode:/i)
     .click({ force: true })
     .go('back');
 });
