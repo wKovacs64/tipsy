@@ -79,7 +79,7 @@
     "@types/lodash": "4.14.139",
     "@types/node": "10.14.19",
     "@types/react": "16.9.3",
-    "@types/react-dom": "16.9.0",
+    "@types/react-dom": "16.9.1",
     "@types/react-helmet": "5.0.10",
     "@types/testing-library__cypress": "5.0.0",
     "@types/typography": "0.16.3",
