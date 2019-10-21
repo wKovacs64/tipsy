@@ -84,7 +84,7 @@
     "@types/testing-library__cypress": "5.0.0",
     "@types/typography": "0.16.3",
     "@types/use-persisted-state": "0.3.0",
-    "axe-core": "3.3.2",
+    "axe-core": "3.4.0",
     "babel-eslint": "10.0.3",
     "commitizen": "4.0.3",
     "cypress": "3.4.1",
