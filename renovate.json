@@ -7,7 +7,6 @@
   "commitMessageTopic": "{{depName}}",
   "automergeType": "branch",
   "automerge": true,
-  "ignoreDeps": ["gatsby", "gatsby-plugin-manifest", "gatsby-plugin-offline"],
   "major": {
     "automerge": false
   },
