@@ -26,13 +26,6 @@ const Layout: React.FunctionComponent = ({ children }) => (
       >
         <Global
           styles={css`
-            /*
-             * This was causing cypress-axe to fail and (at first glance) seems
-             * out of my control, so hiding for now.
-             */
-            #gatsby-announcer {
-              display: none;
-            }
             #gatsby-noscript {
               display: none;
             }
