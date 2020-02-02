@@ -1,11 +1,11 @@
 import * as pkg from '../../package.json';
 
 function fillOutSettings(): Cypress.Chainable {
-  return cy
-    .findByLabelText(/default party size/i)
+  cy.findByLabelText(/default party size/i)
     .should('not.have.value', '24')
     .click()
-    .type('24{enter}')
+    .type('24{enter}');
+  return cy
     .findByLabelText(/default tip percentage/i)
     .should('not.have.value', '42')
     .click()
@@ -45,36 +45,29 @@ describe('Settings Page', () => {
     // wait for Cypress resources to load in hopes of combating intermittent CI
     // failures
     cy.wait(2000);
-    cy.get('body')
-      .should('not.have.class', 'dark-mode')
-      .findByLabelText(/dark mode:/i)
+    cy.get('body').should('not.have.class', 'dark-mode');
+    cy.findByLabelText(/dark mode:/i)
       .click({ force: true })
       .get('body')
-      .should('have.class', 'dark-mode')
-      .findByLabelText(/dark mode:/i)
+      .should('have.class', 'dark-mode');
+    cy.findByLabelText(/dark mode:/i)
       .click({ force: true })
       .get('body')
       .should('have.class', 'light-mode');
   });
 
   it('persists numeric options only on save', () => {
-    fillOutSettings()
-      .visit('/')
-      .findByLabelText(/settings/i)
-      .click()
-      .findByLabelText(/default party size/i)
-      .should('not.have.value', '24')
-      .findByLabelText(/default tip percentage/i)
-      .should('not.have.value', '42')
-      .findByLabelText(/default party size/i)
-      .then(fillOutSettings)
-      .findByText(/save/i)
-      .click()
-      .findByLabelText(/settings/i)
-      .click()
-      .findByLabelText(/default party size/i)
-      .should('have.value', '24')
-      .findByLabelText(/default tip percentage/i)
-      .should('have.value', '42');
+    fillOutSettings().visit('/');
+    cy.findByLabelText(/settings/i).click();
+    cy.findByLabelText(/default party size/i).should('not.have.value', '24');
+    cy.findByLabelText(/default tip percentage/i).should(
+      'not.have.value',
+      '42',
+    );
+    cy.findByLabelText(/default party size/i).then(fillOutSettings);
+    cy.findByText(/save/i).click();
+    cy.findByLabelText(/settings/i).click();
+    cy.findByLabelText(/default party size/i).should('have.value', '24');
+    cy.findByLabelText(/default tip percentage/i).should('have.value', '42');
   });
 });
