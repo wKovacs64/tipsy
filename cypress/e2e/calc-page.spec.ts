@@ -10,26 +10,21 @@ function changeDefaults({
   partySize: number;
   tipPercent: number;
 }): Cypress.Chainable {
-  return cy
-    .findByLabelText(/settings/i)
+  cy.findByLabelText(/settings/i).click();
+  cy.findByLabelText(/default party size/i)
     .click()
-    .findByLabelText(/default party size/i)
+    .type(String(partySize));
+  cy.findByLabelText(/default tip percentage/i)
     .click()
-    .type(String(partySize))
-    .findByLabelText(/default tip percentage/i)
-    .click()
-    .type(String(tipPercent))
-    .findByText(/save/i)
-    .click();
+    .type(String(tipPercent));
+  return cy.findByText(/save/i).click();
 }
 
 function setupCalcTests(): Cypress.Chainable {
-  return cy
-    .findByLabelText(/bill amount/i)
+  cy.findByLabelText(/bill amount/i)
     .click()
-    .type('1235')
-    .findByText(/next/i)
-    .click();
+    .type('1235');
+  return cy.findByText(/next/i).click();
 }
 
 function expectValues({
@@ -45,15 +40,14 @@ function expectValues({
   numberOfPeople: string;
   eachPersonPays: string;
 }): Cypress.Chainable {
+  cy.findByLabelText(/^tip percent \(%\)$/i).should('have.value', tipPercent);
+  cy.findByLabelText(/^tip amount$/i).should('have.value', tipAmount);
+  cy.findByLabelText(/^total amount$/i).should('have.value', totalAmount);
+  cy.findByLabelText(/^number of people$/i).should(
+    'have.value',
+    numberOfPeople,
+  );
   return cy
-    .findByLabelText(/^tip percent \(%\)$/i)
-    .should('have.value', tipPercent)
-    .findByLabelText(/^tip amount$/i)
-    .should('have.value', tipAmount)
-    .findByLabelText(/^total amount$/i)
-    .should('have.value', totalAmount)
-    .findByLabelText(/^number of people$/i)
-    .should('have.value', numberOfPeople)
     .findByLabelText(/^each person pays$/i)
     .should('have.value', eachPersonPays);
 }
@@ -85,9 +79,8 @@ describe('Calc Page', () => {
   });
 
   it('displays the bill amount', () => {
-    setupCalcTests()
-      .findByText('$12.35')
-      .should('exist');
+    setupCalcTests();
+    cy.findByText('$12.35').should('exist');
   });
 
   it('populates initial values using app defaults', () => {
@@ -117,16 +110,14 @@ describe('Calc Page', () => {
   });
 
   it('has a working Start Over button', () => {
-    setupCalcTests()
-      .findByText(/start over/i)
-      .click();
+    setupCalcTests();
+    cy.findByText(/start over/i).click();
     cy.url().should('eq', `${Cypress.config().baseUrl}/`);
   });
 
   it('recalculates on decrementing Tip Percent', () => {
-    setupCalcTests()
-      .findByLabelText(/decrement tip percent/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/decrement tip percent/i).click();
     expectValues({
       tipPercent: String(appDefaultTipPercent - 1),
       tipAmount: '2.35',
@@ -137,9 +128,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Tip Percent', () => {
-    setupCalcTests()
-      .findByLabelText(/increment tip percent/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/increment tip percent/i).click();
     expectValues({
       tipPercent: String(appDefaultTipPercent + 1),
       tipAmount: '2.59',
@@ -150,8 +140,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Tip Percent', () => {
-    setupCalcTests()
-      .findByLabelText(/^tip percent \(%\)$/i)
+    setupCalcTests();
+    cy.findByLabelText(/^tip percent \(%\)$/i)
       .click()
       .type('15');
     expectValues({
@@ -164,9 +154,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on decrementing Tip Amount', () => {
-    setupCalcTests()
-      .findByLabelText(/decrement tip amount/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/decrement tip amount/i).click();
     expectValues({
       tipPercent: '16',
       tipAmount: '2.00',
@@ -177,9 +166,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Tip Amount', () => {
-    setupCalcTests()
-      .findByLabelText(/increment tip amount/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/increment tip amount/i).click();
     expectValues({
       tipPercent: '24',
       tipAmount: '3.00',
@@ -190,8 +178,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Tip Amount', () => {
-    setupCalcTests()
-      .findByLabelText(/^tip amount$/i)
+    setupCalcTests();
+    cy.findByLabelText(/^tip amount$/i)
       .click()
       .type('285');
     expectValues({
@@ -204,9 +192,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on decrementing Total Amount', () => {
-    setupCalcTests()
-      .findByLabelText(/decrement total amount/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/decrement total amount/i).click();
     expectValues({
       tipPercent: '13',
       tipAmount: '1.65',
@@ -217,9 +204,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Total Amount', () => {
-    setupCalcTests()
-      .findByLabelText(/increment total amount/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/increment total amount/i).click();
     expectValues({
       tipPercent: '21',
       tipAmount: '2.65',
@@ -230,8 +216,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Total Amount', () => {
-    setupCalcTests()
-      .findByLabelText(/^total amount$/i)
+    setupCalcTests();
+    cy.findByLabelText(/^total amount$/i)
       .click()
       .type('1600');
     expectValues({
@@ -244,9 +230,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on decrementing Number of People', () => {
-    setupCalcTests()
-      .findByLabelText(/decrement number of people/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/decrement number of people/i).click();
     expectValues({
       tipPercent: '20',
       tipAmount: '2.47',
@@ -257,9 +242,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Number of People', () => {
-    setupCalcTests()
-      .findByLabelText(/increment number of people/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/increment number of people/i).click();
     expectValues({
       tipPercent: '20',
       tipAmount: '2.47',
@@ -270,8 +254,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Number of People', () => {
-    setupCalcTests()
-      .findByLabelText(/^number of people$/i)
+    setupCalcTests();
+    cy.findByLabelText(/^number of people$/i)
       .click()
       .type('3');
     expectValues({
@@ -284,9 +268,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on decrementing Each Person Pays', () => {
-    setupCalcTests()
-      .findByLabelText(/decrement each person pays/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/decrement each person pays/i).click();
     expectValues({
       tipPercent: '13',
       tipAmount: '1.65',
@@ -297,9 +280,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Each Person Pays', () => {
-    setupCalcTests()
-      .findByLabelText(/increment each person pays/i)
-      .click();
+    setupCalcTests();
+    cy.findByLabelText(/increment each person pays/i).click();
     expectValues({
       tipPercent: '21',
       tipAmount: '2.65',
@@ -310,8 +292,8 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Each Person Pays', () => {
-    setupCalcTests()
-      .findByLabelText(/^each person pays$/i)
+    setupCalcTests();
+    cy.findByLabelText(/^each person pays$/i)
       .click()
       .type('1600');
     expectValues({
@@ -324,14 +306,12 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on multiple changes', () => {
-    setupCalcTests()
-      .findByLabelText(/increment total amount/i)
+    setupCalcTests();
+    cy.findByLabelText(/increment total amount/i)
       .click()
-      .click()
-      .findByLabelText(/increment number of people/i)
-      .click()
-      .findByLabelText(/decrement tip amount/i)
       .click();
+    cy.findByLabelText(/increment number of people/i).click();
+    cy.findByLabelText(/decrement tip amount/i).click();
     expectValues({
       tipPercent: '24',
       tipAmount: '3.00',
