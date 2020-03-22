@@ -63,9 +63,9 @@ const SettingInput = styled(NumericInput)`
   }
 `;
 
-const SettingsPage: React.FunctionComponent<
-  import('reach__router').RouteComponentProps
-> = ({ navigate }) => {
+const SettingsPage: React.FunctionComponent<import('reach__router').RouteComponentProps> = ({
+  navigate,
+}) => {
   const darkMode = useDarkMode(appDefaultDarkMode);
   const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize(
     appDefaultPartySize,
@@ -119,7 +119,7 @@ const SettingsPage: React.FunctionComponent<
               id="default-party-size"
               name="default-party-size"
               placeholder={String(appDefaultPartySize)}
-              onChange={e => setPartySize(e.target.value)}
+              onChange={(e) => setPartySize(e.target.value)}
               value={partySize}
             />
           </Setting>
@@ -131,7 +131,7 @@ const SettingsPage: React.FunctionComponent<
               id="default-tip-percentage"
               name="default-tip-percentage"
               placeholder={String(appDefaultTipPercent)}
-              onChange={e => setTipPercent(e.target.value)}
+              onChange={(e) => setTipPercent(e.target.value)}
               value={tipPercent}
             />
           </Setting>

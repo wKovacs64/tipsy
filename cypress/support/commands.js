@@ -37,7 +37,7 @@ Cypress.Commands.add('toggleDarkMode', () => {
 // Clear localStorage ourselves because Cypress' internal method is broken and
 // sets entries to `null` instead of removing them!
 Cypress.Commands.add('clearLocalStorageForReal', () => {
-  cy.window().then(win => {
+  cy.window().then((win) => {
     win.localStorage.clear();
   });
 });

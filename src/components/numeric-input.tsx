@@ -13,12 +13,12 @@ const NumericInput = React.forwardRef<
       type="text"
       inputMode="numeric"
       ref={mergeRefs(ref, userRef)}
-      onKeyDown={e => {
+      onKeyDown={(e) => {
         if (e.keyCode === 13 && ref && ref.current) {
           ref.current.blur();
         }
       }}
-      onFocus={e => e.target.select()}
+      onFocus={(e) => e.target.select()}
       {...props}
     />
   );

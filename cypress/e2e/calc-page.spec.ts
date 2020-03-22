@@ -72,10 +72,7 @@ describe('Calc Page', () => {
 
   it('has no detectable a11y violations (dark mode)', () => {
     cy.toggleDarkMode();
-    setupCalcTests()
-      .get('body')
-      .should('have.class', 'dark-mode')
-      .checkA11y();
+    setupCalcTests().get('body').should('have.class', 'dark-mode').checkA11y();
   });
 
   it('displays the bill amount', () => {

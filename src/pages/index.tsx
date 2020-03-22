@@ -35,9 +35,9 @@ const BillInput = styled(NumericInput)`
   }
 `;
 
-const IndexPage: React.FunctionComponent<
-  import('reach__router').RouteComponentProps
-> = ({ navigate }) => {
+const IndexPage: React.FunctionComponent<import('reach__router').RouteComponentProps> = ({
+  navigate,
+}) => {
   const [bill, setBill] = React.useState('');
   const [billInputDisabled, setBillInputDisabled] = React.useState(false);
   const [nextButtonDisabled, setNextButtonDisabled] = React.useState(true);
@@ -50,7 +50,7 @@ const IndexPage: React.FunctionComponent<
     }
   }
 
-  const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+  const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target;
     const valueAsCurrency = toCurrency(value);
     setBill(valueAsCurrency);
@@ -70,7 +70,7 @@ const IndexPage: React.FunctionComponent<
           name="bill"
           placeholder="0.00"
           onChange={handleBillChange}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (e.keyCode === 13) {
               navigateToCalc();
             }

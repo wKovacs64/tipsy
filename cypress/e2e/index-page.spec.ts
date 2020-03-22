@@ -12,10 +12,7 @@ describe('Index Page', () => {
   it('has no detectable a11y violations (light mode)', () => {
     cy.get('body').should('not.have.class', 'dark-mode');
     cy.findByLabelText(/bill/i).checkA11y();
-    cy.findByLabelText(/bill/i)
-      .click()
-      .type('12345')
-      .checkA11y();
+    cy.findByLabelText(/bill/i).click().type('12345').checkA11y();
   });
 
   it('has no detectable a11y violations (dark mode)', () => {
@@ -24,10 +21,7 @@ describe('Index Page', () => {
     cy.toggleDarkMode();
     cy.get('body').should('have.class', 'dark-mode');
     cy.checkA11y();
-    cy.findByLabelText(/bill/i)
-      .click()
-      .type('12345')
-      .checkA11y();
+    cy.findByLabelText(/bill/i).click().type('12345').checkA11y();
   });
 
   it('enables the otherwise disabled Next button after entering a bill amount', () => {

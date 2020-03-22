@@ -105,9 +105,10 @@ interface State {
   eachPersonPays: number;
 }
 
-const CalcPage: React.FunctionComponent<
-  import('reach__router').RouteComponentProps
-> = ({ location, navigate }) => {
+const CalcPage: React.FunctionComponent<import('reach__router').RouteComponentProps> = ({
+  location,
+  navigate,
+}) => {
   const [initialPartySizeFromStorage] = useDefaultPartySize(
     appDefaultPartySize,
   );
@@ -184,9 +185,8 @@ const CalcPage: React.FunctionComponent<
 
       case ActionType.CHANGE_TOTAL_AMOUNT: {
         const tipAmount = currency(action.payload).subtract(billAmount).value;
-        const tipPercent = currency(tipAmount)
-          .divide(billAmount)
-          .multiply(100).value;
+        const tipPercent = currency(tipAmount).divide(billAmount).multiply(100)
+          .value;
         const eachPersonPays = currency(action.payload).distribute(
           state.numberOfPeople,
         )[0].value;
@@ -217,9 +217,8 @@ const CalcPage: React.FunctionComponent<
           state.numberOfPeople,
         ).value;
         const tipAmount = currency(totalAmount).subtract(billAmount).value;
-        const tipPercent = currency(tipAmount)
-          .divide(billAmount)
-          .multiply(100).value;
+        const tipPercent = currency(tipAmount).divide(billAmount).multiply(100)
+          .value;
 
         return {
           tipPercent,
@@ -271,7 +270,7 @@ const CalcPage: React.FunctionComponent<
               id="tip-percent"
               name="tip-percent"
               value={state.tipPercent}
-              onChange={e => {
+              onChange={(e) => {
                 dispatch({
                   type: ActionType.CHANGE_TIP_PERCENT,
                   payload: toNumber(e.target.value),
@@ -315,7 +314,7 @@ const CalcPage: React.FunctionComponent<
               id="tip-amount"
               name="tip-amount"
               value={currency(state.tipAmount).format()}
-              onChange={e => {
+              onChange={(e) => {
                 dispatch({
                   type: ActionType.CHANGE_TIP_AMOUNT,
                   payload: toNumber(toCurrency(e.target.value)),
@@ -367,7 +366,7 @@ const CalcPage: React.FunctionComponent<
               id="total-amount"
               name="total-amount"
               value={currency(state.totalAmount).format()}
-              onChange={e => {
+              onChange={(e) => {
                 dispatch({
                   type: ActionType.CHANGE_TOTAL_AMOUNT,
                   // TODO: deal with manually setting below billAmount
@@ -413,7 +412,7 @@ const CalcPage: React.FunctionComponent<
               id="number-of-people"
               name="number-of-people"
               value={state.numberOfPeople}
-              onChange={e => {
+              onChange={(e) => {
                 dispatch({
                   type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
                   // TODO: deal with manually setting to 0
@@ -466,7 +465,7 @@ const CalcPage: React.FunctionComponent<
               id="each-person-pays"
               name="each-person-pays"
               value={currency(state.eachPersonPays).format()}
-              onChange={e => {
+              onChange={(e) => {
                 dispatch({
                   type: ActionType.CHANGE_EACH_PERSON_PAYS,
                   // TODO: deal with manually setting below minPerPerson
