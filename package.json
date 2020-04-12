@@ -83,7 +83,7 @@
     "@types/react-helmet": "5.0.15",
     "@types/typography": "0.16.3",
     "@types/use-persisted-state": "0.3.0",
-    "@wkovacs64/prettier-config": "2.0.0",
+    "@wkovacs64/prettier-config": "3.0.0",
     "axe-core": "3.5.3",
     "babel-eslint": "10.1.0",
     "commitizen": "4.0.4",
