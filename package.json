@@ -68,7 +68,7 @@
     "use-persisted-state": "0.3.0"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
+    "@babel/core": "7.9.6",
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.3.4",
     "@cypress/browserify-preprocessor": "2.2.2",
