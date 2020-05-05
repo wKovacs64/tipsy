@@ -3,20 +3,15 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@1.20.0
 
-executors:
-  cypress-node12-chrome77:
-    docker:
-      - image: 'cypress/browsers:node12.6.0-chrome77'
-
 jobs:
   validate:
-    executor: cypress-node12-chrome77
+    executor: cypress/browsers-chrome77
     steps:
       - attach_workspace:
           at: ~/
       - run: yarn validate
   release:
-    executor: cypress-node12-chrome77
+    executor: cypress/browsers-chrome77
     steps:
       - attach_workspace:
           at: ~/
@@ -27,7 +22,7 @@ workflows:
     jobs:
       - cypress/run:
           yarn: true
-          executor: cypress-node12-chrome77
+          executor: cypress/browsers-chrome77
           browser: chrome
           start: yarn serve
           wait-on: '--timeout 60000 http://localhost:8000'
