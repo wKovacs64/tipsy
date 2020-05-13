@@ -10,8 +10,8 @@ import {
 } from '../utils/state';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
-import Content from '../styles/content';
-import BrandButton from '../styles/brand-button';
+import Content from '../elements/content';
+import BrandButton from '../elements/brand-button';
 import {
   appDefaultDarkMode,
   appDefaultPartySize,

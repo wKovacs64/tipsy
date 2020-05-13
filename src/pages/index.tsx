@@ -6,8 +6,8 @@ import { rhythm, scale } from '../utils/typography';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import toCurrency from '../utils/to-currency';
-import Content from '../styles/content';
-import BrandButton from '../styles/brand-button';
+import Content from '../elements/content';
+import BrandButton from '../elements/brand-button';
 
 const Label = styled.label`
   font-weight: 200;

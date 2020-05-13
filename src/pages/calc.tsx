@@ -11,8 +11,8 @@ import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import DecrementButton from '../components/decrement-button';
 import IncrementButton from '../components/increment-button';
-import Content from '../styles/content';
-import BrandButton from '../styles/brand-button';
+import Content from '../elements/content';
+import BrandButton from '../elements/brand-button';
 import { useDefaultPartySize, useDefaultTipPercent } from '../utils/state';
 import {
   appDefaultPartySize,

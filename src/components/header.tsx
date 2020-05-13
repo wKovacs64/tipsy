@@ -8,9 +8,9 @@ import get from 'lodash/get';
 import currency from 'currency.js';
 import * as pkg from '../../package.json';
 import { rhythm } from '../utils/typography';
-import Content from '../styles/content';
-import H1 from '../styles/h1';
-import H2 from '../styles/h2';
+import Content from '../elements/content';
+import H1 from '../elements/h1';
+import H2 from '../elements/h2';
 import { palette } from '../theme';
 import Link from './internal-link';
 

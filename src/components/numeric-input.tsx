@@ -1,6 +1,6 @@
 import React from 'react';
 import mergeRefs from '@quid/merge-refs';
-import NumberInput from '../styles/number-input';
+import NumberInput from '../elements/number-input';
 
 const NumericInput = React.forwardRef<
   HTMLInputElement,

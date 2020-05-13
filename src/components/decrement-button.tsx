@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiChevronDown } from 'react-icons/fi';
-import ThemedIconButton from '../styles/themed-icon-button';
+import ThemedIconButton from '../elements/themed-icon-button';
 
 const DecrementButton: React.FunctionComponent<React.HTMLAttributes<
   HTMLButtonElement
