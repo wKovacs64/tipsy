@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { rhythm } from '../utils/typography';
+import { rhythm } from '../theme';
 
 const Content = styled.section`
   flex: 1;

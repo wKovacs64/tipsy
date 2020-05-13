@@ -7,11 +7,10 @@ import { Location } from '@reach/router'; // comes with Gatsby
 import get from 'lodash/get';
 import currency from 'currency.js';
 import * as pkg from '../../package.json';
-import { rhythm } from '../utils/typography';
 import Content from '../elements/content';
 import H1 from '../elements/h1';
 import H2 from '../elements/h2';
-import { palette } from '../theme';
+import { rhythm, palette } from '../theme';
 import Link from './internal-link';
 
 const HeaderContent = styled(Content)`

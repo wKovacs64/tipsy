@@ -1,13 +1,6 @@
 import React from 'react';
 import Switch from 'react-switch';
 import styled from '@emotion/styled';
-import { rhythm, scale } from '../utils/typography';
-import mq from '../utils/mq';
-import {
-  useDarkMode,
-  useDefaultPartySize,
-  useDefaultTipPercent,
-} from '../utils/state';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import Content from '../elements/content';
@@ -16,8 +9,12 @@ import {
   appDefaultDarkMode,
   appDefaultPartySize,
   appDefaultTipPercent,
-} from '../utils/app-defaults';
-import { palette } from '../theme';
+  useDarkMode,
+  useDefaultPartySize,
+  useDefaultTipPercent,
+} from '../state';
+import { rhythm, scale, palette } from '../theme';
+import { mq } from '../utils';
 
 const SettingsGrid = styled.section`
   width: 100%;

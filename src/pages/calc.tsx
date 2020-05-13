@@ -3,21 +3,20 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import get from 'lodash/get';
 import currency from 'currency.js';
-import { rhythm, scale } from '../utils/typography';
-import getPreviousEvenDollar from '../utils/get-previous-even-dollar';
-import toCurrency from '../utils/to-currency';
-import toNumber from '../utils/to-number';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import DecrementButton from '../components/decrement-button';
 import IncrementButton from '../components/increment-button';
 import Content from '../elements/content';
 import BrandButton from '../elements/brand-button';
-import { useDefaultPartySize, useDefaultTipPercent } from '../utils/state';
 import {
   appDefaultPartySize,
   appDefaultTipPercent,
-} from '../utils/app-defaults';
+  useDefaultPartySize,
+  useDefaultTipPercent,
+} from '../state';
+import { rhythm, scale } from '../theme';
+import { getPreviousEvenDollar, toCurrency, toNumber } from '../utils';
 
 const CalcGrid = styled.section`
   width: 100%;

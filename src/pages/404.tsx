@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { scale } from '../utils/typography';
 import Layout from '../components/layout';
+import { scale } from '../theme';
 
 const Centered = styled.section`
   flex: 1;

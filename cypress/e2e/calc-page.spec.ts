@@ -1,7 +1,4 @@
-import {
-  appDefaultPartySize,
-  appDefaultTipPercent,
-} from '../../src/utils/app-defaults';
+import { appDefaultPartySize, appDefaultTipPercent } from '../../src/state';
 
 function changeDefaults({
   partySize,

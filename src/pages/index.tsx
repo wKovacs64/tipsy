@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import mq from '../utils/mq';
-import { rhythm, scale } from '../utils/typography';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
-import toCurrency from '../utils/to-currency';
 import Content from '../elements/content';
 import BrandButton from '../elements/brand-button';
+import { rhythm, scale } from '../theme';
+import { mq, toCurrency } from '../utils';
 
 const Label = styled.label`
   font-weight: 200;

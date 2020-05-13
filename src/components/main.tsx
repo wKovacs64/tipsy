@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import { rhythm } from '../utils/typography';
+import { rhythm } from '../theme';
 
 const Main: React.FunctionComponent = ({ children }) => (
   <main

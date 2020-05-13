@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { rhythm, scale } from '../utils/typography';
-import mq from '../utils/mq';
+import { rhythm, scale } from '../theme';
+import { mq } from '../utils';
 import Input from './input';
 
 const NumberInput = styled(Input)`

@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import { FaGithub } from 'react-icons/fa';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Location } from '@reach/router'; // comes with Gatsby
-import { rhythm } from '../utils/typography';
+import { rhythm } from '../theme';
 import A from './external-link';
 
 const Footer: React.FunctionComponent = () => (

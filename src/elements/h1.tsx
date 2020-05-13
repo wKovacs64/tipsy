@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { scale } from '../utils/typography';
+import { scale } from '../theme';
 
 const H1 = styled.h1`
   color: currentColor;

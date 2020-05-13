@@ -29,10 +29,8 @@ const addDecimalToNumber = (number: string) => {
   return `${dollars}.${cents}`;
 };
 
-const toCurrency = (value: string): string => {
+export const toCurrency = (value: string): string => {
   const digits = getDigitsFromValue(value);
   const digitsWithPadding = padDigits(digits);
   return addDecimalToNumber(digitsWithPadding);
 };
-
-export default toCurrency;

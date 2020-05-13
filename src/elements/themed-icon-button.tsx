@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
-import { rhythm } from '../utils/typography';
-import { palette, light } from '../theme';
+import { rhythm, palette, light } from '../theme';
 import IconButton from './icon-button';
 
 const ThemedIconButton = styled(IconButton)`

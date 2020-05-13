@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import hexRgb from 'hex-rgb';
-import { rhythm, scale } from '../utils/typography';
-import { palette } from '../theme';
+import { rhythm, scale, palette } from '../theme';
 
 const rgb = hexRgb(palette.primary);
 
