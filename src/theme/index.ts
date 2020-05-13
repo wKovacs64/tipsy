@@ -1,10 +1,12 @@
-export const palette: {
+interface Palette {
   readonly white: string;
   readonly nearWhite: string;
   readonly accent: string;
   readonly primary: string;
   readonly nearBlack: string;
-} = {
+}
+
+export const palette: Palette = {
   white: '#ffffff',
   nearWhite: '#f4f4f4',
   accent: '#f6d397',
@@ -12,7 +14,7 @@ export const palette: {
   nearBlack: '#111111',
 };
 
-export interface Theme {
+interface Theme {
   readonly background: string;
   readonly text: string;
 }
