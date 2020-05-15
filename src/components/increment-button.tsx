@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { FiChevronUp } from 'react-icons/fi';
 import ThemedIconButton from '../elements/themed-icon-button';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import mergeRefs from '@quid/merge-refs';
 import NumberInput from '../elements/number-input';
 

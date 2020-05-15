@@ -1,5 +1,5 @@
 import '@wkovacs64/normalize.css';
-import React from 'react';
+import * as React from 'react';
 import { css, Global, ClassNames } from '@emotion/core';
 import styled from '@emotion/styled';
 import { IconContext } from 'react-icons';
