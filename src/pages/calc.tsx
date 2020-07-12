@@ -312,7 +312,7 @@ const CalcPage: React.FunctionComponent<import('reach__router').RouteComponentPr
             <CalcInput
               id="tip-amount"
               name="tip-amount"
-              value={currency(state.tipAmount).format()}
+              value={currency(state.tipAmount, { symbol: '' }).format()}
               onChange={(e) => {
                 dispatch({
                   type: ActionType.CHANGE_TIP_AMOUNT,
@@ -364,7 +364,7 @@ const CalcPage: React.FunctionComponent<import('reach__router').RouteComponentPr
               `}
               id="total-amount"
               name="total-amount"
-              value={currency(state.totalAmount).format()}
+              value={currency(state.totalAmount, { symbol: '' }).format()}
               onChange={(e) => {
                 dispatch({
                   type: ActionType.CHANGE_TOTAL_AMOUNT,
@@ -463,7 +463,7 @@ const CalcPage: React.FunctionComponent<import('reach__router').RouteComponentPr
             <CalcInput
               id="each-person-pays"
               name="each-person-pays"
-              value={currency(state.eachPersonPays).format()}
+              value={currency(state.eachPersonPays, { symbol: '' }).format()}
               onChange={(e) => {
                 dispatch({
                   type: ActionType.CHANGE_EACH_PERSON_PAYS,

@@ -79,7 +79,7 @@ const Header: React.FunctionComponent = () => {
             }
 
             if (get(location, 'state.bill')) {
-              return <H2>{currency(location.state.bill).format(true)}</H2>;
+              return <H2>{currency(location.state.bill).format()}</H2>;
             }
 
             return null;
