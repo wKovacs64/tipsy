@@ -40,7 +40,7 @@
   },
   "private": true,
   "dependencies": {
-    "@emotion/core": "10.0.28",
+    "@emotion/core": "10.0.34",
     "@emotion/styled": "10.0.27",
     "@quid/merge-refs": "4.0.0",
     "@wkovacs64/normalize.css": "8.0.1",
