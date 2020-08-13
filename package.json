@@ -56,7 +56,7 @@
     "gatsby-plugin-use-dark-mode": "1.1.2",
     "git-current-commit": "1.1.0",
     "hex-rgb": "4.1.0",
-    "lodash": "4.17.19",
+    "lodash": "4.17.20",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
