@@ -29,9 +29,9 @@ import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add('toggleDarkMode', () => {
   cy.findByLabelText(/settings/i).click();
-  cy.findByLabelText(/dark mode:/i)
-    .click({ force: true })
-    .go('back');
+  cy.findByLabelText(/dark mode:/i).click({ force: true });
+  cy.wait(250);
+  cy.go('back');
 });
 
 // Clear localStorage ourselves because Cypress' internal method is broken and
