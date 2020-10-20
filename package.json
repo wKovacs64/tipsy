@@ -87,7 +87,7 @@
     "@wkovacs64/prettier-config": "3.0.0",
     "axe-core": "4.0.2",
     "babel-eslint": "10.1.0",
-    "commitizen": "4.2.1",
+    "commitizen": "4.2.2",
     "cypress": "5.4.0",
     "cypress-axe": "0.8.1",
     "cz-conventional-changelog": "3.3.0",
