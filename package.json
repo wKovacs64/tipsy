@@ -78,7 +78,7 @@
     "@types/cypress-axe": "0.8.0",
     "@types/hex-rgb": "4.1.1",
     "@types/lodash": "4.14.165",
-    "@types/node": "12.19.7",
+    "@types/node": "12.19.8",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "@types/react-helmet": "6.1.0",
