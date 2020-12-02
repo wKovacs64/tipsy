@@ -1,4 +1,3 @@
-import * as React from 'react';
 import styled from '@emotion/styled';
 
 const Anchor = styled.a`
@@ -10,8 +9,8 @@ const Anchor = styled.a`
   }
 `;
 
-const ExternalLink: React.FunctionComponent<React.AnchorHTMLAttributes<
-  HTMLAnchorElement
->> = (props) => <Anchor target="_blank" rel="noopener noreferrer" {...props} />;
+const ExternalLink: React.FunctionComponent<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
+> = (props) => <Anchor target="_blank" rel="noopener noreferrer" {...props} />;
 
 export default ExternalLink;

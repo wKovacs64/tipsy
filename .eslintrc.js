@@ -15,5 +15,6 @@ module.exports = {
         assert: 'either',
       },
     ],
+    'react/react-in-jsx-scope': 'off',
   },
 };

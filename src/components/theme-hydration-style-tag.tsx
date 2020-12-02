@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { light, dark } from '../theme';
 
 const hydrateThemeCss = `

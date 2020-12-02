@@ -3,7 +3,6 @@
  *
  * See: https://www.gatsbyjs.org/docs/ssr-apis/
  */
-import React from 'react';
 import ThemeHydrationStyleTag from './src/components/theme-hydration-style-tag';
 
 export const onPreRenderHTML = ({
