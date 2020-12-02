@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
 import Content from '../elements/content';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { FaGithub } from 'react-icons/fa';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Location } from '@reach/router'; // comes with Gatsby
