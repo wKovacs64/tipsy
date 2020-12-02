@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { css } from '@emotion/react';
 import { FaGithub } from 'react-icons/fa';
 // eslint-disable-next-line import/no-extraneous-dependencies

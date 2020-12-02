@@ -34,9 +34,9 @@ const BillInput = styled(NumericInput)`
   }
 `;
 
-const IndexPage: React.FunctionComponent<import('reach__router').RouteComponentProps> = ({
-  navigate,
-}) => {
+const IndexPage: React.FunctionComponent<
+  import('reach__router').RouteComponentProps
+> = ({ navigate }) => {
   const [bill, setBill] = React.useState('');
   const [billInputDisabled, setBillInputDisabled] = React.useState(false);
   const [nextButtonDisabled, setNextButtonDisabled] = React.useState(true);

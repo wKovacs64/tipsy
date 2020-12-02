@@ -60,9 +60,9 @@ const SettingInput = styled(NumericInput)`
   }
 `;
 
-const SettingsPage: React.FunctionComponent<import('reach__router').RouteComponentProps> = ({
-  navigate,
-}) => {
+const SettingsPage: React.FunctionComponent<
+  import('reach__router').RouteComponentProps
+> = ({ navigate }) => {
   const darkMode = useDarkMode(appDefaultDarkMode);
   const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize(
     appDefaultPartySize,

@@ -104,10 +104,9 @@ interface State {
   eachPersonPays: number;
 }
 
-const CalcPage: React.FunctionComponent<import('reach__router').RouteComponentProps> = ({
-  location,
-  navigate,
-}) => {
+const CalcPage: React.FunctionComponent<
+  import('reach__router').RouteComponentProps
+> = ({ location, navigate }) => {
   const [initialPartySizeFromStorage] = useDefaultPartySize(
     appDefaultPartySize,
   );
