@@ -2,8 +2,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import { MdSettings } from 'react-icons/md';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Location } from '@reach/router'; // comes with Gatsby
-import get from 'lodash/get';
+import { useLocation } from '@reach/router'; // comes with Gatsby
 import currency from 'currency.js';
 import * as pkg from '../../package.json';
 import Content from '../elements/content';
@@ -45,45 +44,29 @@ const HeaderTitle: React.FunctionComponent = () => {
 };
 
 const Header: React.FunctionComponent = () => {
+  // TODO: remove this nonsense and just get `location` typed correctly
+  const location = useLocation() as import('reach__router').WindowLocation<{
+    bill?: string;
+  }>;
+
   return (
     <HeaderContainer>
       <HeaderContent>
         {/* left */}
-        <Location>
-          {({ location }) => {
-            if (location.pathname === '/') {
-              return <HeaderTitle />;
-            }
+        <Link to="/" replace>
+          <HeaderTitle />
+        </Link>
 
-            return (
-              <Link to="/" replace>
-                <HeaderTitle />
-              </Link>
-            );
-          }}
-        </Location>
         {/* right */}
-        <Location>
-          {({ location }) => {
-            if (location.pathname === '/') {
-              return (
-                <Link to="/settings">
-                  <MdSettings aria-label="Settings" size={32} />
-                </Link>
-              );
-            }
-
-            if (/^\/settings\/?/.test(location.pathname)) {
-              return <H2>v{pkg.version}</H2>;
-            }
-
-            if (get(location, 'state.bill')) {
-              return <H2>{currency(location.state.bill).format()}</H2>;
-            }
-
-            return null;
-          }}
-        </Location>
+        {location.pathname === '/' ? (
+          <Link to="/settings">
+            <MdSettings aria-label="Settings" size={32} />
+          </Link>
+        ) : /^\/settings\/?/.test(location.pathname) ? (
+          <H2>v{pkg.version}</H2>
+        ) : location.state?.bill ? (
+          <H2>{currency(location.state.bill).format()}</H2>
+        ) : null}
       </HeaderContent>
     </HeaderContainer>
   );

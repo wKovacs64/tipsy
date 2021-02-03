@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import get from 'lodash/get';
 import currency from 'currency.js';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
@@ -107,6 +106,11 @@ interface State {
 const CalcPage: React.FunctionComponent<
   import('reach__router').RouteComponentProps
 > = ({ location, navigate }) => {
+  // TODO: remove this nonsense and just get `location` typed correctly
+  const locationWithState = location as import('reach__router').WindowLocation<{
+    bill?: string;
+  }>;
+
   const [initialPartySizeFromStorage] = useDefaultPartySize(
     appDefaultPartySize,
   );
@@ -126,7 +130,7 @@ const CalcPage: React.FunctionComponent<
       ? initialTipPercentFromStorage
       : appDefaultTipPercent;
 
-  const billAmount = get(location, 'state.bill', 0);
+  const billAmount = Number.parseFloat(locationWithState.state?.bill ?? '0');
   const initialTipAmount = currency(billAmount)
     .multiply(initialTipPercent)
     .divide(100).value;
