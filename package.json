@@ -40,8 +40,8 @@
   },
   "private": true,
   "dependencies": {
-    "@emotion/react": "11.1.4",
-    "@emotion/styled": "11.0.0",
+    "@emotion/react": "11.1.5",
+    "@emotion/styled": "11.1.5",
     "@quid/merge-refs": "4.0.0",
     "@wkovacs64/normalize.css": "8.0.1",
     "currency.js": "2.0.3",
