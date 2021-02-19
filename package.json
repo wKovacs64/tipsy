@@ -77,7 +77,7 @@
     "@testing-library/cypress": "7.0.3",
     "@types/cypress-axe": "0.8.0",
     "@types/hex-rgb": "4.1.1",
-    "@types/node": "12.20.2",
+    "@types/node": "12.20.3",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.1",
     "@types/react-helmet": "6.1.0",
