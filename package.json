@@ -88,7 +88,7 @@
     "babel-eslint": "10.1.0",
     "commitizen": "4.2.3",
     "cypress": "6.5.0",
-    "cypress-axe": "0.12.1",
+    "cypress-axe": "0.12.2",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "7.20.0",
     "eslint-plugin-cypress": "2.11.2",
