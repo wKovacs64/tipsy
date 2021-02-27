@@ -90,7 +90,7 @@
     "cypress": "6.5.0",
     "cypress-axe": "0.12.2",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "7.20.0",
+    "eslint": "7.21.0",
     "eslint-plugin-cypress": "2.11.2",
     "eslint-plugin-wkovacs64": "11.1.0",
     "husky": "5.1.1",
