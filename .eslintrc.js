@@ -3,8 +3,6 @@ module.exports = {
     'plugin:wkovacs64/react',
     'plugin:wkovacs64/typescript',
     'prettier',
-    'prettier/react',
-    'prettier/@typescript-eslint',
   ],
   rules: {
     'jsx-a11y/label-has-associated-control': [
