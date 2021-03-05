@@ -2,9 +2,9 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import { MdSettings } from 'react-icons/md';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useLocation } from '@reach/router'; // comes with Gatsby
+import { useLocation } from '@gatsbyjs/reach-router'; // comes with Gatsby
 import currency from 'currency.js';
-import * as pkg from '../../package.json';
+import pkg from '../../package.json';
 import Content from '../elements/content';
 import H1 from '../elements/h1';
 import H2 from '../elements/h2';
@@ -44,10 +44,7 @@ const HeaderTitle: React.FunctionComponent = () => {
 };
 
 const Header: React.FunctionComponent = () => {
-  // TODO: remove this nonsense and just get `location` typed correctly
-  const location = useLocation() as import('reach__router').WindowLocation<{
-    bill?: string;
-  }>;
+  const location = useLocation();
 
   return (
     <HeaderContainer>
