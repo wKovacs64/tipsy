@@ -5,13 +5,13 @@ orbs:
 
 jobs:
   validate:
-    executor: cypress/browsers-chrome77
+    executor: cypress/browsers-chrome78-ff70
     steps:
       - attach_workspace:
           at: ~/
       - run: yarn validate
   release:
-    executor: cypress/browsers-chrome77
+    executor: cypress/browsers-chrome78-ff70
     steps:
       - attach_workspace:
           at: ~/
@@ -22,7 +22,7 @@ workflows:
     jobs:
       - cypress/run:
           yarn: true
-          executor: cypress/browsers-chrome77
+          executor: cypress/browsers-chrome78-ff70
           browser: chrome
           start: yarn serve
           wait-on: '--timeout 90000 http://localhost:8000'
