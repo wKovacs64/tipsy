@@ -1,4 +1,4 @@
-import * as pkg from '../../package.json';
+import pkg from '../../package.json';
 
 function fillOutSettings(): Cypress.Chainable {
   cy.findByLabelText(/default party size/i)

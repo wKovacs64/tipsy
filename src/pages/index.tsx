@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { navigate } from 'gatsby';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import Layout from '../components/layout';
@@ -34,9 +35,7 @@ const BillInput = styled(NumericInput)`
   }
 `;
 
-const IndexPage: React.FunctionComponent<
-  import('reach__router').RouteComponentProps
-> = ({ navigate }) => {
+const IndexPage: React.FunctionComponent = () => {
   const [bill, setBill] = React.useState('');
   const [billInputDisabled, setBillInputDisabled] = React.useState(false);
   const [nextButtonDisabled, setNextButtonDisabled] = React.useState(true);
@@ -44,9 +43,7 @@ const IndexPage: React.FunctionComponent<
   function navigateToCalc(): void {
     setBillInputDisabled(true);
     setNextButtonDisabled(true);
-    if (navigate) {
-      navigate('calc', { state: { bill }, replace: true });
-    }
+    navigate('calc', { state: { bill }, replace: true });
   }
 
   const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
