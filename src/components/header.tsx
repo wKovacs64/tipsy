@@ -2,7 +2,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import { MdSettings } from 'react-icons/md';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useLocation } from '@gatsbyjs/reach-router'; // comes with Gatsby
+import { useLocation } from '@gatsbyjs/reach-router';
 import currency from 'currency.js';
 import pkg from '../../package.json';
 import Content from '../elements/content';

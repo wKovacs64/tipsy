@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { FaGithub } from 'react-icons/fa';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useLocation } from '@gatsbyjs/reach-router'; // comes with Gatsby
+import { useLocation } from '@gatsbyjs/reach-router';
 import { rhythm } from '../theme';
 import A from './external-link';
 
