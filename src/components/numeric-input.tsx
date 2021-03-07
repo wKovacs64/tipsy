@@ -14,7 +14,7 @@ const NumericInput = React.forwardRef<
       inputMode="numeric"
       ref={mergeRefs(ref, userRef)}
       onKeyDown={(e) => {
-        if (e.keyCode === 13 && ref && ref.current) {
+        if (e.key === 'Enter' && ref && ref.current) {
           ref.current.blur();
         }
       }}

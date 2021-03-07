@@ -67,7 +67,7 @@ const IndexPage: React.FunctionComponent = () => {
           placeholder="0.00"
           onChange={handleBillChange}
           onKeyDown={(e) => {
-            if (e.keyCode === 13) {
+            if (e.key === 'Enter') {
               navigateToCalc();
             }
           }}
