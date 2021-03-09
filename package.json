@@ -46,7 +46,7 @@
     "@quid/merge-refs": "4.0.0",
     "@wkovacs64/normalize.css": "8.0.1",
     "currency.js": "2.0.3",
-    "gatsby": "3.0.3",
+    "gatsby": "3.0.4",
     "gatsby-plugin-emotion": "6.0.0",
     "gatsby-plugin-manifest": "3.0.0",
     "gatsby-plugin-netlify": "3.0.0",
