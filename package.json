@@ -89,7 +89,7 @@
     "babel-eslint": "10.1.0",
     "babel-preset-gatsby": "1.2.0",
     "commitizen": "4.2.3",
-    "core-js": "3.10.0",
+    "core-js": "3.10.1",
     "cypress": "6.9.1",
     "cypress-axe": "0.12.2",
     "cz-conventional-changelog": "3.3.0",
