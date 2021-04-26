@@ -51,26 +51,13 @@ function expectValues({
 
 describe('Calc Page', () => {
   beforeEach(() => {
-    cy.visit('/').injectAxe();
+    cy.visit('/');
     // wait for the content to ensure the app has been rendered
     cy.get('html[lang="en"]');
   });
 
   afterEach(() => {
     cy.clearLocalStorageForReal();
-  });
-
-  it('has no detectable a11y violations (light mode)', () => {
-    setupCalcTests()
-      .get('body')
-      .should('not.have.class', 'dark-mode')
-      .checkA11y();
-  });
-
-  // TODO: figure out why this often fails on CI
-  it.skip('has no detectable a11y violations (dark mode)', () => {
-    cy.toggleDarkMode();
-    setupCalcTests().get('body').should('have.class', 'dark-mode').checkA11y();
   });
 
   it('displays the bill amount', () => {
