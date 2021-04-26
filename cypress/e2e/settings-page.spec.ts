@@ -14,27 +14,13 @@ function fillOutSettings(): Cypress.Chainable {
 
 describe('Settings Page', () => {
   beforeEach(() => {
-    cy.visit('/settings').injectAxe();
+    cy.visit('/settings');
     // wait for the content to ensure the app has been rendered
     cy.get('html[lang="en"]');
   });
 
   afterEach(() => {
     cy.clearLocalStorageForReal();
-  });
-
-  it('has no detectable a11y violations (light mode)', () => {
-    cy.get('body').should('not.have.class', 'dark-mode');
-    cy.checkA11y();
-  });
-
-  it('has no detectable a11y violations (dark mode)', () => {
-    // wait for Cypress resources to load in hopes of combating intermittent CI
-    // failures
-    cy.wait(2000);
-    cy.findByLabelText(/dark mode/i).click({ force: true });
-    cy.get('body').should('have.class', 'dark-mode');
-    cy.checkA11y();
   });
 
   it('displays the version', () => {
@@ -45,15 +31,27 @@ describe('Settings Page', () => {
     // wait for Cypress resources to load in hopes of combating intermittent CI
     // failures
     cy.wait(2000);
-    cy.get('body').should('not.have.class', 'dark-mode');
-    cy.findByLabelText(/dark mode:/i)
-      .click({ force: true })
-      .get('body')
-      .should('have.class', 'dark-mode');
-    cy.findByLabelText(/dark mode:/i)
-      .click({ force: true })
-      .get('body')
-      .should('have.class', 'light-mode');
+    cy.get('body').then(($body) => {
+      if ($body.hasClass('light-mode')) {
+        cy.findByLabelText(/dark mode:/i)
+          .click({ force: true })
+          .get('body')
+          .should('have.class', 'dark-mode');
+        cy.findByLabelText(/dark mode:/i)
+          .click({ force: true })
+          .get('body')
+          .should('have.class', 'light-mode');
+      } else if ($body.hasClass('dark-mode')) {
+        cy.findByLabelText(/dark mode:/i)
+          .click({ force: true })
+          .get('body')
+          .should('have.class', 'light-mode');
+        cy.findByLabelText(/dark mode:/i)
+          .click({ force: true })
+          .get('body')
+          .should('have.class', 'dark-mode');
+      }
+    });
   });
 
   it('persists numeric options only on save', () => {

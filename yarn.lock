@@ -2758,13 +2758,6 @@
   resolved "https://registry.yarnpkg.com/@types/cors/-/cors-2.8.10.tgz#61cc8469849e5bcdd0c7044122265c39cec10cf4"
   integrity sha512-C7srjHiVG3Ey1nR6d511dtDkCEjxuN9W1HWAEjGq8kpcwmNM6JJkpC0xvabM7BXTG2wDq8Eu33iH9aQKa7IvLQ==
 
-"@types/cypress-axe@0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@types/cypress-axe/-/cypress-axe-0.8.0.tgz#c22f5cb197080378fd65082255a613fa2e8e1afa"
-  integrity sha512-4sTqNsXUXnl/CqmSI+xCCmYwml+/zZ66uBExMLqnF1dn3wd+BIyrLL8fJ81O/AJePuh08igR2VjZqWuZaoqWaw==
-  dependencies:
-    axe-core "^3.4.1"
-
 "@types/debug@^0.0.30":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-0.0.30.tgz#dc1e40f7af3b9c815013a7860e6252f6352a84df"
@@ -3936,16 +3929,6 @@ aws4@^1.8.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.10.0.tgz#a17b3a8ea811060e74d47d306122400ad4497ae2"
   integrity sha512-3YDiu347mtVtjpyV3u5kVqQLP242c06zwDOgpeRnybmXlYYsLbtTrUBUm8i8srONt+FWobl5aibnU1030PeeuA==
-
-axe-core@4.1.4:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.1.4.tgz#f19cd99a84ee32a318b9c5b5bb8ed373ad94f143"
-  integrity sha512-Pdgfv6iP0gNx9ejRGa3zE7Xgkj/iclXqLfe7BnatdZz0QnLZ3jrRHUVH8wNSdN68w05Sk3ShGTb3ydktMTooig==
-
-axe-core@^3.4.1:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-3.5.3.tgz#5b7c0ee7c5197d546bd3a07c3ef701896f5773e9"
-  integrity sha512-HZpLE7xu05+8AbpqXITGdxp1Xwk8ysAXrg7MiKRY27py3DAyEJpoJQo1727pWF3F+O79V3r+cTWhOzfB49P89w==
 
 axe-core@^4.0.2:
   version "4.0.2"
@@ -5830,11 +5813,6 @@ cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
-
-cypress-axe@0.12.2:
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/cypress-axe/-/cypress-axe-0.12.2.tgz#4bc2f23ed4930eb6020ea802ba2a201b349b14d8"
-  integrity sha512-gn+rVJ2JnvUWhBshbZ/8dkJdANaEB96zgtAEClJ7vNvDgmqAYb+HhQpW0GM04EqtIiPhenqUeKNQDoqrquY5+w==
 
 cypress@7.1.0:
   version "7.1.0"
