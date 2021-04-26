@@ -19,7 +19,7 @@ const Footer: React.FunctionComponent = () => {
         `}
       >
         <A href="https://github.com/wKovacs64/tipsy">
-          <FaGithub aria-label="View source on GitHub" size={32} />
+          <FaGithub role="img" title="View source on GitHub" size={32} />
         </A>
       </footer>
     );

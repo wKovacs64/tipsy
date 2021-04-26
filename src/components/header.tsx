@@ -57,7 +57,7 @@ const Header: React.FunctionComponent = () => {
         {/* right */}
         {location.pathname === '/' ? (
           <Link to="/settings">
-            <MdSettings aria-label="Settings" size={32} />
+            <MdSettings role="img" title="Settings" size={32} />
           </Link>
         ) : /^\/settings\/?/.test(location.pathname) ? (
           <H2>v{pkg.version}</H2>
