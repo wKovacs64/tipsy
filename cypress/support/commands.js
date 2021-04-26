@@ -27,7 +27,7 @@
 import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add('toggleDarkMode', () => {
-  cy.findByLabelText(/settings/i).click();
+  cy.findByRole('img', { name: /settings/i }).click();
   cy.findByLabelText(/dark mode:/i)
     .click({ force: true })
     .go('back');

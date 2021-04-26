@@ -18,7 +18,7 @@ describe('Index Page', () => {
   });
 
   it('can navigate to /settings', () => {
-    cy.findByLabelText(/settings/i).click();
+    cy.findByRole('img', { name: /settings/i }).click();
     cy.url().should('include', '/settings');
   });
 });

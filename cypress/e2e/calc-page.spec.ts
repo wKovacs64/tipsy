@@ -7,7 +7,7 @@ function changeDefaults({
   partySize: number;
   tipPercent: number;
 }): Cypress.Chainable {
-  cy.findByLabelText(/settings/i).click();
+  cy.findByRole('img', { name: /settings/i }).click();
   cy.findByLabelText(/default party size/i)
     .click()
     .type(String(partySize));

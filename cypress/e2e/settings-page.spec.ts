@@ -56,7 +56,7 @@ describe('Settings Page', () => {
 
   it('persists numeric options only on save', () => {
     fillOutSettings().visit('/');
-    cy.findByLabelText(/settings/i).click();
+    cy.findByRole('img', { name: /settings/i }).click();
     cy.findByLabelText(/default party size/i).should('not.have.value', '24');
     cy.findByLabelText(/default tip percentage/i).should(
       'not.have.value',
@@ -64,7 +64,7 @@ describe('Settings Page', () => {
     );
     cy.findByLabelText(/default party size/i).then(fillOutSettings);
     cy.findByText(/save/i).click();
-    cy.findByLabelText(/settings/i).click();
+    cy.findByRole('img', { name: /settings/i }).click();
     cy.findByLabelText(/default party size/i).should('have.value', '24');
     cy.findByLabelText(/default tip percentage/i).should('have.value', '42');
   });
