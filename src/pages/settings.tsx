@@ -1,19 +1,17 @@
 import * as React from 'react';
-import Switch from 'react-switch';
 import styled from '@emotion/styled';
 import Layout from '../components/layout';
 import NumericInput from '../components/numeric-input';
+import DarkModeToggle from '../components/dark-mode-toggle';
 import Content from '../elements/content';
 import BrandButton from '../elements/brand-button';
 import {
-  appDefaultDarkMode,
   appDefaultPartySize,
   appDefaultTipPercent,
-  useDarkMode,
   useDefaultPartySize,
   useDefaultTipPercent,
 } from '../state';
-import { rhythm, scale, palette } from '../theme';
+import { rhythm, scale } from '../theme';
 import { mq } from '../utils';
 
 const SettingsGrid = styled.section`
@@ -63,7 +61,6 @@ const SettingInput = styled(NumericInput)`
 const SettingsPage: React.FunctionComponent<
   import('reach__router').RouteComponentProps
 > = ({ navigate }) => {
-  const darkMode = useDarkMode(appDefaultDarkMode);
   const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize(
     appDefaultPartySize,
   );
@@ -100,13 +97,7 @@ const SettingsPage: React.FunctionComponent<
         <SettingsGrid>
           <SingleRowSetting>
             <SettingLabel htmlFor="dark-mode">Dark mode:</SettingLabel>
-            <Switch
-              id="dark-mode"
-              aria-checked={darkMode.value}
-              checked={darkMode.value}
-              onChange={darkMode.toggle}
-              onColor={palette.primary}
-            />
+            <DarkModeToggle />
           </SingleRowSetting>
           <Setting>
             <SettingLabel htmlFor="default-party-size">
