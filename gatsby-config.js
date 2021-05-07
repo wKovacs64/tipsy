@@ -50,6 +50,7 @@ module.exports = {
     'gatsby-plugin-offline',
   ],
   flags: {
+    DEV_SSR: true,
     FAST_DEV: true,
     PRESERVE_WEBPACK_CACHE: false,
     PRESERVE_FILE_DOWNLOAD_CACHE: true,
