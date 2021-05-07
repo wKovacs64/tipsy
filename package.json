@@ -42,7 +42,7 @@
   },
   "private": true,
   "dependencies": {
-    "@emotion/react": "11.1.5",
+    "@emotion/react": "11.4.0",
     "@emotion/styled": "11.3.0",
     "@quid/merge-refs": "4.0.0",
     "@wkovacs64/normalize.css": "8.0.3",
