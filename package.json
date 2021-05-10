@@ -64,8 +64,8 @@
     "react-helmet": "6.1.0",
     "react-icons": "4.2.0",
     "react-switch": "6.0.0",
-    "react-typography": "0.16.19",
-    "typography": "0.16.19",
+    "react-typography": "0.16.20",
+    "typography": "0.16.21",
     "typography-theme-moraga": "0.16.19",
     "use-dark-mode": "2.3.1",
     "use-persisted-state": "0.3.3"
