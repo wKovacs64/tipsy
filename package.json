@@ -79,7 +79,7 @@
     "@types/hex-rgb": "4.1.1",
     "@types/node": "14.17.3",
     "@types/react": "17.0.11",
-    "@types/react-dom": "17.0.7",
+    "@types/react-dom": "17.0.8",
     "@types/react-helmet": "6.1.1",
     "@types/typography": "0.16.3",
     "@types/use-persisted-state": "0.3.0",
