@@ -90,7 +90,7 @@
     "core-js": "3.14.0",
     "cypress": "7.5.0",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "7.28.0",
+    "eslint": "7.29.0",
     "eslint-plugin-cypress": "2.11.3",
     "eslint-plugin-wkovacs64": "13.3.0",
     "husky": "6.0.0",
