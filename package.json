@@ -88,7 +88,7 @@
     "babel-preset-gatsby": "1.11.0",
     "commitizen": "4.2.4",
     "core-js": "3.16.0",
-    "cypress": "8.1.0",
+    "cypress": "8.2.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "7.32.0",
     "eslint-plugin-cypress": "2.11.3",
