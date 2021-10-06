@@ -71,7 +71,7 @@
     "use-persisted-state": "0.3.3"
   },
   "devDependencies": {
-    "@babel/core": "7.15.5",
+    "@babel/core": "7.15.8",
     "@commitlint/cli": "13.2.0",
     "@commitlint/config-conventional": "13.2.0",
     "@semantic-release/git": "10.0.0",
