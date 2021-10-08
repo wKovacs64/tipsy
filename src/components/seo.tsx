@@ -16,7 +16,7 @@ const siteInfo = graphql`
   }
 `;
 
-const SEO: React.FunctionComponent = () => {
+function SEO(): JSX.Element {
   const {
     site: { siteMetadata },
   } = useStaticQuery(siteInfo);
@@ -61,6 +61,6 @@ const SEO: React.FunctionComponent = () => {
       ]}
     />
   );
-};
+}
 
 export default SEO;

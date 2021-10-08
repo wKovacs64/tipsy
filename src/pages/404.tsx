@@ -14,12 +14,13 @@ const P = styled.p`
   font-size: ${scale(1.25).fontSize};
 `;
 
-const NotFoundPage: React.FunctionComponent = () => (
-  <Layout>
-    <Centered>
-      <P>Nope.</P>
-    </Centered>
-  </Layout>
-);
-
+function NotFoundPage(): JSX.Element {
+  return (
+    <Layout>
+      <Centered>
+        <P>Nope.</P>
+      </Centered>
+    </Layout>
+  );
+}
 export default NotFoundPage;

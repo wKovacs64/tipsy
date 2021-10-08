@@ -58,15 +58,13 @@ const SettingInput = styled(NumericInput)`
   }
 `;
 
-const SettingsPage: React.FunctionComponent<
-  import('reach__router').RouteComponentProps
-> = ({ navigate }) => {
-  const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize(
-    appDefaultPartySize,
-  );
-  const [defaultTipPercent, setDefaultTipPercent] = useDefaultTipPercent(
-    appDefaultTipPercent,
-  );
+function SettingsPage({
+  navigate,
+}: import('reach__router').RouteComponentProps): JSX.Element {
+  const [defaultPartySize, setDefaultPartySize] =
+    useDefaultPartySize(appDefaultPartySize);
+  const [defaultTipPercent, setDefaultTipPercent] =
+    useDefaultTipPercent(appDefaultTipPercent);
   const [partySize, setPartySize] = React.useState(String(defaultPartySize));
   const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
 
@@ -130,6 +128,6 @@ const SettingsPage: React.FunctionComponent<
       </Content>
     </Layout>
   );
-};
+}
 
 export default SettingsPage;

@@ -1,5 +1,5 @@
 import '@wkovacs64/normalize.css';
-
+import * as React from 'react';
 import { css, Global, ClassNames } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IconContext } from 'react-icons';
@@ -14,32 +14,38 @@ const FullHeightContainer = styled.div`
   min-height: 100vh;
 `;
 
-const Layout: React.FunctionComponent = ({ children }) => (
-  <ClassNames>
-    {({ css: classNameFromCss }) => (
-      <IconContext.Provider
-        value={{
-          className: classNameFromCss`
+function Layout({ children }: LayoutProps): JSX.Element {
+  return (
+    <ClassNames>
+      {({ css: classNameFromCss }) => (
+        <IconContext.Provider
+          value={{
+            className: classNameFromCss`
             vertical-align: middle;
           `,
-        }}
-      >
-        <Global
-          styles={css`
-            #gatsby-noscript {
-              display: none;
-            }
-          `}
-        />
-        <SEO />
-        <FullHeightContainer>
-          <Header />
-          <Main>{children}</Main>
-          <Footer />
-        </FullHeightContainer>
-      </IconContext.Provider>
-    )}
-  </ClassNames>
-);
+          }}
+        >
+          <Global
+            styles={css`
+              #gatsby-noscript {
+                display: none;
+              }
+            `}
+          />
+          <SEO />
+          <FullHeightContainer>
+            <Header />
+            <Main>{children}</Main>
+            <Footer />
+          </FullHeightContainer>
+        </IconContext.Provider>
+      )}
+    </ClassNames>
+  );
+}
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
 
 export default Layout;

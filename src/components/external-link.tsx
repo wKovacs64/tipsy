@@ -9,8 +9,10 @@ const Anchor = styled.a`
   }
 `;
 
-const ExternalLink: React.FunctionComponent<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
-> = (props) => <Anchor target="_blank" rel="noopener noreferrer" {...props} />;
+function ExternalLink(
+  props: React.AnchorHTMLAttributes<HTMLAnchorElement>,
+): JSX.Element {
+  return <Anchor target="_blank" rel="noopener noreferrer" {...props} />;
+}
 
 export default ExternalLink;
