@@ -5,7 +5,7 @@ import { useLocation } from '@gatsbyjs/reach-router';
 import { rhythm } from '../theme';
 import A from './external-link';
 
-const Footer: React.FunctionComponent = () => {
+function Footer(): JSX.Element {
   const location = useLocation();
 
   if (location.pathname === '/') {
@@ -26,6 +26,6 @@ const Footer: React.FunctionComponent = () => {
   }
 
   return <footer />;
-};
+}
 
 export default Footer;

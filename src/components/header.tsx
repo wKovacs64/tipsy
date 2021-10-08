@@ -25,7 +25,7 @@ const HeaderContainer = styled.header`
   padding: ${rhythm(1)};
 `;
 
-const HeaderTitle: React.FunctionComponent = () => {
+function HeaderTitle() {
   const {
     site: {
       siteMetadata: { pwaShortName },
@@ -41,9 +41,9 @@ const HeaderTitle: React.FunctionComponent = () => {
   `);
 
   return <H1>{pwaShortName}</H1>;
-};
+}
 
-const Header: React.FunctionComponent = () => {
+function Header(): JSX.Element {
   const location = useLocation();
 
   return (
@@ -67,6 +67,6 @@ const Header: React.FunctionComponent = () => {
       </HeaderContent>
     </HeaderContainer>
   );
-};
+}
 
 export default Header;

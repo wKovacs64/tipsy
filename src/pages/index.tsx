@@ -35,7 +35,7 @@ const BillInput = styled(NumericInput)`
   }
 `;
 
-const IndexPage: React.FunctionComponent = () => {
+function IndexPage(): JSX.Element {
   const [bill, setBill] = React.useState('');
   const [billInputDisabled, setBillInputDisabled] = React.useState(false);
   const [nextButtonDisabled, setNextButtonDisabled] = React.useState(true);
@@ -84,6 +84,6 @@ const IndexPage: React.FunctionComponent = () => {
       </Content>
     </Layout>
   );
-};
+}
 
 export default IndexPage;

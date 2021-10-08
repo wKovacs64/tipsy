@@ -103,20 +103,19 @@ interface State {
   eachPersonPays: number;
 }
 
-const CalcPage: React.FunctionComponent<
-  import('reach__router').RouteComponentProps
-> = ({ location, navigate }) => {
+function CalcPage({
+  location,
+  navigate,
+}: import('reach__router').RouteComponentProps): JSX.Element {
   // TODO: remove this nonsense and just get `location` typed correctly
   const locationWithState = location as import('reach__router').WindowLocation<{
     bill?: string;
   }>;
 
-  const [initialPartySizeFromStorage] = useDefaultPartySize(
-    appDefaultPartySize,
-  );
-  const [initialTipPercentFromStorage] = useDefaultTipPercent(
-    appDefaultTipPercent,
-  );
+  const [initialPartySizeFromStorage] =
+    useDefaultPartySize(appDefaultPartySize);
+  const [initialTipPercentFromStorage] =
+    useDefaultTipPercent(appDefaultTipPercent);
 
   // HACK: null check to prevent Cypress tests from crashing because for some
   // reason the values returned from these persisted state hooks are null
@@ -135,9 +134,8 @@ const CalcPage: React.FunctionComponent<
     .multiply(initialTipPercent)
     .divide(100).value;
   const initialTotalAmount = currency(billAmount).add(initialTipAmount).value;
-  const initialEachPersonPays = currency(initialTotalAmount).distribute(
-    initialPartySize,
-  )[0].value;
+  const initialEachPersonPays =
+    currency(initialTotalAmount).distribute(initialPartySize)[0].value;
 
   const initialState: State = {
     tipPercent: initialTipPercent,
@@ -187,8 +185,9 @@ const CalcPage: React.FunctionComponent<
 
       case ActionType.CHANGE_TOTAL_AMOUNT: {
         const tipAmount = currency(action.payload).subtract(billAmount).value;
-        const tipPercent = currency(tipAmount).divide(billAmount).multiply(100)
-          .value;
+        const tipPercent = currency(tipAmount)
+          .divide(billAmount)
+          .multiply(100).value;
         const eachPersonPays = currency(action.payload).distribute(
           state.numberOfPeople,
         )[0].value;
@@ -219,8 +218,9 @@ const CalcPage: React.FunctionComponent<
           state.numberOfPeople,
         ).value;
         const tipAmount = currency(totalAmount).subtract(billAmount).value;
-        const tipPercent = currency(tipAmount).divide(billAmount).multiply(100)
-          .value;
+        const tipPercent = currency(tipAmount)
+          .divide(billAmount)
+          .multiply(100).value;
 
         return {
           tipPercent,
@@ -494,6 +494,6 @@ const CalcPage: React.FunctionComponent<
       </Content>
     </Layout>
   );
-};
+}
 
 export default CalcPage;
