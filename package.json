@@ -45,7 +45,7 @@
     "@emotion/react": "11.5.0",
     "@emotion/styled": "11.3.0",
     "@quid/merge-refs": "4.0.0",
-    "@wkovacs64/normalize.css": "8.0.3",
+    "@wkovacs64/normalize.css": "8.0.4",
     "currency.js": "2.0.4",
     "gatsby": "4.0.0",
     "gatsby-plugin-emotion": "7.0.0",
