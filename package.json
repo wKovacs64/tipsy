@@ -75,7 +75,7 @@
     "@commitlint/cli": "14.1.0",
     "@commitlint/config-conventional": "14.1.0",
     "@semantic-release/git": "10.0.1",
-    "@testing-library/cypress": "8.0.1",
+    "@testing-library/cypress": "8.0.2",
     "@types/hex-rgb": "4.1.1",
     "@types/node": "16.11.7",
     "@types/react": "17.0.34",
