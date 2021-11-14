@@ -42,8 +42,8 @@
   },
   "private": true,
   "dependencies": {
-    "@emotion/react": "11.5.0",
-    "@emotion/styled": "11.3.0",
+    "@emotion/react": "11.6.0",
+    "@emotion/styled": "11.6.0",
     "@quid/merge-refs": "4.0.0",
     "@wkovacs64/normalize.css": "8.0.4",
     "currency.js": "2.0.4",
