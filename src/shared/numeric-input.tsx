@@ -8,6 +8,8 @@ function NumericInput(props: JSX.IntrinsicElements['input']) {
       type="text"
       inputMode="numeric"
       onFocus={(e) => e.currentTarget.select()}
+      autoComplete="off"
+      autoCorrect="off"
       className={clsx(
         'text-center w-full',
         'bg-transparent focus:placeholder-transparent',
