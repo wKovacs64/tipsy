@@ -1,76 +1,37 @@
 import * as React from 'react';
-import styled from '@emotion/styled';
-import Layout from '../components/layout';
-import NumericInput from '../components/numeric-input';
-import DarkModeToggle from '../components/dark-mode-toggle';
-import Content from '../elements/content';
-import BrandButton from '../elements/brand-button';
+import { useNavigate } from 'react-router-dom';
+import Switch from 'react-switch';
 import {
   appDefaultPartySize,
   appDefaultTipPercent,
   useDefaultPartySize,
   useDefaultTipPercent,
-} from '../state';
-import { rhythm, scale } from '../theme';
-import { mq } from '../utils';
+} from '../settings';
+import NumericInput from '../shared/numeric-input';
+import BrandButton from '../shared/brand-button';
 
-const SettingsGrid = styled.section`
-  width: 100%;
-  display: grid;
-  grid-row-gap: ${rhythm(2)};
-  margin-bottom: ${rhythm(2)};
-`;
-
-const Setting = styled.div`
-  width: 100%;
-`;
-
-const SingleRowSetting = styled(Setting)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const SettingLabel = styled.label`
-  display: inline-block;
-  font-weight: 200;
-  font-size: ${scale(0.75).fontSize};
-  line-height: ${scale(0.75).lineHeight};
-  ${mq.sm} {
-    font-size: ${scale(0.5).fontSize};
-    line-height: ${scale(0.5).lineHeight};
-  }
-`;
-
-const SettingInput = styled(NumericInput)`
-  width: 100%;
-  max-width: ${rhythm(20)};
-  font-weight: 200;
-  font-size: ${scale(1).fontSize};
-  line-height: ${scale(1).lineHeight};
-  margin: ${rhythm(1)} 0;
-  ${mq.sm} {
-    font-size: ${scale(0.75).fontSize};
-    line-height: ${scale(0.75).lineHeight};
-  }
-  &:focus::placeholder {
-    color: transparent;
-  }
-`;
-
-function SettingsPage({
-  navigate,
-}: import('reach__router').RouteComponentProps): JSX.Element {
+function SettingsPage() {
+  const navigate = useNavigate();
   const [defaultPartySize, setDefaultPartySize] =
     useDefaultPartySize(appDefaultPartySize);
   const [defaultTipPercent, setDefaultTipPercent] =
     useDefaultTipPercent(appDefaultTipPercent);
   const [partySize, setPartySize] = React.useState(String(defaultPartySize));
   const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
+  const [isCurrentlyDark, setIsCurrentlyDark] = React.useState(
+    document.documentElement.classList.contains('dark'),
+  );
 
-  function saveSettings(): void {
-    const partySizeNumber = parseInt(partySize, 10);
-    const tipPercentNumber = parseInt(tipPercent, 10);
+  // TODO: improve this (listen for system and storage changes, maybe)
+  const handleThemeToggle = () => {
+    setIsCurrentlyDark(!isCurrentlyDark);
+    window.localStorage.setItem('darkMode', String(!isCurrentlyDark));
+    document.documentElement.classList.toggle('dark');
+  };
+
+  const saveSettings = () => {
+    const partySizeNumber = Number.parseInt(partySize, 10);
+    const tipPercentNumber = Number.parseInt(tipPercent, 10);
 
     setDefaultPartySize(
       Number.isNaN(partySizeNumber) || partySizeNumber < 1
@@ -84,49 +45,51 @@ function SettingsPage({
         : tipPercentNumber,
     );
 
-    if (navigate) {
-      navigate('/', { replace: true });
-    }
-  }
+    navigate('/', { replace: true });
+  };
 
   return (
-    <Layout>
-      <Content>
-        <SettingsGrid>
-          <SingleRowSetting>
-            <SettingLabel htmlFor="dark-mode">Dark mode:</SettingLabel>
-            <DarkModeToggle />
-          </SingleRowSetting>
-          <Setting>
-            <SettingLabel htmlFor="default-party-size">
-              Default party size:
-            </SettingLabel>
-            <SettingInput
-              id="default-party-size"
-              name="default-party-size"
-              placeholder={String(appDefaultPartySize)}
-              onChange={(e) => setPartySize(e.target.value)}
-              value={partySize}
-            />
-          </Setting>
-          <Setting>
-            <SettingLabel htmlFor="default-tip-percentage">
-              Default tip percentage:
-            </SettingLabel>
-            <SettingInput
-              id="default-tip-percentage"
-              name="default-tip-percentage"
-              placeholder={String(appDefaultTipPercent)}
-              onChange={(e) => setTipPercent(e.target.value)}
-              value={tipPercent}
-            />
-          </Setting>
-        </SettingsGrid>
-        <BrandButton type="button" onClick={saveSettings}>
-          Save
-        </BrandButton>
-      </Content>
-    </Layout>
+    <section className="flex-grow flex flex-col items-center justify-between w-full max-w-xl">
+      <div className="text-3xl md:text-4xl grid gap-y-14 mb-14 w-full">
+        <div className="flex items-center justify-between">
+          <label htmlFor="dark-mode">Dark mode:</label>
+          <Switch
+            id="dark-mode"
+            aria-checked={isCurrentlyDark}
+            checked={isCurrentlyDark}
+            onChange={handleThemeToggle}
+            onColor="#8d6c9f"
+          />
+        </div>
+        <div>
+          <label htmlFor="default-party-size">Default party size:</label>
+          <NumericInput
+            id="default-party-size"
+            name="default-party-size"
+            placeholder={String(appDefaultPartySize)}
+            className="text-4xl mg:text-5xl font-extralight my-6"
+            onChange={(e) => setPartySize(e.target.value)}
+            value={partySize}
+          />
+        </div>
+        <div>
+          <label htmlFor="default-tip-percentage">
+            Default tip percentage:
+          </label>
+          <NumericInput
+            id="default-tip-percentage"
+            name="default-tip-percentage"
+            placeholder={String(appDefaultTipPercent)}
+            className="text-4xl mg:text-5xl font-extralight my-6"
+            onChange={(e) => setTipPercent(e.target.value)}
+            value={tipPercent}
+          />
+        </div>
+      </div>
+      <BrandButton type="button" onClick={saveSettings}>
+        Save
+      </BrandButton>
+    </section>
   );
 }
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Tipsy</title>
+    <meta name="application-name" content="Tipsy" />
+    <meta name="apple-mobile-web-app-title" content="Tipsy" />
+    <meta
+      name="description"
+      content="A simple tip calculator and bill divider"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tipsy" />
+    <meta
+      property="og:description"
+      content="A simple tip calculator and bill divider"
+    />
+    <!-- <meta property="og:image" content="" /> -->
+    <!-- <meta property="og:image:alt" content="Tipsy" /> -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tipsy" />
+    <meta
+      name="twitter:description"
+      content="A simple tip calculator and bill divider"
+    />
+    <!-- <meta name="twitter:image" content="" /> -->
+    <!-- <meta name="twitter:image:alt" content="Tipsy" /> -->
+    <link rel="icon" sizes="any" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="msapplication-TileColor" content="#8d6c9f" />
+    <meta name="theme-color" content="#8d6c9f" />
+  </head>
+  <body
+    class="
+      sans
+      font-extralight
+      text-gray-900
+      bg-white
+      dark:text-gray-100 dark:bg-black
+    "
+  >
+    <script type="text/javascript">
+      function prefersDark() {
+        const storedPreference = window.localStorage.getItem('darkMode');
+        const hasStoredPreference = typeof storedPreference === 'string';
+        if (hasStoredPreference) return storedPreference === 'true';
+
+        const mediaQuery = '(prefers-color-scheme: dark)';
+        const mql = window.matchMedia(mediaQuery);
+        const hasSystemPreference = typeof mql.matches === 'boolean';
+        if (hasSystemPreference) return mql.matches ? true : false;
+
+        return false;
+      }
+
+      if (prefersDark()) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+    <noscript>
+      <p class="p-4">This application requires JavaScript.</p>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

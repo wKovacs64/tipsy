@@ -5,14 +5,6 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    'jsx-a11y/label-has-associated-control': [
-      'error',
-      {
-        labelComponents: ['Label', 'SettingLabel'],
-        controlComponents: ['BillInput', 'CalcInput'],
-        assert: 'either',
-      },
-    ],
     'react/react-in-jsx-scope': 'off',
   },
 };

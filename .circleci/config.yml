@@ -30,7 +30,7 @@ workflows:
           executor: my-cypress-executor
           browser: chrome
           start: yarn serve
-          wait-on: '--timeout 120000 http://localhost:8000'
+          wait-on: '--timeout 120000 http://localhost:3000'
       - validate:
           requires:
             - cypress/run

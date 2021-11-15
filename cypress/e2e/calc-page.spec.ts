@@ -1,4 +1,4 @@
-import { appDefaultPartySize, appDefaultTipPercent } from '../../src/state';
+import { appDefaultPartySize, appDefaultTipPercent } from '../../src/settings';
 
 function changeDefaults({
   partySize,
