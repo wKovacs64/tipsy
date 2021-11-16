@@ -27,16 +27,8 @@
 import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add('toggleDarkMode', () => {
-  cy.findByRole('img', { name: /settings/i }).click();
+  cy.visit('/settings');
   cy.findByLabelText(/dark mode:/i)
     .click({ force: true })
     .go('back');
-});
-
-// Clear localStorage ourselves because Cypress' internal method is broken and
-// sets entries to `null` instead of removing them!
-Cypress.Commands.add('clearLocalStorageForReal', () => {
-  cy.window().then((win) => {
-    win.localStorage.clear();
-  });
 });

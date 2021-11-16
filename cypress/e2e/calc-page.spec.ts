@@ -7,21 +7,15 @@ function changeDefaults({
   partySize: number;
   tipPercent: number;
 }): Cypress.Chainable {
-  cy.findByRole('img', { name: /settings/i }).click();
+  cy.visit('/settings');
   cy.findByLabelText(/default party size/i)
     .click()
     .type(String(partySize));
   cy.findByLabelText(/default tip percentage/i)
     .click()
     .type(String(tipPercent));
-  return cy.findByText(/save/i).click();
-}
-
-function setupCalcTests(): Cypress.Chainable {
-  cy.findByLabelText(/bill amount/i)
-    .click()
-    .type('1235');
-  return cy.findByText(/next/i).click();
+  cy.findByText(/save/i).click();
+  return cy.go('back');
 }
 
 function expectValues({
@@ -51,22 +45,18 @@ function expectValues({
 
 describe('Calc Page', () => {
   beforeEach(() => {
-    cy.visit('/');
-    // wait for the content to ensure the app has been rendered
-    cy.get('html[lang="en"]');
+    cy.visit('/calc/1235');
   });
 
   afterEach(() => {
-    cy.clearLocalStorageForReal();
+    cy.clearLocalStorage();
   });
 
   it('displays the bill amount', () => {
-    setupCalcTests();
     cy.findByText('$12.35').should('exist');
   });
 
   it('populates initial values using app defaults', () => {
-    setupCalcTests();
     expectValues({
       tipPercent: String(appDefaultTipPercent),
       tipAmount: '2.47',
@@ -81,7 +71,6 @@ describe('Calc Page', () => {
       partySize: 4,
       tipPercent: 18,
     });
-    setupCalcTests();
     expectValues({
       tipPercent: '18',
       tipAmount: '2.22',
@@ -92,13 +81,11 @@ describe('Calc Page', () => {
   });
 
   it('has a working Start Over button', () => {
-    setupCalcTests();
     cy.findByText(/start over/i).click();
     cy.url().should('eq', `${Cypress.config().baseUrl}/`);
   });
 
   it('recalculates on decrementing Tip Percent', () => {
-    setupCalcTests();
     cy.findByLabelText(/decrement tip percent/i).click();
     expectValues({
       tipPercent: String(appDefaultTipPercent - 1),
@@ -110,7 +97,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Tip Percent', () => {
-    setupCalcTests();
     cy.findByLabelText(/increment tip percent/i).click();
     expectValues({
       tipPercent: String(appDefaultTipPercent + 1),
@@ -122,7 +108,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Tip Percent', () => {
-    setupCalcTests();
     cy.findByLabelText(/^tip percent \(%\)$/i)
       .click()
       .type('15');
@@ -136,7 +121,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on decrementing Tip Amount', () => {
-    setupCalcTests();
     cy.findByLabelText(/decrement tip amount/i).click();
     expectValues({
       tipPercent: '16',
@@ -148,7 +132,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Tip Amount', () => {
-    setupCalcTests();
     cy.findByLabelText(/increment tip amount/i).click();
     expectValues({
       tipPercent: '24',
@@ -160,7 +143,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Tip Amount', () => {
-    setupCalcTests();
     cy.findByLabelText(/^tip amount$/i)
       .click()
       .type('285');
@@ -174,7 +156,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on decrementing Total Amount', () => {
-    setupCalcTests();
     cy.findByLabelText(/decrement total amount/i).click();
     expectValues({
       tipPercent: '13',
@@ -186,7 +167,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Total Amount', () => {
-    setupCalcTests();
     cy.findByLabelText(/increment total amount/i).click();
     expectValues({
       tipPercent: '21',
@@ -198,7 +178,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Total Amount', () => {
-    setupCalcTests();
     cy.findByLabelText(/^total amount$/i)
       .click()
       .type('1600');
@@ -212,7 +191,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on decrementing Number of People', () => {
-    setupCalcTests();
     cy.findByLabelText(/decrement number of people/i).click();
     expectValues({
       tipPercent: '20',
@@ -224,7 +202,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Number of People', () => {
-    setupCalcTests();
     cy.findByLabelText(/increment number of people/i).click();
     expectValues({
       tipPercent: '20',
@@ -236,7 +213,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Number of People', () => {
-    setupCalcTests();
     cy.findByLabelText(/^number of people$/i)
       .click()
       .type('3');
@@ -250,7 +226,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on decrementing Each Person Pays', () => {
-    setupCalcTests();
     cy.findByLabelText(/decrement each person pays/i).click();
     expectValues({
       tipPercent: '13',
@@ -262,7 +237,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on incrementing Each Person Pays', () => {
-    setupCalcTests();
     cy.findByLabelText(/increment each person pays/i).click();
     expectValues({
       tipPercent: '21',
@@ -274,7 +248,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on manually adjusting Each Person Pays', () => {
-    setupCalcTests();
     cy.findByLabelText(/^each person pays$/i)
       .click()
       .type('1600');
@@ -288,7 +261,6 @@ describe('Calc Page', () => {
   });
 
   it('recalculates on multiple changes', () => {
-    setupCalcTests();
     cy.findByLabelText(/increment total amount/i)
       .click()
       .click();

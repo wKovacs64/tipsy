@@ -1,12 +1,10 @@
 describe('Index Page', () => {
   beforeEach(() => {
     cy.visit('/');
-    // wait for the content to ensure the app has been rendered
-    cy.get('html[lang="en"]');
   });
 
   afterEach(() => {
-    cy.clearLocalStorageForReal();
+    cy.clearLocalStorage();
   });
 
   it('enables the otherwise disabled Next button after entering a bill amount', () => {
