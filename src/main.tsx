@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import AppProviders from './app-providers';
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && !('Cypress' in window)) {
   import('./pwa');
 }
 
