@@ -1,7 +1,6 @@
-import 'react-toggle/style.css';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Toggle from 'react-toggle';
+import ReactSwitch from 'react-switch';
 import {
   appDefaultPartySize,
   appDefaultTipPercent,
@@ -10,6 +9,10 @@ import {
 } from '../settings';
 import NumericInput from '../shared/numeric-input';
 import BrandButton from '../shared/brand-button';
+
+// TODO: remove this Vite-related hack once react-switch is available as ESM
+// @ts-ignore
+const Switch = ReactSwitch.default ? ReactSwitch.default : ReactSwitch;
 
 function SettingsPage() {
   const navigate = useNavigate();
@@ -54,11 +57,12 @@ function SettingsPage() {
       <div className="text-3xl md:text-4xl grid gap-y-14 mb-14 w-full">
         <div className="flex items-center justify-between">
           <label htmlFor="dark-mode">Dark mode:</label>
-          <Toggle
+          <Switch
             id="dark-mode"
             aria-checked={isCurrentlyDark}
             checked={isCurrentlyDark}
             onChange={handleThemeToggle}
+            onColor="#8d6c9f"
           />
         </div>
         <div>
