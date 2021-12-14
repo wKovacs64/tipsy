@@ -41,7 +41,8 @@
   },
   "private": true,
   "dependencies": {
-    "@babel/core": "7.16.0",
+    "@babel/core": "7.16.5",
+    "@babel/plugin-syntax-jsx": "7.16.5",
     "@commitlint/cli": "15.0.0",
     "@commitlint/config-conventional": "15.0.0",
     "@fontsource/source-sans-pro": "4.5.1",
