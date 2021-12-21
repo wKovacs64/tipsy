@@ -53,7 +53,7 @@ function SettingsPage() {
   };
 
   return (
-    <section className="flex-grow flex flex-col items-center justify-between w-full max-w-xl">
+    <section className="grow flex flex-col items-center justify-between w-full max-w-xl">
       <div className="text-3xl md:text-4xl grid gap-y-14 mb-14 w-full">
         <div className="flex items-center justify-between">
           <label htmlFor="dark-mode">Dark mode:</label>

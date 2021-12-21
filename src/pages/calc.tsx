@@ -201,7 +201,7 @@ function CalcPage() {
   };
 
   return (
-    <section className="flex-grow flex flex-col items-center justify-between w-full max-w-xl font-normal">
+    <section className="grow flex flex-col items-center justify-between w-full max-w-xl font-normal">
       <div className="text-xl md:text-2xl grid gap-y-14 grid-cols-[1fr,auto] w-full mb-12">
         <Cell>
           <label htmlFor="tip-percent">Tip Percent (%)</label>
