@@ -24,10 +24,10 @@ function HomePage() {
   };
 
   return (
-    <section className="flex-grow flex flex-col items-center justify-around w-full max-w-xl">
+    <section className="grow flex flex-col items-center justify-around w-full max-w-xl">
       <form
         onSubmit={handleSubmit}
-        className="flex-grow flex flex-col items-center justify-around w-full"
+        className="grow flex flex-col items-center justify-around w-full"
       >
         <label htmlFor="bill" className="text-5xl md:text-4xl">
           Bill amount:
