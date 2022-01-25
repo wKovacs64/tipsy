@@ -2,7 +2,7 @@ function BrandButton(props: JSX.IntrinsicElements['button']) {
   return (
     <button
       type="button"
-      className="flex items-center justify-evenly text-white bg-tipsy shadow-tipsy font-extralight text-2xl md:text-3xl w-full disabled:opacity-70 p-3"
+      className="flex w-full items-center justify-evenly bg-tipsy p-3 text-2xl font-extralight text-white shadow-tipsy disabled:opacity-70 md:text-3xl"
       {...props}
     />
   );

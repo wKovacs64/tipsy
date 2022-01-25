@@ -11,9 +11,9 @@ function NumericInput(props: JSX.IntrinsicElements['input']) {
       autoComplete="off"
       autoCorrect="off"
       className={clsx(
-        'text-center w-full',
+        'w-full text-center',
         'bg-transparent focus:placeholder-transparent',
-        'border-b-2 border-black dark:border-gray-100 focus:border-accent dark:focus:border-accent outline-none',
+        'border-b-2 border-black outline-none focus:border-accent dark:border-gray-100 dark:focus:border-accent',
         className,
       )}
       {...otherProps}

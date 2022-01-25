@@ -6,7 +6,7 @@ function Footer() {
 
   if (onHomePage) {
     return (
-      <footer className="p-6 flex items-center justify-center">
+      <footer className="flex items-center justify-center p-6">
         <a
           href="https://github.com/wKovacs64/tipsy"
           target="_blank"

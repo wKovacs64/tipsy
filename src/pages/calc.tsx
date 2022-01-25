@@ -201,8 +201,8 @@ function CalcPage() {
   };
 
   return (
-    <section className="grow flex flex-col items-center justify-between w-full max-w-xl font-normal">
-      <div className="text-xl md:text-2xl grid gap-y-14 grid-cols-[1fr,auto] w-full mb-12">
+    <section className="flex w-full max-w-xl grow flex-col items-center justify-between font-normal">
+      <div className="mb-12 grid w-full grid-cols-[1fr,auto] gap-y-14 text-xl md:text-2xl">
         <Cell>
           <label htmlFor="tip-percent">Tip Percent (%)</label>
         </Cell>
@@ -424,7 +424,7 @@ function HeroCell(props: CellProps) {
   return (
     <Cell
       className={clsx(
-        'border-black border-t border-b font-semibold py-10',
+        'border-t border-b border-black py-10 font-semibold',
         className,
       )}
       {...otherProps}
@@ -437,7 +437,7 @@ function IconButton(props: JSX.IntrinsicElements['button']) {
   return (
     <button
       type="button"
-      className={clsx('dark:text-accent p-1.5', className)}
+      className={clsx('p-1.5 dark:text-accent', className)}
       {...otherProps}
     />
   );
@@ -463,7 +463,7 @@ function CalcInput(props: JSX.IntrinsicElements['input']) {
   const { className, ...otherProps } = props;
   return (
     <NumericInput
-      className={clsx('mx-2 text-xl md:text-xl max-w-[5rem]', className)}
+      className={clsx('mx-2 max-w-[5rem] text-xl md:text-xl', className)}
       {...otherProps}
     />
   );

@@ -53,8 +53,8 @@ function SettingsPage() {
   };
 
   return (
-    <section className="grow flex flex-col items-center justify-between w-full max-w-xl">
-      <div className="text-3xl md:text-4xl grid gap-y-14 mb-14 w-full">
+    <section className="flex w-full max-w-xl grow flex-col items-center justify-between">
+      <div className="mb-14 grid w-full gap-y-14 text-3xl md:text-4xl">
         <div className="flex items-center justify-between">
           <label htmlFor="dark-mode">Dark mode:</label>
           <Switch
@@ -71,7 +71,7 @@ function SettingsPage() {
             id="default-party-size"
             name="default-party-size"
             placeholder={String(appDefaultPartySize)}
-            className="text-4xl mg:text-5xl font-extralight my-6"
+            className="mg:text-5xl my-6 text-4xl font-extralight"
             onChange={(e) => setPartySize(e.target.value)}
             value={partySize}
           />
@@ -84,7 +84,7 @@ function SettingsPage() {
             id="default-tip-percentage"
             name="default-tip-percentage"
             placeholder={String(appDefaultTipPercent)}
-            className="text-4xl mg:text-5xl font-extralight my-6"
+            className="mg:text-5xl my-6 text-4xl font-extralight"
             onChange={(e) => setTipPercent(e.target.value)}
             value={tipPercent}
           />
