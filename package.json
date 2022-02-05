@@ -45,7 +45,7 @@
     "@babel/plugin-syntax-jsx": "7.16.7",
     "@commitlint/cli": "16.1.0",
     "@commitlint/config-conventional": "16.0.0",
-    "@fontsource/source-sans-pro": "4.5.2",
+    "@fontsource/source-sans-pro": "4.5.3",
     "@semantic-release/git": "10.0.1",
     "@testing-library/cypress": "8.0.2",
     "@types/node": "16.11.22",
