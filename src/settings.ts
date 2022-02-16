@@ -1,13 +1,14 @@
-import useLocalStorageState from 'use-local-storage-state';
+import createLocalStorageHook from 'use-local-storage-state';
 
 export const appDefaultDarkMode = false;
 export const appDefaultPartySize = 1;
 export const appDefaultTipPercent = 20;
 
-export function useDefaultPartySize(defaultValue: number) {
-  return useLocalStorageState('defaultPartySize', defaultValue);
-}
+export const useDefaultPartySize = createLocalStorageHook('defaultPartySize', {
+  defaultValue: appDefaultPartySize,
+});
 
-export function useDefaultTipPercent(defaultValue: number) {
-  return useLocalStorageState('defaultTipPercent', defaultValue);
-}
+export const useDefaultTipPercent = createLocalStorageHook(
+  'defaultTipPercent',
+  { defaultValue: appDefaultTipPercent },
+);
