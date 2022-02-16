@@ -16,10 +16,8 @@ const Switch = ReactSwitch.default ? ReactSwitch.default : ReactSwitch;
 
 function SettingsPage() {
   const navigate = useNavigate();
-  const [defaultPartySize, setDefaultPartySize] =
-    useDefaultPartySize(appDefaultPartySize);
-  const [defaultTipPercent, setDefaultTipPercent] =
-    useDefaultTipPercent(appDefaultTipPercent);
+  const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize();
+  const [defaultTipPercent, setDefaultTipPercent] = useDefaultTipPercent();
   const [partySize, setPartySize] = React.useState(String(defaultPartySize));
   const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
   const [isCurrentlyDark, setIsCurrentlyDark] = React.useState(

@@ -71,11 +71,12 @@ function CalcPage() {
   const bill = billFromUrlParam(params.bill);
   const navigate = useNavigate();
 
-  const [initialPartySizeFromStorage] =
-    useDefaultPartySize(appDefaultPartySize);
-  const [initialTipPercentFromStorage] =
-    useDefaultTipPercent(appDefaultTipPercent);
+  const [initialPartySizeFromStorage] = useDefaultPartySize();
+  const [initialTipPercentFromStorage] = useDefaultTipPercent();
 
+  // TODO: verify this hack 👇 is still needed after switching to the
+  // use-local-storage-state library
+  //
   // HACK: null check to prevent Cypress tests from crashing because for some
   // reason the values returned from these persisted state hooks are null
   // occasionally (only in Cypress)
