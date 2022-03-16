@@ -8697,10 +8697,10 @@ url-join@^4.0.0:
   resolved "https://registry.yarnpkg.com/url-join/-/url-join-4.0.1.tgz#b642e21a2646808ffa178c4c5fda39844e12cde7"
   integrity sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==
 
-use-local-storage-state@16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/use-local-storage-state/-/use-local-storage-state-16.0.0.tgz#369eabefbb9d142df7629db3be9a26b09e80f8f2"
-  integrity sha512-aFkxZbUktvVCi0FmiyGz2pg/g3kWqFv7itNJCAD086Gjbb1pUhAuQ0JsfwoaO+/ll7vcv/W/SrSDCocTQMOtyw==
+use-local-storage-state@16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/use-local-storage-state/-/use-local-storage-state-16.0.1.tgz#464bc038fe6b08146c789735a27d54199703b00c"
+  integrity sha512-X1tcTGB9/iU2x+0uvs2ZhadQY9nxJS9oB+Hsajj3z8UOPGnigkMm52U84P7k2Bgpbgw0IK6OyIWC0jNSVLn6Yg==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
