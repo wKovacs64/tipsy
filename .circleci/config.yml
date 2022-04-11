@@ -26,7 +26,6 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          yarn: true
           executor: my-cypress-executor
           browser: chrome
           start: npm run serve
