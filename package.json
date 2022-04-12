@@ -84,7 +84,7 @@
     "use-local-storage-state": "17.0.1",
     "vite": "2.9.1",
     "vite-plugin-pwa": "0.11.13",
-    "workbox-build": "6.5.2",
-    "workbox-window": "6.5.2"
+    "workbox-build": "6.5.3",
+    "workbox-window": "6.5.3"
   }
 }
