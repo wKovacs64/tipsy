@@ -48,7 +48,7 @@
     "@fontsource/source-sans-pro": "4.5.6",
     "@semantic-release/git": "10.0.1",
     "@testing-library/cypress": "8.0.2",
-    "@types/node": "16.11.27",
+    "@types/node": "16.11.29",
     "@types/react": "18.0.6",
     "@types/react-dom": "18.0.2",
     "@types/react-helmet": "6.1.5",
