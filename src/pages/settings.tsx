@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import ReactSwitch from 'react-switch';
+import Switch from 'react-switch';
 import {
   appDefaultPartySize,
   appDefaultTipPercent,
@@ -9,10 +9,6 @@ import {
 } from '../settings';
 import NumericInput from '../shared/numeric-input';
 import BrandButton from '../shared/brand-button';
-
-// TODO: remove this Vite-related hack once react-switch is available as ESM
-// @ts-ignore
-const Switch = ReactSwitch.default ? ReactSwitch.default : ReactSwitch;
 
 function SettingsPage() {
   const navigate = useNavigate();
