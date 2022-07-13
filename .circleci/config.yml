@@ -6,7 +6,7 @@ orbs:
 executors:
   my-cypress-executor:
     docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
+      - image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
 
 jobs:
   validate:
