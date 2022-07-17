@@ -6,7 +6,7 @@ orbs:
 executors:
   my-cypress-executor:
     docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
+      - image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
 
 jobs:
   validate:
@@ -29,7 +29,8 @@ workflows:
           executor: my-cypress-executor
           browser: chrome
           start: npm run serve
-          wait-on: '--timeout 120000 http://localhost:3000'
+          config: 'baseUrl=http://localhost:4173'
+          wait-on: 'http://localhost:4173'
       - validate:
           requires:
             - cypress/run
