@@ -5,29 +5,29 @@ This package is released automatically using
 
 ### Workflow:
 
-- Commit all changes to the `develop` branch
+- Commit all changes to the `dev` branch
 
-- When ready to release, merge `develop` into `master` and push:
-
-  ```
-  git checkout master
-  git merge develop
-  git push origin master
-  ```
-
-- A new commit will be automatically added to `master` during the release, so
-  pull that change into local `master`:
+- When ready to release, merge `dev` into `main` and push:
 
   ```
-  git pull origin master
+  git checkout main
+  git merge dev
+  git push origin main
   ```
 
-- Change to `develop`, make sure you are in sync with the remote, merge `master`
-  into `develop` to pick up the automatically generated commit, then push:
+- A new commit will be automatically added to `main` during the release, so pull
+  that change into local `main`:
 
   ```
-  git checkout develop
-  git pull origin develop
-  git merge master
-  git push origin develop
+  git pull origin main
+  ```
+
+- Change to `dev`, make sure you are in sync with the remote, merge `main` into
+  `dev` to pick up the automatically generated commit, then push:
+
+  ```
+  git checkout dev
+  git pull origin dev
+  git merge main
+  git push origin dev
   ```
