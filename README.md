@@ -33,8 +33,8 @@ mind (and particularly those with larger screens).
 [![Deploy to Netlify][deploy-image]][deploy-link]
 
 [ci-image]:
-  https://img.shields.io/circleci/project/github/wKovacs64/tipsy/main.svg?style=flat-square
-[ci-url]: https://circleci.com/gh/wKovacs64/tipsy
+  https://github.com/wKovacs64/tipsy/actions/workflows/ci.yml/badge.svg?event=push
+[ci-url]: https://github.com/wKovacs64/tipsy/actions/workflows/ci.yml
 [semantic-release-image]:
   https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
 [semantic-release-url]: https://github.com/semantic-release/semantic-release
