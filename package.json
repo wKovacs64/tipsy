@@ -51,7 +51,7 @@
     "@types/react-helmet": "6.1.5",
     "@vitejs/plugin-react": "2.1.0",
     "@wkovacs64/prettier-config": "3.0.2",
-    "autoprefixer": "10.4.11",
+    "autoprefixer": "10.4.12",
     "clsx": "1.2.1",
     "commitizen": "4.2.5",
     "currency.js": "2.0.4",
