@@ -17,7 +17,6 @@ function Header() {
           <h1 className="text-3xl md:text-4xl">Tipsy</h1>
         </Link>
         {settingsMatch ? (
-          // @ts-ignore as __VERSION__ will be statically replaced by Vite
           <h2 className="text-2xl md:text-3xl">v{__VERSION__}</h2>
         ) : calcMatch ? (
           <h2 className="text-2xl md:text-3xl">{currency(bill).format()}</h2>

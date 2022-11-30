@@ -7,4 +7,8 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
   },
+  parserOptions: {
+    project: 'tsconfig.json',
+  },
+  ignorePatterns: ['cypress.config.ts', 'vite.config.ts'],
 };
