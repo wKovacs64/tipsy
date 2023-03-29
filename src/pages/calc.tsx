@@ -425,7 +425,7 @@ function HeroCell(props: CellProps) {
   return (
     <Cell
       className={clsx(
-        'border-t border-b border-black py-10 font-semibold',
+        'border-b border-t border-black py-10 font-semibold',
         className,
       )}
       {...otherProps}
