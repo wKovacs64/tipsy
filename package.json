@@ -59,7 +59,7 @@
     "react-dom": "18.2.0",
     "react-helmet": "6.1.0",
     "react-icons": "4.8.0",
-    "react-router-dom": "6.10.0",
+    "react-router-dom": "6.11.0",
     "react-switch": "7.0.0",
     "semantic-release": "21.0.2",
     "start-server-and-test": "2.0.0",
