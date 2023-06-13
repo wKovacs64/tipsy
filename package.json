@@ -36,7 +36,7 @@
     "@fontsource/source-sans-pro": "5.0.3",
     "@semantic-release/git": "10.0.1",
     "@testing-library/cypress": "9.0.0",
-    "@types/node": "18.16.17",
+    "@types/node": "18.16.18",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
     "@types/react-helmet": "6.1.6",
