@@ -1,6 +1,6 @@
-import '@fontsource/source-sans-pro/latin-200.css';
-import '@fontsource/source-sans-pro/latin-400.css';
-import '@fontsource/source-sans-pro/latin-600.css';
+import '@fontsource/source-sans-3/latin-200.css';
+import '@fontsource/source-sans-3/latin-400.css';
+import '@fontsource/source-sans-3/latin-600.css';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { Routes, Route } from 'react-router-dom';

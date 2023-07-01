@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],
+        sans: ['"Source Sans 3"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         tipsy: '#8d6c9f',
