@@ -3,12 +3,7 @@ import clsx from 'clsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import currency from 'currency.js';
-import {
-  appDefaultPartySize,
-  appDefaultTipPercent,
-  useDefaultPartySize,
-  useDefaultTipPercent,
-} from '../settings';
+import { useDefaultPartySize, useDefaultTipPercent } from '../settings';
 import {
   billFromUrlParam,
   getPreviousEvenDollar,
@@ -71,25 +66,10 @@ function CalcPage() {
   const bill = billFromUrlParam(params.bill);
   const navigate = useNavigate();
 
-  const [initialPartySizeFromStorage] = useDefaultPartySize();
-  const [initialTipPercentFromStorage] = useDefaultTipPercent();
+  const [initialPartySize] = useDefaultPartySize();
+  const [initialTipPercent] = useDefaultTipPercent();
 
-  // TODO: verify this hack 👇 is still needed after switching to the
-  // use-local-storage-state library
-  //
-  // HACK: null check to prevent Cypress tests from crashing because for some
-  // reason the values returned from these persisted state hooks are null
-  // occasionally (only in Cypress)
-  const initialPartySize =
-    initialPartySizeFromStorage !== null
-      ? initialPartySizeFromStorage
-      : appDefaultPartySize;
-  const initialTipPercent =
-    initialTipPercentFromStorage !== null
-      ? initialTipPercentFromStorage
-      : appDefaultTipPercent;
-
-  const billAmount = Number.parseFloat(bill ?? '0');
+  const billAmount = Number.parseFloat(bill) || 0;
   const initialTipAmount = currency(billAmount)
     .multiply(initialTipPercent)
     .divide(100).value;
