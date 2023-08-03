@@ -33,7 +33,7 @@
   "dependencies": {
     "@babel/core": "7.22.9",
     "@babel/plugin-syntax-jsx": "7.22.5",
-    "@fontsource/source-sans-3": "5.0.6",
+    "@fontsource/source-sans-3": "5.0.7",
     "@semantic-release/git": "10.0.1",
     "@testing-library/cypress": "9.0.0",
     "@types/node": "18.17.1",
