@@ -45,7 +45,7 @@
     "autoprefixer": "10.4.15",
     "clsx": "2.0.0",
     "currency.js": "2.0.4",
-    "cypress": "12.17.3",
+    "cypress": "12.17.4",
     "eslint": "8.47.0",
     "eslint-plugin-cypress": "2.14.0",
     "eslint-plugin-wkovacs64": "15.0.1",
