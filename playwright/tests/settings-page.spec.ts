@@ -1,5 +1,10 @@
+import { expect, test, type Page } from '@playwright/test';
 import pkg from '../../package.json';
-import { expect, test } from '../utils';
+
+async function fillOutSettings(page: Page) {
+  await page.getByLabel(/default party size/i).fill('24');
+  await page.getByLabel(/default tip percentage/i).fill('42');
+}
 
 test.describe('Settings Page', () => {
   test.beforeEach(async ({ page }) => {
@@ -19,15 +24,15 @@ test.describe('Settings Page', () => {
     await expect(html).not.toHaveClass('dark');
   });
 
-  test('persists numeric options only on save', async ({ page, tipsyPage }) => {
-    await tipsyPage.fillOutSettings();
+  test('persists numeric options only on save', async ({ page }) => {
+    await fillOutSettings(page);
     await page.goto('/');
     await page.getByRole('link', { name: 'Settings' }).click();
     await expect(page.getByLabel(/default party size/i)).not.toHaveValue('24');
     await expect(page.getByLabel(/default tip percentage/i)).not.toHaveValue(
       '42',
     );
-    await tipsyPage.fillOutSettings();
+    await fillOutSettings(page);
     await page.getByRole('button', { name: /save/i }).click();
     await page.getByRole('link', { name: 'Settings' }).click();
     await expect(page.getByLabel(/default party size/i)).toHaveValue('24');
