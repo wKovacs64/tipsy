@@ -27,7 +27,7 @@
   },
   "private": true,
   "dependencies": {
-    "@babel/core": "7.22.17",
+    "@babel/core": "7.22.19",
     "@babel/plugin-syntax-jsx": "7.22.5",
     "@fontsource/source-sans-3": "5.0.12",
     "@playwright/test": "1.38.0",
