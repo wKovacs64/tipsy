@@ -30,7 +30,7 @@
     "@babel/core": "7.22.20",
     "@babel/plugin-syntax-jsx": "7.22.5",
     "@fontsource/source-sans-3": "5.0.12",
-    "@playwright/test": "1.38.0",
+    "@playwright/test": "1.38.1",
     "@semantic-release/git": "10.0.1",
     "@types/node": "18.17.18",
     "@types/react": "18.2.22",
