@@ -29,7 +29,7 @@
   "dependencies": {
     "@babel/core": "7.23.2",
     "@babel/plugin-syntax-jsx": "7.22.5",
-    "@fontsource/source-sans-3": "5.0.16",
+    "@fontsource/source-sans-3": "5.0.17",
     "@playwright/test": "1.39.0",
     "@semantic-release/git": "10.0.1",
     "@types/node": "18.18.6",
