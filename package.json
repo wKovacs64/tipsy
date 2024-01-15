@@ -32,7 +32,7 @@
     "@fontsource/source-sans-3": "5.0.18",
     "@playwright/test": "1.40.1",
     "@semantic-release/git": "10.0.1",
-    "@types/node": "20.11.2",
+    "@types/node": "20.11.3",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "@types/react-helmet": "6.1.11",
