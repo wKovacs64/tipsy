@@ -1,5 +1,9 @@
 import { expect, test, type Page } from '@playwright/test';
-import pkg from '../../package.json';
+import { readJsonSync } from 'fs-extra/esm';
+import type { PackageJson } from 'type-fest';
+
+const packageJsonUrl = new URL('../../package.json', import.meta.url);
+const packageJsonObj = readJsonSync(packageJsonUrl) as PackageJson;
 
 async function fillOutSettings(page: Page) {
   await page.getByLabel(/default party size/i).fill('24');
@@ -12,7 +16,7 @@ test.describe('Settings Page', () => {
   });
 
   test('displays the version', async ({ page }) => {
-    await expect(page.getByText(`v${pkg.version}`)).toBeVisible();
+    await expect(page.getByText(`v${packageJsonObj.version}`)).toBeVisible();
   });
 
   test('toggles dark mode', async ({ page }) => {
