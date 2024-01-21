@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import pkg from '../../package.json';
+import pkg from '../../package.json' with { type: 'json' };
 
 async function fillOutSettings(page: Page) {
   await page.getByLabel(/default party size/i).fill('24');
