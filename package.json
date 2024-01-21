@@ -2,6 +2,7 @@
   "name": "tipsy",
   "version": "2.1.1",
   "description": "A simple tip calculator and bill divider PWA",
+  "type": "module",
   "author": {
     "name": "Justin Hall",
     "email": "justin.r.hall@gmail.com"
@@ -15,9 +16,10 @@
     "url": "https://github.com/wKovacs64/tipsy/issues"
   },
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "vite build",
     "dev": "vite",
     "format": "prettier --cache --write .",
+    "format:check": "prettier --cache --check .",
     "lint": "eslint .",
     "preview": "vite --host 127.0.0.1 preview",
     "test": "npm run test:e2e:open",
