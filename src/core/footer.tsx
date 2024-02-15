@@ -13,7 +13,12 @@ function Footer() {
           rel="noopener noreferrer"
           className="text-current no-underline"
         >
-          <FaGithub role="img" title="View source on GitHub" size={32} />
+          <FaGithub
+            role="img"
+            title="View source on GitHub"
+            aria-label="View source on GitHub"
+            size={32}
+          />
         </a>
       </footer>
     );
