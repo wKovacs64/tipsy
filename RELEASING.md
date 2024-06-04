@@ -15,15 +15,15 @@ This package is released automatically using
   git push origin main
   ```
 
-- A new commit will be automatically added to `main` during the release, so pull
-  that change into local `main`:
+- A new commit will be automatically added to `main` during the release, so pull that change into
+  local `main`:
 
   ```
   git pull origin main
   ```
 
-- Change to `dev`, make sure you are in sync with the remote, merge `main` into
-  `dev` to pick up the automatically generated commit, then push:
+- Change to `dev`, make sure you are in sync with the remote, merge `main` into `dev` to pick up the
+  automatically generated commit, then push:
 
   ```
   git checkout dev

@@ -37,12 +37,8 @@ async function expectValues(
   await expect(page.getByLabel(/^tip percent \(%\)$/i)).toHaveValue(tipPercent);
   await expect(page.getByLabel(/^tip amount$/i)).toHaveValue(tipAmount);
   await expect(page.getByLabel(/^total amount$/i)).toHaveValue(totalAmount);
-  await expect(page.getByLabel(/^number of people$/i)).toHaveValue(
-    numberOfPeople,
-  );
-  await expect(page.getByLabel(/^each person pays$/i)).toHaveValue(
-    eachPersonPays,
-  );
+  await expect(page.getByLabel(/^number of people$/i)).toHaveValue(numberOfPeople);
+  await expect(page.getByLabel(/^each person pays$/i)).toHaveValue(eachPersonPays);
 }
 
 test.describe('Calc Page', () => {
@@ -203,9 +199,7 @@ test.describe('Calc Page', () => {
     });
   });
 
-  test('recalculates on manually adjusting Number of People', async ({
-    page,
-  }) => {
+  test('recalculates on manually adjusting Number of People', async ({ page }) => {
     await page.getByLabel(/^number of people$/i).fill('3');
     await expectValues(page, {
       tipPercent: '20',
@@ -238,9 +232,7 @@ test.describe('Calc Page', () => {
     });
   });
 
-  test('recalculates on manually adjusting Each Person Pays', async ({
-    page,
-  }) => {
+  test('recalculates on manually adjusting Each Person Pays', async ({ page }) => {
     await page.getByLabel(/^each person pays$/i).fill('1600');
     await expectValues(page, {
       tipPercent: '30',
