@@ -1,7 +1,6 @@
 // Shamelessly taken from https://github.com/ianmcnally/react-currency-masked-input
 
-const getDigitsFromValue = (value = '') =>
-  value.replace(/(-(?!\d))|[^0-9|-]/g, '') || '';
+const getDigitsFromValue = (value = '') => value.replace(/(-(?!\d))|[^0-9|-]/g, '') || '';
 
 const padDigits = (digits: string) => {
   const desiredLength = 3;
@@ -17,14 +16,11 @@ const padDigits = (digits: string) => {
   return padding + digits;
 };
 
-const removeLeadingZeros = (number: string) =>
-  number.replace(/^0+([0-9]+)/, '$1');
+const removeLeadingZeros = (number: string) => number.replace(/^0+([0-9]+)/, '$1');
 
 const addDecimalToNumber = (number: string) => {
   const centsStartingPosition = number.length - 2;
-  const dollars = removeLeadingZeros(
-    number.substring(0, centsStartingPosition),
-  );
+  const dollars = removeLeadingZeros(number.substring(0, centsStartingPosition));
   const cents = number.substring(centsStartingPosition);
   return `${dollars}.${cents}`;
 };

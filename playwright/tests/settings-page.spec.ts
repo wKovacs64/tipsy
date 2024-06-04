@@ -33,9 +33,7 @@ test.describe('Settings Page', () => {
     await page.goto('/');
     await page.getByRole('link', { name: 'Settings' }).click();
     await expect(page.getByLabel(/default party size/i)).not.toHaveValue('24');
-    await expect(page.getByLabel(/default tip percentage/i)).not.toHaveValue(
-      '42',
-    );
+    await expect(page.getByLabel(/default tip percentage/i)).not.toHaveValue('42');
     await fillOutSettings(page);
     await page.getByRole('button', { name: /save/i }).click();
     await page.getByRole('link', { name: 'Settings' }).click();

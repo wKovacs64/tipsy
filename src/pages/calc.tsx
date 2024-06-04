@@ -4,12 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import currency from 'currency.js';
 import { useDefaultPartySize, useDefaultTipPercent } from '../settings';
-import {
-  billFromUrlParam,
-  getPreviousEvenDollar,
-  toCurrency,
-  toNumber,
-} from '../utils';
+import { billFromUrlParam, getPreviousEvenDollar, toCurrency, toNumber } from '../utils';
 import BrandButton from '../shared/brand-button';
 import NumericInput from '../shared/numeric-input';
 
@@ -70,12 +65,9 @@ function CalcPage() {
   const [initialTipPercent] = useDefaultTipPercent();
 
   const billAmount = Number.parseFloat(bill) || 0;
-  const initialTipAmount = currency(billAmount)
-    .multiply(initialTipPercent)
-    .divide(100).value;
+  const initialTipAmount = currency(billAmount).multiply(initialTipPercent).divide(100).value;
   const initialTotalAmount = currency(billAmount).add(initialTipAmount).value;
-  const initialEachPersonPays =
-    currency(initialTotalAmount).distribute(initialPartySize)[0].value;
+  const initialEachPersonPays = currency(initialTotalAmount).distribute(initialPartySize)[0].value;
 
   const initialState: State = {
     tipPercent: initialTipPercent,
@@ -88,13 +80,9 @@ function CalcPage() {
   const reducer = (state: State, action: Action): State => {
     switch (action.type) {
       case ActionType.CHANGE_TIP_PERCENT: {
-        const tipAmount = currency(action.payload)
-          .divide(100)
-          .multiply(billAmount).value;
+        const tipAmount = currency(action.payload).divide(100).multiply(billAmount).value;
         const totalAmount = currency(billAmount).add(tipAmount).value;
-        const eachPersonPays = currency(totalAmount).distribute(
-          state.numberOfPeople,
-        )[0].value;
+        const eachPersonPays = currency(totalAmount).distribute(state.numberOfPeople)[0].value;
 
         return {
           tipPercent: action.payload,
@@ -106,13 +94,9 @@ function CalcPage() {
       }
 
       case ActionType.CHANGE_TIP_AMOUNT: {
-        const tipPercent = currency(action.payload)
-          .divide(billAmount)
-          .multiply(100).value;
+        const tipPercent = currency(action.payload).divide(billAmount).multiply(100).value;
         const totalAmount = currency(billAmount).add(action.payload).value;
-        const eachPersonPays = currency(totalAmount).distribute(
-          state.numberOfPeople,
-        )[0].value;
+        const eachPersonPays = currency(totalAmount).distribute(state.numberOfPeople)[0].value;
 
         return {
           tipPercent,
@@ -125,12 +109,8 @@ function CalcPage() {
 
       case ActionType.CHANGE_TOTAL_AMOUNT: {
         const tipAmount = currency(action.payload).subtract(billAmount).value;
-        const tipPercent = currency(tipAmount)
-          .divide(billAmount)
-          .multiply(100).value;
-        const eachPersonPays = currency(action.payload).distribute(
-          state.numberOfPeople,
-        )[0].value;
+        const tipPercent = currency(tipAmount).divide(billAmount).multiply(100).value;
+        const eachPersonPays = currency(action.payload).distribute(state.numberOfPeople)[0].value;
 
         return {
           tipPercent,
@@ -142,9 +122,7 @@ function CalcPage() {
       }
 
       case ActionType.CHANGE_NUMBER_OF_PEOPLE: {
-        const eachPersonPays = currency(state.totalAmount).distribute(
-          action.payload,
-        )[0].value;
+        const eachPersonPays = currency(state.totalAmount).distribute(action.payload)[0].value;
 
         return {
           ...state,
@@ -154,13 +132,9 @@ function CalcPage() {
       }
 
       case ActionType.CHANGE_EACH_PERSON_PAYS: {
-        const totalAmount = currency(action.payload).multiply(
-          state.numberOfPeople,
-        ).value;
+        const totalAmount = currency(action.payload).multiply(state.numberOfPeople).value;
         const tipAmount = currency(totalAmount).subtract(billAmount).value;
-        const tipPercent = currency(tipAmount)
-          .divide(billAmount)
-          .multiply(100).value;
+        const tipPercent = currency(tipAmount).divide(billAmount).multiply(100).value;
 
         return {
           tipPercent,
@@ -249,9 +223,7 @@ function CalcPage() {
             onClick={() => {
               dispatch({
                 type: ActionType.CHANGE_TIP_AMOUNT,
-                payload: currency(state.tipAmount, { increment: 1 })
-                  .add(1)
-                  .dollars(),
+                payload: currency(state.tipAmount, { increment: 1 }).add(1).dollars(),
               });
             }}
           />
@@ -267,10 +239,7 @@ function CalcPage() {
               const previousEvenDollar = getPreviousEvenDollar(current);
               dispatch({
                 type: ActionType.CHANGE_TOTAL_AMOUNT,
-                payload:
-                  previousEvenDollar < billAmount
-                    ? billAmount
-                    : previousEvenDollar,
+                payload: previousEvenDollar < billAmount ? billAmount : previousEvenDollar,
               });
             }}
           />
@@ -292,9 +261,7 @@ function CalcPage() {
             onClick={() => {
               dispatch({
                 type: ActionType.CHANGE_TOTAL_AMOUNT,
-                payload: currency(state.totalAmount, { increment: 1 })
-                  .add(1)
-                  .dollars(),
+                payload: currency(state.totalAmount, { increment: 1 }).add(1).dollars(),
               });
             }}
           />
@@ -308,8 +275,7 @@ function CalcPage() {
             onClick={() => {
               dispatch({
                 type: ActionType.CHANGE_NUMBER_OF_PEOPLE,
-                payload:
-                  state.numberOfPeople < 2 ? 1 : state.numberOfPeople - 1,
+                payload: state.numberOfPeople < 2 ? 1 : state.numberOfPeople - 1,
               });
             }}
           />
@@ -346,15 +312,10 @@ function CalcPage() {
                 increment: 1,
               });
               const previousEvenDollar = getPreviousEvenDollar(current);
-              const minPerPerson = currency(billAmount).distribute(
-                state.numberOfPeople,
-              )[0].value;
+              const minPerPerson = currency(billAmount).distribute(state.numberOfPeople)[0].value;
               dispatch({
                 type: ActionType.CHANGE_EACH_PERSON_PAYS,
-                payload:
-                  previousEvenDollar < minPerPerson
-                    ? minPerPerson
-                    : previousEvenDollar,
+                payload: previousEvenDollar < minPerPerson ? minPerPerson : previousEvenDollar,
               });
             }}
           />
@@ -375,9 +336,7 @@ function CalcPage() {
             onClick={() => {
               dispatch({
                 type: ActionType.CHANGE_EACH_PERSON_PAYS,
-                payload: currency(state.eachPersonPays, { increment: 1 })
-                  .add(1)
-                  .dollars(),
+                payload: currency(state.eachPersonPays, { increment: 1 }).add(1).dollars(),
               });
             }}
           />
@@ -395,19 +354,14 @@ type CellProps = JSX.IntrinsicElements['div'];
 
 function Cell(props: CellProps) {
   const { className, ...otherProps } = props;
-  return (
-    <div className={clsx('flex items-center', className)} {...otherProps} />
-  );
+  return <div className={clsx('flex items-center', className)} {...otherProps} />;
 }
 
 function HeroCell(props: CellProps) {
   const { className, ...otherProps } = props;
   return (
     <Cell
-      className={clsx(
-        'border-b border-t border-black py-10 font-semibold',
-        className,
-      )}
+      className={clsx('border-b border-t border-black py-10 font-semibold', className)}
       {...otherProps}
     />
   );
@@ -416,11 +370,7 @@ function HeroCell(props: CellProps) {
 function IconButton(props: JSX.IntrinsicElements['button']) {
   const { className, ...otherProps } = props;
   return (
-    <button
-      type="button"
-      className={clsx('p-1.5 dark:text-accent', className)}
-      {...otherProps}
-    />
+    <button type="button" className={clsx('p-1.5 dark:text-accent', className)} {...otherProps} />
   );
 }
 

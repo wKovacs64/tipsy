@@ -14,9 +14,7 @@ function HomePage() {
     navigate(`calc/${billToUrlParam(bill)}`, { replace: true });
   };
 
-  const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event,
-  ) => {
+  const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const { value } = event.currentTarget;
     const valueAsCurrency = toCurrency(value);
     setBill(valueAsCurrency);

@@ -32,9 +32,7 @@ function SettingsPage() {
     const tipPercentNumber = Number.parseInt(tipPercent, 10);
 
     setDefaultPartySize(
-      Number.isNaN(partySizeNumber) || partySizeNumber < 1
-        ? appDefaultPartySize
-        : partySizeNumber,
+      Number.isNaN(partySizeNumber) || partySizeNumber < 1 ? appDefaultPartySize : partySizeNumber,
     );
 
     setDefaultTipPercent(
@@ -71,9 +69,7 @@ function SettingsPage() {
           />
         </div>
         <div>
-          <label htmlFor="default-tip-percentage">
-            Default tip percentage:
-          </label>
+          <label htmlFor="default-tip-percentage">Default tip percentage:</label>
           <NumericInput
             id="default-tip-percentage"
             name="default-tip-percentage"
