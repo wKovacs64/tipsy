@@ -62,7 +62,7 @@
     "react-router-dom": "6.26.2",
     "react-switch": "7.0.0",
     "semantic-release": "24.1.1",
-    "tailwindcss": "3.4.12",
+    "tailwindcss": "3.4.13",
     "type-fest": "4.26.1",
     "typescript": "5.6.2",
     "use-local-storage-state": "19.4.0",
