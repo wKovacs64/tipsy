@@ -65,7 +65,7 @@
     "tailwindcss": "3.4.13",
     "type-fest": "4.26.1",
     "typescript": "5.6.3",
-    "use-local-storage-state": "19.4.0",
+    "use-local-storage-state": "19.4.1",
     "vite": "5.4.8",
     "vite-plugin-pwa": "0.20.5",
     "workbox-build": "7.1.1",
