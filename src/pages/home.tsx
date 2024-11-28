@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { billToUrlParam, toCurrency } from '../utils';
 import BrandButton from '../shared/brand-button';
 import NumericInput from '../shared/numeric-input';
@@ -11,7 +11,7 @@ function HomePage() {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    navigate(`calc/${billToUrlParam(bill)}`, { replace: true });
+    void navigate(`calc/${billToUrlParam(bill)}`, { replace: true });
   };
 
   const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {

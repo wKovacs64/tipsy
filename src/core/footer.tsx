@@ -1,5 +1,5 @@
 import { FaGithub } from 'react-icons/fa';
-import { useMatch } from 'react-router-dom';
+import { useMatch } from 'react-router';
 
 function Footer() {
   const onHomePage = useMatch({ path: '/', end: true });

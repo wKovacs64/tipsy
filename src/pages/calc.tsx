@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import currency from 'currency.js';
 import { useDefaultPartySize, useDefaultTipPercent } from '../settings';
@@ -152,7 +152,7 @@ function CalcPage() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const startOver = () => {
-    navigate('/', { replace: true });
+    void navigate('/', { replace: true });
   };
 
   return (
