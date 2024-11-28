@@ -3,7 +3,7 @@ import '@fontsource/source-sans-3/latin-400.css';
 import '@fontsource/source-sans-3/latin-600.css';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router';
 import Layout from './core/layout';
 import HomePage from './pages/home';
 import CalcPage from './pages/calc';
