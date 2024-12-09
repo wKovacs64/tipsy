@@ -37,7 +37,7 @@
     "@types/fs-extra": "11.0.4",
     "@types/node": "22.10.1",
     "@types/react": "18.3.14",
-    "@types/react-dom": "18.3.2",
+    "@types/react-dom": "18.3.3",
     "@types/react-helmet": "6.1.11",
     "@vitejs/plugin-react-swc": "3.7.2",
     "@wkovacs64/eslint-config": "7.4.0",
