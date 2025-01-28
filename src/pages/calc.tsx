@@ -350,7 +350,7 @@ function CalcPage() {
   );
 }
 
-type CellProps = JSX.IntrinsicElements['div'];
+type CellProps = React.ComponentProps<'div'>;
 
 function Cell(props: CellProps) {
   const { className, ...otherProps } = props;
@@ -367,14 +367,14 @@ function HeroCell(props: CellProps) {
   );
 }
 
-function IconButton(props: JSX.IntrinsicElements['button']) {
+function IconButton(props: React.ComponentProps<'button'>) {
   const { className, ...otherProps } = props;
   return (
     <button type="button" className={clsx('p-1.5 dark:text-accent', className)} {...otherProps} />
   );
 }
 
-function DecrementButton(props: JSX.IntrinsicElements['button']) {
+function DecrementButton(props: React.ComponentProps<'button'>) {
   return (
     <IconButton {...props}>
       <FiChevronDown size={26} />
@@ -382,7 +382,7 @@ function DecrementButton(props: JSX.IntrinsicElements['button']) {
   );
 }
 
-function IncrementButton(props: JSX.IntrinsicElements['button']) {
+function IncrementButton(props: React.ComponentProps<'button'>) {
   return (
     <IconButton {...props}>
       <FiChevronUp size={26} />
@@ -390,7 +390,7 @@ function IncrementButton(props: JSX.IntrinsicElements['button']) {
   );
 }
 
-function CalcInput(props: JSX.IntrinsicElements['input']) {
+function CalcInput(props: React.ComponentProps<'input'>) {
   const { className, ...otherProps } = props;
   return (
     <NumericInput

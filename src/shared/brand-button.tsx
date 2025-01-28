@@ -1,4 +1,6 @@
-function BrandButton(props: JSX.IntrinsicElements['button']) {
+import * as React from 'react';
+
+function BrandButton(props: React.ComponentProps<'button'>) {
   return (
     <button
       type="button"
