@@ -1,6 +1,7 @@
+import * as React from 'react';
 import clsx from 'clsx';
 
-function NumericInput(props: JSX.IntrinsicElements['input']) {
+function NumericInput(props: React.ComponentProps<'input'>) {
   const { className, ...otherProps } = props;
 
   return (
