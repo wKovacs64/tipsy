@@ -1,3 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --color-tipsy: #8d6c9f;
+  --color-accent: #f6d397;
+
+  --shadow-tipsy: 4px 4px 8px 0px rgba(141, 108, 159, 0.4);
+}
+
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  button(:disabled),
+  [role='button'(:disabled)] {
+    cursor: not-allowed;
+  }
+}

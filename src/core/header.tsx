@@ -11,7 +11,7 @@ function Header() {
   const bill = billFromUrlParam(calcMatch?.params.bill);
 
   return (
-    <header className="flex items-center justify-center bg-tipsy p-6 text-gray-100">
+    <header className="bg-tipsy flex items-center justify-center p-6 text-gray-100">
       <div className="flex w-full max-w-xl flex-row items-center justify-between">
         <Link to="/" replace>
           <h1 className="text-3xl md:text-4xl">Tipsy</h1>
