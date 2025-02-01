@@ -157,7 +157,7 @@ function CalcPage() {
 
   return (
     <section className="flex w-full max-w-xl grow flex-col items-center justify-between font-normal">
-      <div className="mb-12 grid w-full grid-cols-[1fr,auto] gap-y-14 text-xl md:text-2xl">
+      <div className="mb-12 grid w-full grid-cols-[1fr_auto] gap-y-14 text-xl md:text-2xl">
         <Cell>
           <label htmlFor="tip-percent">Tip Percent (%)</label>
         </Cell>
@@ -361,7 +361,7 @@ function HeroCell(props: CellProps) {
   const { className, ...otherProps } = props;
   return (
     <Cell
-      className={clsx('border-b border-t border-black py-10 font-semibold', className)}
+      className={clsx('border-t border-b border-black py-10 font-semibold', className)}
       {...otherProps}
     />
   );
@@ -370,7 +370,7 @@ function HeroCell(props: CellProps) {
 function IconButton(props: React.ComponentProps<'button'>) {
   const { className, ...otherProps } = props;
   return (
-    <button type="button" className={clsx('p-1.5 dark:text-accent', className)} {...otherProps} />
+    <button type="button" className={clsx('dark:text-accent p-1.5', className)} {...otherProps} />
   );
 }
 
