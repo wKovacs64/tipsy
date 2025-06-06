@@ -36,7 +36,7 @@
     "@semantic-release/git": "10.0.1",
     "@tailwindcss/vite": "4.1.8",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "22.15.29",
+    "@types/node": "22.15.30",
     "@types/react": "19.1.6",
     "@types/react-dom": "19.1.6",
     "@types/react-helmet": "6.1.11",
