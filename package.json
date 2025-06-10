@@ -32,7 +32,7 @@
     "@babel/core": "7.27.4",
     "@babel/plugin-syntax-jsx": "7.27.1",
     "@fontsource/source-sans-3": "5.2.8",
-    "@playwright/test": "1.52.0",
+    "@playwright/test": "1.53.0",
     "@semantic-release/git": "10.0.1",
     "@tailwindcss/vite": "4.1.8",
     "@types/fs-extra": "11.0.4",
