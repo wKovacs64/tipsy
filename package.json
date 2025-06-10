@@ -40,7 +40,7 @@
     "@types/react": "19.1.7",
     "@types/react-dom": "19.1.6",
     "@types/react-helmet": "6.1.11",
-    "@vitejs/plugin-react-swc": "3.10.1",
+    "@vitejs/plugin-react-swc": "3.10.2",
     "@wkovacs64/eslint-config": "7.7.0",
     "@wkovacs64/prettier-config": "4.2.1",
     "clsx": "2.1.1",
