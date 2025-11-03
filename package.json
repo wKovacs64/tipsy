@@ -41,7 +41,7 @@
     "@types/react-dom": "19.2.2",
     "@types/react-helmet": "6.1.11",
     "@vitejs/plugin-react-swc": "4.2.0",
-    "@wkovacs64/eslint-config": "7.11.0",
+    "@wkovacs64/eslint-config": "7.11.1",
     "@wkovacs64/prettier-config": "4.2.2",
     "clsx": "2.1.1",
     "cross-env": "10.1.0",
