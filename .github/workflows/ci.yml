@@ -17,17 +17,20 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v6
 
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
-          cache: npm
+          cache: pnpm
           node-version-file: '.nvmrc'
 
       - name: 📥 Install deps
-        run: npm install
+        run: pnpm install
 
       - name: 💅 Format check
-        run: npm run format:check
+        run: pnpm run format:check
 
   lint:
     name: ⬣ ESLint
@@ -36,17 +39,20 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v6
 
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
-          cache: npm
+          cache: pnpm
           node-version-file: '.nvmrc'
 
       - name: 📥 Install deps
-        run: npm install
+        run: pnpm install
 
       - name: 🔬 Lint
-        run: npm run lint
+        run: pnpm run lint
 
   typecheck:
     name: ʦ TypeScript
@@ -55,17 +61,20 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v6
 
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
-          cache: npm
+          cache: pnpm
           node-version-file: '.nvmrc'
 
       - name: 📥 Install deps
-        run: npm install
+        run: pnpm install
 
       - name: 🔎 Type check
-        run: npm run typecheck
+        run: pnpm run typecheck
 
   playwright:
     name: 🎭 Playwright
@@ -75,20 +84,23 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v6
 
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
-          cache: npm
+          cache: pnpm
           node-version-file: '.nvmrc'
 
       - name: 📥 Install deps
-        run: npm install
+        run: pnpm install
 
       - name: ⚙️ Build
-        run: npm run build
+        run: pnpm run build
 
       - name: 🔢 Get Playwright version
-        run: echo "PLAYWRIGHT_VERSION=$(npx playwright --version | tr ' ' '-')" >> $GITHUB_ENV
+        run: echo "PLAYWRIGHT_VERSION=$(pnpm exec playwright --version | tr ' ' '-')" >> $GITHUB_ENV
 
       - name: 📦 Cache Playwright binaries
         id: playwright-cache
@@ -98,11 +110,11 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: 📥 Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: pnpm exec playwright install --with-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: 🎭 Playwright tests
-        run: npx playwright test
+        run: pnpm exec playwright test
 
       - name: 📊 Upload report
         uses: actions/upload-artifact@v5
@@ -123,16 +135,19 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
-          cache: npm
+          cache: pnpm
           node-version-file: '.nvmrc'
 
       - name: 📥 Install deps
-        run: npm install
+        run: pnpm install
 
       - name: 🆕 Semantic Release
-        run: npx semantic-release
+        run: pnpm exec semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

@@ -22,12 +22,13 @@
     "format:check": "prettier --cache --check .",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "preview": "vite --host 127.0.0.1 preview",
-    "test": "npm run test:e2e:open",
+    "test": "pnpm run test:e2e:open",
     "test:e2e:open": "playwright test --ui",
     "test:e2e:run": "cross-env CI=true playwright test",
     "typecheck": "tsc"
   },
   "private": true,
+  "packageManager": "pnpm@10.25.0",
   "dependencies": {
     "@babel/core": "7.28.5",
     "@babel/plugin-syntax-jsx": "7.27.1",
