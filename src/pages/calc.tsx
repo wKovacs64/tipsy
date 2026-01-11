@@ -87,7 +87,10 @@ function CalcPage() {
                 const { tipPercent: prevTipPercent } = deriveValues(billAmount, previousState);
                 return {
                   ...previousState,
-                  tipSource: { type: 'percent', value: prevTipPercent < 1 ? 0 : prevTipPercent - 1 },
+                  tipSource: {
+                    type: 'percent',
+                    value: prevTipPercent < 1 ? 0 : prevTipPercent - 1,
+                  },
                 };
               });
             }}
