@@ -256,4 +256,48 @@ test.describe('Calc Page', () => {
       eachPersonPays: '7.68',
     });
   });
+
+  test('keeps total constant when changing number of people after setting per-person amount', async ({
+    page,
+  }) => {
+    // Set each person pays to $15.00 (total $15.00 with 1 person)
+    await page.getByLabel(/^each person pays$/i).fill('1500');
+    await expectValues(page, {
+      tipPercent: '21',
+      tipAmount: '2.65',
+      totalAmount: '15.00',
+      numberOfPeople: '1',
+      eachPersonPays: '15.00',
+    });
+
+    // Increment to 2 people - total should stay $15.00, per-person should become $7.50
+    await page.getByLabel(/increment number of people/i).click();
+    await expectValues(page, {
+      tipPercent: '21',
+      tipAmount: '2.65',
+      totalAmount: '15.00',
+      numberOfPeople: '2',
+      eachPersonPays: '7.50',
+    });
+
+    // Increment to 3 people - total should stay $15.00, per-person should become $5.00
+    await page.getByLabel(/increment number of people/i).click();
+    await expectValues(page, {
+      tipPercent: '21',
+      tipAmount: '2.65',
+      totalAmount: '15.00',
+      numberOfPeople: '3',
+      eachPersonPays: '5.00',
+    });
+
+    // Decrement back to 2 people - total should stay $15.00
+    await page.getByLabel(/decrement number of people/i).click();
+    await expectValues(page, {
+      tipPercent: '21',
+      tipAmount: '2.65',
+      totalAmount: '15.00',
+      numberOfPeople: '2',
+      eachPersonPays: '7.50',
+    });
+  });
 });
