@@ -83,10 +83,13 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement tip percent"
             onClick={() => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: { type: 'percent', value: tipPercent < 1 ? 0 : tipPercent - 1 },
-              }));
+              setState((previousState) => {
+                const { tipPercent: prevTipPercent } = deriveValues(billAmount, previousState);
+                return {
+                  ...previousState,
+                  tipSource: { type: 'percent', value: prevTipPercent < 1 ? 0 : prevTipPercent - 1 },
+                };
+              });
             }}
           />
           <CalcInput
@@ -103,10 +106,13 @@ function CalcPage() {
           <IncrementButton
             aria-label="increment tip percent"
             onClick={() => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: { type: 'percent', value: tipPercent + 1 },
-              }));
+              setState((previousState) => {
+                const { tipPercent: prevTipPercent } = deriveValues(billAmount, previousState);
+                return {
+                  ...previousState,
+                  tipSource: { type: 'percent', value: prevTipPercent + 1 },
+                };
+              });
             }}
           />
         </Cell>
@@ -117,12 +123,15 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement tip amount"
             onClick={() => {
-              const current = currency(tipAmount, { increment: 1 });
-              const previousEvenDollar = getPreviousEvenDollar(current);
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: { type: 'amount', value: current.value < 1 ? 0 : previousEvenDollar },
-              }));
+              setState((previousState) => {
+                const { tipAmount: prevTipAmount } = deriveValues(billAmount, previousState);
+                const current = currency(prevTipAmount, { increment: 1 });
+                const previousEvenDollar = getPreviousEvenDollar(current);
+                return {
+                  ...previousState,
+                  tipSource: { type: 'amount', value: current.value < 1 ? 0 : previousEvenDollar },
+                };
+              });
             }}
           />
           <CalcInput
@@ -139,13 +148,16 @@ function CalcPage() {
           <IncrementButton
             aria-label="increment tip amount"
             onClick={() => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: {
-                  type: 'amount',
-                  value: currency(tipAmount, { increment: 1 }).add(1).dollars(),
-                },
-              }));
+              setState((previousState) => {
+                const { tipAmount: prevTipAmount } = deriveValues(billAmount, previousState);
+                return {
+                  ...previousState,
+                  tipSource: {
+                    type: 'amount',
+                    value: currency(prevTipAmount, { increment: 1 }).add(1).dollars(),
+                  },
+                };
+              });
             }}
           />
         </Cell>
@@ -156,15 +168,18 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement total amount"
             onClick={() => {
-              const current = currency(totalAmount, { increment: 1 });
-              const previousEvenDollar = getPreviousEvenDollar(current);
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: {
-                  type: 'total',
-                  value: previousEvenDollar < billAmount ? billAmount : previousEvenDollar,
-                },
-              }));
+              setState((previousState) => {
+                const { totalAmount: prevTotalAmount } = deriveValues(billAmount, previousState);
+                const current = currency(prevTotalAmount, { increment: 1 });
+                const previousEvenDollar = getPreviousEvenDollar(current);
+                return {
+                  ...previousState,
+                  tipSource: {
+                    type: 'total',
+                    value: previousEvenDollar < billAmount ? billAmount : previousEvenDollar,
+                  },
+                };
+              });
             }}
           />
           <CalcInput
@@ -182,13 +197,16 @@ function CalcPage() {
           <IncrementButton
             aria-label="increment total amount"
             onClick={() => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: {
-                  type: 'total',
-                  value: currency(totalAmount, { increment: 1 }).add(1).dollars(),
-                },
-              }));
+              setState((previousState) => {
+                const { totalAmount: prevTotalAmount } = deriveValues(billAmount, previousState);
+                return {
+                  ...previousState,
+                  tipSource: {
+                    type: 'total',
+                    value: currency(prevTotalAmount, { increment: 1 }).add(1).dollars(),
+                  },
+                };
+              });
             }}
           />
         </HeroCell>
@@ -234,16 +252,24 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement each person pays"
             onClick={() => {
-              const current = currency(eachPersonPays, { increment: 1 });
-              const previousEvenDollar = getPreviousEvenDollar(current);
-              const minPerPerson = currency(billAmount).divide(state.numberOfPeople).value;
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: {
-                  type: 'perPerson',
-                  value: previousEvenDollar < minPerPerson ? minPerPerson : previousEvenDollar,
-                },
-              }));
+              setState((previousState) => {
+                const { eachPersonPays: prevEachPersonPays } = deriveValues(
+                  billAmount,
+                  previousState,
+                );
+                const current = currency(prevEachPersonPays, { increment: 1 });
+                const previousEvenDollar = getPreviousEvenDollar(current);
+                const minPerPerson = currency(billAmount).distribute(
+                  previousState.numberOfPeople,
+                )[0].value;
+                return {
+                  ...previousState,
+                  tipSource: {
+                    type: 'perPerson',
+                    value: previousEvenDollar < minPerPerson ? minPerPerson : previousEvenDollar,
+                  },
+                };
+              });
             }}
           />
           <CalcInput
@@ -260,13 +286,19 @@ function CalcPage() {
           <IncrementButton
             aria-label="increment each person pays"
             onClick={() => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: {
-                  type: 'perPerson',
-                  value: currency(eachPersonPays, { increment: 1 }).add(1).dollars(),
-                },
-              }));
+              setState((previousState) => {
+                const { eachPersonPays: prevEachPersonPays } = deriveValues(
+                  billAmount,
+                  previousState,
+                );
+                return {
+                  ...previousState,
+                  tipSource: {
+                    type: 'perPerson',
+                    value: currency(prevEachPersonPays, { increment: 1 }).add(1).dollars(),
+                  },
+                };
+              });
             }}
           />
         </Cell>
