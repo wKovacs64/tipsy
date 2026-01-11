@@ -8,48 +8,23 @@ import { billFromUrlParam, getPreviousEvenDollar, toCurrency, toNumber } from '.
 import BrandButton from '../shared/brand-button';
 import NumericInput from '../shared/numeric-input';
 
-type TipSource =
-  | { type: 'percent'; value: number }
-  | { type: 'amount'; value: number }
-  | { type: 'total'; value: number }
-  | { type: 'perPerson'; value: number };
-
 type State = {
-  tipSource: TipSource;
+  totalAmount: number;
   numberOfPeople: number;
 };
 
 function deriveValues(billAmount: number, state: State) {
-  const { tipSource, numberOfPeople } = state;
+  const { totalAmount, numberOfPeople } = state;
 
   if (billAmount <= 0 || numberOfPeople <= 0) {
     return { tipPercent: 0, tipAmount: 0, totalAmount: billAmount, eachPersonPays: 0 };
   }
 
-  let tipAmount: number;
-  switch (tipSource.type) {
-    case 'percent':
-      tipAmount = currency(billAmount).multiply(tipSource.value).divide(100).value;
-      break;
-    case 'amount':
-      tipAmount = tipSource.value;
-      break;
-    case 'total':
-      tipAmount = currency(tipSource.value).subtract(billAmount).value;
-      break;
-    case 'perPerson':
-      tipAmount = currency(tipSource.value).multiply(numberOfPeople).subtract(billAmount).value;
-      break;
-  }
+  const tipAmount = currency(totalAmount).subtract(billAmount).value;
+  const tipPercent = currency(tipAmount).divide(billAmount).multiply(100).value;
+  const eachPersonPays = currency(totalAmount).distribute(numberOfPeople)[0].value;
 
-  const totalAmount = currency(billAmount).add(tipAmount).value;
-
-  return {
-    tipPercent: currency(tipAmount).divide(billAmount).multiply(100).value,
-    tipAmount,
-    totalAmount,
-    eachPersonPays: currency(totalAmount).distribute(numberOfPeople)[0].value,
-  };
+  return { tipPercent, tipAmount, totalAmount, eachPersonPays };
 }
 
 function CalcPage() {
@@ -62,8 +37,11 @@ function CalcPage() {
 
   const billAmount = Number.parseFloat(bill) || 0;
 
+  const initialTipAmount = currency(billAmount).multiply(initialTipPercent).divide(100).value;
+  const initialTotalAmount = currency(billAmount).add(initialTipAmount).value;
+
   const [state, setState] = React.useState<State>({
-    tipSource: { type: 'percent', value: initialTipPercent },
+    totalAmount: initialTotalAmount,
     numberOfPeople: initialPartySize,
   });
 
@@ -83,15 +61,11 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement tip percent"
             onClick={() => {
-              setState((previousState) => {
-                const { tipPercent: prevTipPercent } = deriveValues(billAmount, previousState);
-                return {
-                  ...previousState,
-                  tipSource: {
-                    type: 'percent',
-                    value: prevTipPercent < 1 ? 0 : prevTipPercent - 1,
-                  },
-                };
+              setState((prev) => {
+                const { tipPercent: prevTipPercent } = deriveValues(billAmount, prev);
+                const newPercent = prevTipPercent < 1 ? 0 : prevTipPercent - 1;
+                const newTipAmount = currency(billAmount).multiply(newPercent).divide(100).value;
+                return { ...prev, totalAmount: currency(billAmount).add(newTipAmount).value };
               });
             }}
           />
@@ -100,21 +74,21 @@ function CalcPage() {
             name="tip-percent"
             value={tipPercent}
             onChange={(e) => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: { type: 'percent', value: toNumber(e.target.value) },
-              }));
+              setState((prev) => {
+                const newPercent = toNumber(e.target.value);
+                const newTipAmount = currency(billAmount).multiply(newPercent).divide(100).value;
+                return { ...prev, totalAmount: currency(billAmount).add(newTipAmount).value };
+              });
             }}
           />
           <IncrementButton
             aria-label="increment tip percent"
             onClick={() => {
-              setState((previousState) => {
-                const { tipPercent: prevTipPercent } = deriveValues(billAmount, previousState);
-                return {
-                  ...previousState,
-                  tipSource: { type: 'percent', value: prevTipPercent + 1 },
-                };
+              setState((prev) => {
+                const { tipPercent: prevTipPercent } = deriveValues(billAmount, prev);
+                const newPercent = prevTipPercent + 1;
+                const newTipAmount = currency(billAmount).multiply(newPercent).divide(100).value;
+                return { ...prev, totalAmount: currency(billAmount).add(newTipAmount).value };
               });
             }}
           />
@@ -126,14 +100,12 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement tip amount"
             onClick={() => {
-              setState((previousState) => {
-                const { tipAmount: prevTipAmount } = deriveValues(billAmount, previousState);
+              setState((prev) => {
+                const { tipAmount: prevTipAmount } = deriveValues(billAmount, prev);
                 const current = currency(prevTipAmount, { increment: 1 });
                 const previousEvenDollar = getPreviousEvenDollar(current);
-                return {
-                  ...previousState,
-                  tipSource: { type: 'amount', value: current.value < 1 ? 0 : previousEvenDollar },
-                };
+                const newTipAmount = current.value < 1 ? 0 : previousEvenDollar;
+                return { ...prev, totalAmount: currency(billAmount).add(newTipAmount).value };
               });
             }}
           />
@@ -142,24 +114,19 @@ function CalcPage() {
             name="tip-amount"
             value={currency(tipAmount, { symbol: '' }).format()}
             onChange={(e) => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: { type: 'amount', value: toNumber(toCurrency(e.target.value)) },
-              }));
+              setState((prev) => {
+                const newTipAmount = toNumber(toCurrency(e.target.value));
+                return { ...prev, totalAmount: currency(billAmount).add(newTipAmount).value };
+              });
             }}
           />
           <IncrementButton
             aria-label="increment tip amount"
             onClick={() => {
-              setState((previousState) => {
-                const { tipAmount: prevTipAmount } = deriveValues(billAmount, previousState);
-                return {
-                  ...previousState,
-                  tipSource: {
-                    type: 'amount',
-                    value: currency(prevTipAmount, { increment: 1 }).add(1).dollars(),
-                  },
-                };
+              setState((prev) => {
+                const { tipAmount: prevTipAmount } = deriveValues(billAmount, prev);
+                const newTipAmount = currency(prevTipAmount, { increment: 1 }).add(1).dollars();
+                return { ...prev, totalAmount: currency(billAmount).add(newTipAmount).value };
               });
             }}
           />
@@ -171,17 +138,11 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement total amount"
             onClick={() => {
-              setState((previousState) => {
-                const { totalAmount: prevTotalAmount } = deriveValues(billAmount, previousState);
-                const current = currency(prevTotalAmount, { increment: 1 });
+              setState((prev) => {
+                const current = currency(prev.totalAmount, { increment: 1 });
                 const previousEvenDollar = getPreviousEvenDollar(current);
-                return {
-                  ...previousState,
-                  tipSource: {
-                    type: 'total',
-                    value: previousEvenDollar < billAmount ? billAmount : previousEvenDollar,
-                  },
-                };
+                const newTotal = previousEvenDollar < billAmount ? billAmount : previousEvenDollar;
+                return { ...prev, totalAmount: newTotal };
               });
             }}
           />
@@ -191,25 +152,19 @@ function CalcPage() {
             className="font-semibold"
             value={currency(totalAmount, { symbol: '' }).format()}
             onChange={(e) => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: { type: 'total', value: toNumber(toCurrency(e.target.value)) },
+              setState((prev) => ({
+                ...prev,
+                totalAmount: toNumber(toCurrency(e.target.value)),
               }));
             }}
           />
           <IncrementButton
             aria-label="increment total amount"
             onClick={() => {
-              setState((previousState) => {
-                const { totalAmount: prevTotalAmount } = deriveValues(billAmount, previousState);
-                return {
-                  ...previousState,
-                  tipSource: {
-                    type: 'total',
-                    value: currency(prevTotalAmount, { increment: 1 }).add(1).dollars(),
-                  },
-                };
-              });
+              setState((prev) => ({
+                ...prev,
+                totalAmount: currency(prev.totalAmount, { increment: 1 }).add(1).dollars(),
+              }));
             }}
           />
         </HeroCell>
@@ -220,11 +175,11 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement number of people"
             onClick={() => {
-              setState((previousState) => ({
-                ...previousState,
-                numberOfPeople:
-                  previousState.numberOfPeople < 2 ? 1 : previousState.numberOfPeople - 1,
-              }));
+              setState((prev) =>
+                prev.numberOfPeople < 2
+                  ? prev
+                  : { ...prev, numberOfPeople: prev.numberOfPeople - 1 },
+              );
             }}
           />
           <CalcInput
@@ -232,8 +187,8 @@ function CalcPage() {
             name="number-of-people"
             value={state.numberOfPeople}
             onChange={(e) => {
-              setState((previousState) => ({
-                ...previousState,
+              setState((prev) => ({
+                ...prev,
                 numberOfPeople: Math.max(1, toNumber(e.target.value)),
               }));
             }}
@@ -241,10 +196,7 @@ function CalcPage() {
           <IncrementButton
             aria-label="increment number of people"
             onClick={() => {
-              setState((previousState) => ({
-                ...previousState,
-                numberOfPeople: previousState.numberOfPeople + 1,
-              }));
+              setState((prev) => ({ ...prev, numberOfPeople: prev.numberOfPeople + 1 }));
             }}
           />
         </Cell>
@@ -255,22 +207,16 @@ function CalcPage() {
           <DecrementButton
             aria-label="decrement each person pays"
             onClick={() => {
-              setState((previousState) => {
-                const { eachPersonPays: prevEachPersonPays } = deriveValues(
-                  billAmount,
-                  previousState,
-                );
+              setState((prev) => {
+                const { eachPersonPays: prevEachPersonPays } = deriveValues(billAmount, prev);
                 const current = currency(prevEachPersonPays, { increment: 1 });
                 const previousEvenDollar = getPreviousEvenDollar(current);
-                const minPerPerson = currency(billAmount).distribute(
-                  previousState.numberOfPeople,
-                )[0].value;
+                const minPerPerson = currency(billAmount).distribute(prev.numberOfPeople)[0].value;
+                const newPerPerson =
+                  previousEvenDollar < minPerPerson ? minPerPerson : previousEvenDollar;
                 return {
-                  ...previousState,
-                  tipSource: {
-                    type: 'perPerson',
-                    value: previousEvenDollar < minPerPerson ? minPerPerson : previousEvenDollar,
-                  },
+                  ...prev,
+                  totalAmount: currency(newPerPerson).multiply(prev.numberOfPeople).value,
                 };
               });
             }}
@@ -280,26 +226,26 @@ function CalcPage() {
             name="each-person-pays"
             value={currency(eachPersonPays, { symbol: '' }).format()}
             onChange={(e) => {
-              setState((previousState) => ({
-                ...previousState,
-                tipSource: { type: 'perPerson', value: toNumber(toCurrency(e.target.value)) },
-              }));
+              setState((prev) => {
+                const newPerPerson = toNumber(toCurrency(e.target.value));
+                return {
+                  ...prev,
+                  totalAmount: currency(newPerPerson).multiply(prev.numberOfPeople).value,
+                };
+              });
             }}
           />
           <IncrementButton
             aria-label="increment each person pays"
             onClick={() => {
-              setState((previousState) => {
-                const { eachPersonPays: prevEachPersonPays } = deriveValues(
-                  billAmount,
-                  previousState,
-                );
+              setState((prev) => {
+                const { eachPersonPays: prevEachPersonPays } = deriveValues(billAmount, prev);
+                const newPerPerson = currency(prevEachPersonPays, { increment: 1 })
+                  .add(1)
+                  .dollars();
                 return {
-                  ...previousState,
-                  tipSource: {
-                    type: 'perPerson',
-                    value: currency(prevEachPersonPays, { increment: 1 }).add(1).dollars(),
-                  },
+                  ...prev,
+                  totalAmount: currency(newPerPerson).multiply(prev.numberOfPeople).value,
                 };
               });
             }}
