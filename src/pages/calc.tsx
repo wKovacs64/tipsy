@@ -175,7 +175,7 @@ function CalcPage() {
             onChange={(e) => {
               setState((currentState) => ({
                 ...currentState,
-                totalAmount: Math.max(billAmount, toNumber(toCurrency(e.target.value))),
+                totalAmount: toNumber(toCurrency(e.target.value)),
               }));
             }}
           />
@@ -210,7 +210,7 @@ function CalcPage() {
             onChange={(e) => {
               setState((currentState) => ({
                 ...currentState,
-                numberOfPeople: Math.max(1, toNumber(e.target.value)),
+                numberOfPeople: toNumber(e.target.value),
               }));
             }}
           />
@@ -257,15 +257,13 @@ function CalcPage() {
             name="each-person-pays"
             value={currency(eachPersonPays, { symbol: '' }).format()}
             onChange={(e) => {
-              setState((currentState) => {
-                const minPerPerson = currency(billAmount).distribute(currentState.numberOfPeople)[0]
-                  .value;
-                const newPerPerson = Math.max(minPerPerson, toNumber(toCurrency(e.target.value)));
-                return {
-                  ...currentState,
-                  totalAmount: totalFromEachPersonPays(newPerPerson, currentState.numberOfPeople),
-                };
-              });
+              setState((currentState) => ({
+                ...currentState,
+                totalAmount: totalFromEachPersonPays(
+                  toNumber(toCurrency(e.target.value)),
+                  currentState.numberOfPeople,
+                ),
+              }));
             }}
           />
           <IncrementButton
