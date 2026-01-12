@@ -6,12 +6,20 @@ import gitCommit from 'git-current-commit';
 
 export default defineConfig({
   define: {
-    __COMMIT__: JSON.stringify(gitCommit.sync()),
     __VERSION__: JSON.stringify(process.env.npm_package_version),
   },
   plugins: [
     tailwindcss(),
     react(),
+    {
+      name: 'html-commit',
+      transformIndexHtml(html) {
+        return html.replace(
+          '<html lang="en">',
+          `<html lang="en" data-commit="${gitCommit.sync()}">`,
+        );
+      },
+    },
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
