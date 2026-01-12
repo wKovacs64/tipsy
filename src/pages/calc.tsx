@@ -154,7 +154,7 @@ function CalcPage() {
             onChange={(e) => {
               setState((prev) => ({
                 ...prev,
-                totalAmount: toNumber(toCurrency(e.target.value)),
+                totalAmount: Math.max(billAmount, toNumber(toCurrency(e.target.value))),
               }));
             }}
           />
@@ -227,7 +227,8 @@ function CalcPage() {
             value={currency(eachPersonPays, { symbol: '' }).format()}
             onChange={(e) => {
               setState((prev) => {
-                const newPerPerson = toNumber(toCurrency(e.target.value));
+                const minPerPerson = currency(billAmount).distribute(prev.numberOfPeople)[0].value;
+                const newPerPerson = Math.max(minPerPerson, toNumber(toCurrency(e.target.value)));
                 return {
                   ...prev,
                   totalAmount: currency(newPerPerson).multiply(prev.numberOfPeople).value,
