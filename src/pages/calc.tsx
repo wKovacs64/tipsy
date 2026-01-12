@@ -18,7 +18,7 @@ function deriveValues(billAmount: number, state: State) {
   const { totalAmount, numberOfPeople } = state;
 
   if (billAmount <= 0 || numberOfPeople <= 0) {
-    return { tipPercent: 0, tipAmount: 0, totalAmount: billAmount, eachPersonPays: 0 };
+    return { tipPercent: 0, tipAmount: 0, totalAmount, eachPersonPays: 0 };
   }
 
   const tipAmount = currency(totalAmount).subtract(billAmount).value;
