@@ -14,10 +14,7 @@ export default defineConfig({
     {
       name: 'html-commit',
       transformIndexHtml(html) {
-        return html.replace(
-          '<html lang="en">',
-          `<html lang="en" data-commit="${gitCommit.sync()}">`,
-        );
+        return html.replace(/(<html[^>]*)(>)/i, `$1 data-commit="${gitCommit.sync()}"$2`);
       },
     },
     VitePWA({
