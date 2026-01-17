@@ -1,5 +1,5 @@
 import * as React from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { useNavigate, useParams } from 'react-router';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import currency from 'currency.js';
