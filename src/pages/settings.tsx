@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router';
-import Switch from 'react-switch';
 import {
   appDefaultPartySize,
   appDefaultTipPercent,
@@ -9,6 +8,7 @@ import {
 } from '#/src/settings';
 import { NumericInput } from '#/src/shared/numeric-input';
 import { BrandButton } from '#/src/shared/brand-button';
+import { ToggleSwitch } from '#/src/shared/toggle-switch';
 
 export function SettingsPage() {
   const navigate = useNavigate();
@@ -49,13 +49,7 @@ export function SettingsPage() {
       <div className="mb-14 grid w-full gap-y-14 text-3xl md:text-4xl">
         <div className="flex items-center justify-between">
           <label htmlFor="dark-mode">Dark mode:</label>
-          <Switch
-            id="dark-mode"
-            aria-checked={isCurrentlyDark}
-            checked={isCurrentlyDark}
-            onChange={handleThemeToggle}
-            onColor="#8d6c9f"
-          />
+          <ToggleSwitch id="dark-mode" checked={isCurrentlyDark} onChange={handleThemeToggle} />
         </div>
         <div>
           <label htmlFor="default-party-size">Default party size:</label>
