@@ -1,7 +1,7 @@
 import { FaGithub } from 'react-icons/fa';
 import { useMatch } from 'react-router';
 
-function Footer() {
+export function Footer() {
   const onHomePage = useMatch({ path: '/', end: true });
 
   if (onHomePage) {
@@ -26,5 +26,3 @@ function Footer() {
 
   return <footer />;
 }
-
-export default Footer;

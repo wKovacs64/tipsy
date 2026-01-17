@@ -5,11 +5,11 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import currency from 'currency.js';
 import { useDefaultPartySize, useDefaultTipPercent } from '../settings';
 import { billFromUrlParam, toCurrency, toNumber } from '../utils';
-import BrandButton from '../shared/brand-button';
-import NumericInput from '../shared/numeric-input';
+import { BrandButton } from '../shared/brand-button';
+import { NumericInput } from '../shared/numeric-input';
 import { useTipCalculator } from '../use-tip-calculator';
 
-function CalcPage() {
+export function CalcPage() {
   const params = useParams();
   const bill = billFromUrlParam(params.bill);
   const navigate = useNavigate();
@@ -173,5 +173,3 @@ function CalcInput(props: React.ComponentProps<'input'>) {
     <NumericInput className={clsx('mx-2 max-w-20 text-xl md:text-xl', className)} {...otherProps} />
   );
 }
-
-export default CalcPage;

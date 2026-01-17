@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-function BrandButton(props: React.ComponentProps<'button'>) {
+export function BrandButton(props: React.ComponentProps<'button'>) {
   return (
     <button
       type="button"
@@ -9,5 +9,3 @@ function BrandButton(props: React.ComponentProps<'button'>) {
     />
   );
 }
-
-export default BrandButton;

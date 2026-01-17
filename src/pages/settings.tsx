@@ -7,10 +7,10 @@ import {
   useDefaultPartySize,
   useDefaultTipPercent,
 } from '../settings';
-import NumericInput from '../shared/numeric-input';
-import BrandButton from '../shared/brand-button';
+import { NumericInput } from '../shared/numeric-input';
+import { BrandButton } from '../shared/brand-button';
 
-function SettingsPage() {
+export function SettingsPage() {
   const navigate = useNavigate();
   const [defaultPartySize, setDefaultPartySize] = useDefaultPartySize();
   const [defaultTipPercent, setDefaultTipPercent] = useDefaultTipPercent();
@@ -86,5 +86,3 @@ function SettingsPage() {
     </section>
   );
 }
-
-export default SettingsPage;

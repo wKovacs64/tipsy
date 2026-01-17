@@ -2,14 +2,14 @@ import '@fontsource/source-sans-3/latin-200.css';
 import '@fontsource/source-sans-3/latin-400.css';
 import '@fontsource/source-sans-3/latin-600.css';
 import { Routes, Route } from 'react-router';
-import Layout from './core/layout';
-import HomePage from './pages/home';
-import CalcPage from './pages/calc';
-import SettingsPage from './pages/settings';
-import NotFoundPage from './pages/not-found';
+import { Layout } from './core/layout';
+import { HomePage } from './pages/home';
+import { CalcPage } from './pages/calc';
+import { SettingsPage } from './pages/settings';
+import { NotFoundPage } from './pages/not-found';
 import './app.css';
 
-function App() {
+export function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -21,5 +21,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;
