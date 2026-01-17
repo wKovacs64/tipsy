@@ -1,8 +1,12 @@
 {
   "name": "tipsy",
+  "private": true,
   "version": "2.1.1",
   "description": "A simple tip calculator and bill divider PWA",
   "type": "module",
+  "imports": {
+    "#/*": "./*"
+  },
   "author": {
     "name": "Justin Hall",
     "email": "justin.r.hall@gmail.com"
@@ -27,7 +31,6 @@
     "test:e2e:run": "cross-env CI=true playwright test",
     "typecheck": "tsc"
   },
-  "private": true,
   "packageManager": "pnpm@10.28.0",
   "dependencies": {
     "@fontsource/source-sans-3": "5.2.9",

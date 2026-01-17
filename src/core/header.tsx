@@ -1,7 +1,7 @@
 import { Link, useMatch } from 'react-router';
 import currency from 'currency.js';
-import { Icon } from '../icons/icon';
-import { billFromUrlParam } from '../utils';
+import { Icon } from '#/src/icons/icon';
+import { billFromUrlParam } from '#/src/utils';
 
 export function Header() {
   const settingsMatch = useMatch('settings');

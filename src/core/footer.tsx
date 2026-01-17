@@ -1,5 +1,5 @@
 import { useMatch } from 'react-router';
-import { Icon } from '../icons/icon';
+import { Icon } from '#/src/icons/icon';
 
 export function Footer() {
   const onHomePage = useMatch({ path: '/', end: true });

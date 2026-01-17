@@ -2,12 +2,12 @@ import * as React from 'react';
 import { clsx } from 'clsx';
 import { useNavigate, useParams } from 'react-router';
 import currency from 'currency.js';
-import { Icon } from '../icons/icon';
-import { useDefaultPartySize, useDefaultTipPercent } from '../settings';
-import { billFromUrlParam, toCurrency, toNumber } from '../utils';
-import { BrandButton } from '../shared/brand-button';
-import { NumericInput } from '../shared/numeric-input';
-import { useTipCalculator } from '../use-tip-calculator';
+import { Icon } from '#/src/icons/icon';
+import { useDefaultPartySize, useDefaultTipPercent } from '#/src/settings';
+import { billFromUrlParam, toCurrency, toNumber } from '#/src/utils';
+import { BrandButton } from '#/src/shared/brand-button';
+import { NumericInput } from '#/src/shared/numeric-input';
+import { useTipCalculator } from '#/src/use-tip-calculator';
 
 export function CalcPage() {
   const params = useParams();

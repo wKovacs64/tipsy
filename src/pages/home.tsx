@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router';
-import { billToUrlParam, toCurrency } from '../utils';
-import { BrandButton } from '../shared/brand-button';
-import { NumericInput } from '../shared/numeric-input';
+import { billToUrlParam, toCurrency } from '#/src/utils';
+import { BrandButton } from '#/src/shared/brand-button';
+import { NumericInput } from '#/src/shared/numeric-input';
 
 export function HomePage() {
   const navigate = useNavigate();
