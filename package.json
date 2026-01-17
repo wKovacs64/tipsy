@@ -28,7 +28,7 @@
     "typecheck": "tsc"
   },
   "private": true,
-  "packageManager": "pnpm@10.27.0",
+  "packageManager": "pnpm@10.28.0",
   "dependencies": {
     "@babel/core": "7.28.5",
     "@babel/plugin-syntax-jsx": "7.27.1",
