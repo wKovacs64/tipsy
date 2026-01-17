@@ -6,9 +6,9 @@ import {
   appDefaultTipPercent,
   useDefaultPartySize,
   useDefaultTipPercent,
-} from '../settings';
-import { NumericInput } from '../shared/numeric-input';
-import { BrandButton } from '../shared/brand-button';
+} from '#/src/settings';
+import { NumericInput } from '#/src/shared/numeric-input';
+import { BrandButton } from '#/src/shared/brand-button';
 
 export function SettingsPage() {
   const navigate = useNavigate();
