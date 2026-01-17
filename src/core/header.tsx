@@ -3,7 +3,7 @@ import { MdSettings } from 'react-icons/md';
 import currency from 'currency.js';
 import { billFromUrlParam } from '../utils';
 
-function Header() {
+export function Header() {
   const settingsMatch = useMatch('settings');
   const calcMatch = useMatch('calc/:bill');
   const homeMatch = useMatch({ path: '/', end: true });
@@ -29,5 +29,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;

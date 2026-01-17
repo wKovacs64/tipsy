@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router';
 import { billToUrlParam, toCurrency } from '../utils';
-import BrandButton from '../shared/brand-button';
-import NumericInput from '../shared/numeric-input';
+import { BrandButton } from '../shared/brand-button';
+import { NumericInput } from '../shared/numeric-input';
 
-function HomePage() {
+export function HomePage() {
   const navigate = useNavigate();
   const [bill, setBill] = React.useState('');
   const [isFormValid, setIsFormValid] = React.useState(false);
@@ -45,5 +45,3 @@ function HomePage() {
     </section>
   );
 }
-
-export default HomePage;

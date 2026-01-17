@@ -1,7 +1,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 
-function NumericInput(props: React.ComponentProps<'input'>) {
+export function NumericInput(props: React.ComponentProps<'input'>) {
   const { className, ...otherProps } = props;
 
   return (
@@ -21,5 +21,3 @@ function NumericInput(props: React.ComponentProps<'input'>) {
     />
   );
 }
-
-export default NumericInput;
