@@ -48,6 +48,7 @@ export function ToggleSwitch({
       </span>
       <input
         type="checkbox"
+        role="switch"
         id={id}
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
