@@ -1,5 +1,4 @@
-import * as React from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 export function NumericInput(props: React.ComponentProps<'input'>) {
   const { className, ...otherProps } = props;
