@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import { VitePWA } from 'vite-plugin-pwa';
 import gitCommit from 'git-current-commit';
+import babel from 'vite-plugin-babel';
 
 export default defineConfig({
   define: {
@@ -11,6 +12,15 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react(),
+    babel({
+      exclude: ['**/node_modules/**'],
+      filter: /\.[jt]sx?$/u,
+      loader: 'jsx',
+      babelConfig: {
+        presets: ['@babel/preset-typescript'],
+        plugins: [['babel-plugin-react-compiler']],
+      },
+    }),
     {
       name: 'html-commit',
       transformIndexHtml(html) {
