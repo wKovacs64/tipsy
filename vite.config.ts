@@ -1,9 +1,11 @@
+import path from 'node:path';
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import { VitePWA } from 'vite-plugin-pwa';
 import gitCommit from 'git-current-commit';
 import babel from 'vite-plugin-babel';
+import { iconsSpritesheet } from 'vite-plugin-icons-spritesheet';
 
 export default defineConfig({
   define: {
@@ -20,6 +22,13 @@ export default defineConfig({
         presets: ['@babel/preset-typescript'],
         plugins: [['babel-plugin-react-compiler']],
       },
+    }),
+    iconsSpritesheet({
+      inputDir: path.resolve('./src/assets/svg-icons'),
+      outputDir: path.resolve('./src/icons'),
+      fileName: 'icons-sprite.svg',
+      iconNameTransformer: (fileName) => fileName,
+      withTypes: true,
     }),
     {
       name: 'html-commit',

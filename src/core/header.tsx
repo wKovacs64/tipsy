@@ -1,6 +1,6 @@
 import { Link, useMatch } from 'react-router';
-import { MdSettings } from 'react-icons/md';
 import currency from 'currency.js';
+import { Icon } from '../icons/icon';
 import { billFromUrlParam } from '../utils';
 
 export function Header() {
@@ -22,7 +22,7 @@ export function Header() {
           <h2 className="text-2xl md:text-3xl">{currency(bill).format()}</h2>
         ) : homeMatch ? (
           <Link to="/settings" className="text-current no-underline">
-            <MdSettings role="img" title="Settings" size={32} />
+            <Icon name="mdi-settings" role="img" title="Settings" size={32} />
           </Link>
         ) : null}
       </div>
