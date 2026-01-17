@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { clsx } from 'clsx';
 import { useNavigate, useParams } from 'react-router';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import currency from 'currency.js';
+import { Icon } from '../icons/icon';
 import { useDefaultPartySize, useDefaultTipPercent } from '../settings';
 import { billFromUrlParam, toCurrency, toNumber } from '../utils';
 import { BrandButton } from '../shared/brand-button';
@@ -154,7 +154,7 @@ function IconButton(props: React.ComponentProps<'button'>) {
 function DecrementButton(props: React.ComponentProps<'button'>) {
   return (
     <IconButton {...props}>
-      <FiChevronDown size={26} />
+      <Icon name="feather-chevron-down" size={26} />
     </IconButton>
   );
 }
@@ -162,7 +162,7 @@ function DecrementButton(props: React.ComponentProps<'button'>) {
 function IncrementButton(props: React.ComponentProps<'button'>) {
   return (
     <IconButton {...props}>
-      <FiChevronUp size={26} />
+      <Icon name="feather-chevron-up" size={26} />
     </IconButton>
   );
 }

@@ -1,5 +1,5 @@
-import { FaGithub } from 'react-icons/fa';
 import { useMatch } from 'react-router';
+import { Icon } from '../icons/icon';
 
 export function Footer() {
   const onHomePage = useMatch({ path: '/', end: true });
@@ -13,7 +13,8 @@ export function Footer() {
           rel="noopener noreferrer"
           className="text-current no-underline"
         >
-          <FaGithub
+          <Icon
+            name="fa-brands-github"
             role="img"
             title="View source on GitHub"
             aria-label="View source on GitHub"
