@@ -1,33 +1,14 @@
 # Releasing
 
-This package is released automatically using
-[semantic-release](https://github.com/semantic-release/semantic-release).
+This package is released using [release-please](https://github.com/googleapis/release-please).
 
 ### Workflow:
 
-- Commit all changes to the `dev` branch
+1. Create feature branches and open PRs to `main` using
+   [conventional commit](https://www.conventionalcommits.org/) messages (`feat:`, `fix:`, etc.)
 
-- When ready to release, merge `dev` into `main` and push:
+2. release-please automatically creates/updates a Release PR with the changelog and version bump
 
-  ```
-  git checkout main
-  git merge dev
-  git push origin main
-  ```
+3. When ready to release, merge the Release PR
 
-- A new commit will be automatically added to `main` during the release, so pull that change into
-  local `main`:
-
-  ```
-  git pull origin main
-  ```
-
-- Change to `dev`, make sure you are in sync with the remote, merge `main` into `dev` to pick up the
-  automatically generated commit, then push:
-
-  ```
-  git checkout dev
-  git pull origin dev
-  git merge main
-  git push origin dev
-  ```
+4. release-please creates the GitHub release with the new tag
