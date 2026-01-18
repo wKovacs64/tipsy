@@ -135,6 +135,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
+      issues: write
       pull-requests: write
     steps:
       - name: 🆕 Release Please
