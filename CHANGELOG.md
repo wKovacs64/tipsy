@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.2.0](https://github.com/wKovacs64/tipsy/compare/tipsy-v2.1.1...tipsy-v2.2.0) (2026-01-18)
+## [2.2.0](https://github.com/wKovacs64/tipsy/compare/v2.1.1...v2.2.0) (2026-01-18)
 
 
 ### Features
