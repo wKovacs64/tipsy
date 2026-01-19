@@ -43,8 +43,8 @@
     "use-local-storage-state": "19.5.0"
   },
   "devDependencies": {
-    "@babel/core": "7.28.5",
-    "@babel/plugin-syntax-jsx": "7.27.1",
+    "@babel/core": "7.28.6",
+    "@babel/plugin-syntax-jsx": "7.28.6",
     "@babel/preset-typescript": "7.28.5",
     "@playwright/test": "1.57.0",
     "@tailwindcss/vite": "4.1.18",
