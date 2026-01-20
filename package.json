@@ -49,7 +49,7 @@
     "@playwright/test": "1.57.0",
     "@tailwindcss/vite": "4.1.18",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "24.10.7",
+    "@types/node": "24.10.8",
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react-swc": "4.2.2",
