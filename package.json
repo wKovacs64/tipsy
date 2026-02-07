@@ -43,7 +43,7 @@
     "use-local-storage-state": "19.5.0"
   },
   "devDependencies": {
-    "@babel/core": "7.28.6",
+    "@babel/core": "7.29.0",
     "@babel/plugin-syntax-jsx": "7.28.6",
     "@babel/preset-typescript": "7.28.5",
     "@playwright/test": "1.58.1",
