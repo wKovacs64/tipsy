@@ -2,8 +2,7 @@
 
 _A simple tip calculator and bill divider PWA_
 
-[![Build Status][ci-image]][ci-url]
-[![release-please][release-please-image]][release-please-url]
+[![Build Status][ci-image]][ci-url] [![release-please][release-please-image]][release-please-url]
 
 ### Pitch
 
