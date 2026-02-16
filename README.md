@@ -3,7 +3,7 @@
 _A simple tip calculator and bill divider PWA_
 
 [![Build Status][ci-image]][ci-url]
-[![semantic-release][semantic-release-image]][semantic-release-url]
+[![release-please][release-please-image]][release-please-url]
 
 ### Pitch
 
@@ -32,9 +32,9 @@ have been made with phone usage in mind (and particularly those with larger scre
 [ci-image]:
   https://img.shields.io/github/actions/workflow/status/wKovacs64/tipsy/ci.yml?logo=github&style=flat-square
 [ci-url]: https://github.com/wKovacs64/tipsy/actions?query=workflow%3Aci
-[semantic-release-image]:
-  https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
-[semantic-release-url]: https://github.com/semantic-release/semantic-release
+[release-please-image]:
+  https://img.shields.io/badge/release--please-4285F4?logo=google-cloud&logoColor=white&style=flat-square
+[release-please-url]: https://github.com/googleapis/release-please
 [nip-the-tip]: https://github.com/wKovacs64/NipTheTip
 [pwa]: https://developers.google.com/web/progressive-web-apps/
 [deploy-image]: https://www.netlify.com/img/deploy/button.svg
