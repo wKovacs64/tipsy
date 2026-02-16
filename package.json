@@ -65,7 +65,7 @@
     "type-fest": "5.4.4",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vite-plugin-babel": "1.4.1",
+    "vite-plugin-babel": "1.5.1",
     "vite-plugin-icons-spritesheet": "3.0.1",
     "vite-plugin-pwa": "1.2.0",
     "workbox-build": "7.4.0",
