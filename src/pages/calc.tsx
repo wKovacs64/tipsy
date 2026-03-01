@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { clsx } from 'clsx';
-import { useNavigate, useParams } from 'react-router';
-import currency from 'currency.js';
-import { Icon } from '#/src/icons/icon';
-import { useDefaultPartySize, useDefaultTipPercent } from '#/src/settings';
-import { billFromUrlParam, toCurrency, toNumber } from '#/src/utils';
-import { BrandButton } from '#/src/shared/brand-button';
-import { NumericInput } from '#/src/shared/numeric-input';
-import { useTipCalculator } from '#/src/use-tip-calculator';
+import * as React from "react";
+import { clsx } from "clsx";
+import { useNavigate, useParams } from "react-router";
+import currency from "currency.js";
+import { Icon } from "#/src/icons/icon";
+import { useDefaultPartySize, useDefaultTipPercent } from "#/src/settings";
+import { billFromUrlParam, toCurrency, toNumber } from "#/src/utils";
+import { BrandButton } from "#/src/shared/brand-button";
+import { NumericInput } from "#/src/shared/numeric-input";
+import { useTipCalculator } from "#/src/use-tip-calculator";
 
 export function CalcPage() {
   const params = useParams();
@@ -19,10 +19,14 @@ export function CalcPage() {
 
   const billAmount = Number.parseFloat(bill) || 0;
 
-  const tipCalc = useTipCalculator(billAmount, initialTipPercent, initialPartySize);
+  const tipCalc = useTipCalculator(
+    billAmount,
+    initialTipPercent,
+    initialPartySize,
+  );
 
   const startOver = () => {
-    void navigate('/', { replace: true });
+    void navigate("/", { replace: true });
   };
 
   return (
@@ -51,14 +55,22 @@ export function CalcPage() {
           <label htmlFor="tip-amount">Tip Amount</label>
         </Cell>
         <Cell>
-          <DecrementButton aria-label="decrement tip amount" onClick={tipCalc.decrementTipAmount} />
+          <DecrementButton
+            aria-label="decrement tip amount"
+            onClick={tipCalc.decrementTipAmount}
+          />
           <CalcInput
             id="tip-amount"
             name="tip-amount"
-            value={currency(tipCalc.tipAmount, { symbol: '' }).format()}
-            onChange={(e) => tipCalc.changeTipAmount(toNumber(toCurrency(e.target.value)))}
+            value={currency(tipCalc.tipAmount, { symbol: "" }).format()}
+            onChange={(e) =>
+              tipCalc.changeTipAmount(toNumber(toCurrency(e.target.value)))
+            }
           />
-          <IncrementButton aria-label="increment tip amount" onClick={tipCalc.incrementTipAmount} />
+          <IncrementButton
+            aria-label="increment tip amount"
+            onClick={tipCalc.incrementTipAmount}
+          />
         </Cell>
         <HeroCell>
           <label htmlFor="total-amount">Total Amount</label>
@@ -72,8 +84,10 @@ export function CalcPage() {
             id="total-amount"
             name="total-amount"
             className="font-semibold"
-            value={currency(tipCalc.totalAmount, { symbol: '' }).format()}
-            onChange={(e) => tipCalc.changeTotalAmount(toNumber(toCurrency(e.target.value)))}
+            value={currency(tipCalc.totalAmount, { symbol: "" }).format()}
+            onChange={(e) =>
+              tipCalc.changeTotalAmount(toNumber(toCurrency(e.target.value)))
+            }
           />
           <IncrementButton
             aria-label="increment total amount"
@@ -92,7 +106,9 @@ export function CalcPage() {
             id="number-of-people"
             name="number-of-people"
             value={tipCalc.numberOfPeople}
-            onChange={(e) => tipCalc.changeNumberOfPeople(toNumber(e.target.value))}
+            onChange={(e) =>
+              tipCalc.changeNumberOfPeople(toNumber(e.target.value))
+            }
           />
           <IncrementButton
             aria-label="increment number of people"
@@ -110,8 +126,10 @@ export function CalcPage() {
           <CalcInput
             id="each-person-pays"
             name="each-person-pays"
-            value={currency(tipCalc.eachPersonPays, { symbol: '' }).format()}
-            onChange={(e) => tipCalc.changeEachPersonPays(toNumber(toCurrency(e.target.value)))}
+            value={currency(tipCalc.eachPersonPays, { symbol: "" }).format()}
+            onChange={(e) =>
+              tipCalc.changeEachPersonPays(toNumber(toCurrency(e.target.value)))
+            }
           />
           <IncrementButton
             aria-label="increment each person pays"
@@ -127,31 +145,37 @@ export function CalcPage() {
   );
 }
 
-type CellProps = React.ComponentProps<'div'>;
+type CellProps = React.ComponentProps<"div">;
 
 function Cell(props: CellProps) {
   const { className, ...otherProps } = props;
-  return <div className={clsx('flex items-center', className)} {...otherProps} />;
+  return (
+    <div className={clsx("flex items-center", className)} {...otherProps} />
+  );
 }
 
 function HeroCell(props: CellProps) {
   const { className, ...otherProps } = props;
   return (
     <Cell
-      className={clsx('border-y border-black py-10 font-semibold', className)}
+      className={clsx("border-y border-black py-10 font-semibold", className)}
       {...otherProps}
     />
   );
 }
 
-function IconButton(props: React.ComponentProps<'button'>) {
+function IconButton(props: React.ComponentProps<"button">) {
   const { className, ...otherProps } = props;
   return (
-    <button type="button" className={clsx('dark:text-accent p-1.5', className)} {...otherProps} />
+    <button
+      type="button"
+      className={clsx("dark:text-accent p-1.5", className)}
+      {...otherProps}
+    />
   );
 }
 
-function DecrementButton(props: React.ComponentProps<'button'>) {
+function DecrementButton(props: React.ComponentProps<"button">) {
   return (
     <IconButton {...props}>
       <Icon name="feather-chevron-down" size={26} />
@@ -159,7 +183,7 @@ function DecrementButton(props: React.ComponentProps<'button'>) {
   );
 }
 
-function IncrementButton(props: React.ComponentProps<'button'>) {
+function IncrementButton(props: React.ComponentProps<"button">) {
   return (
     <IconButton {...props}>
       <Icon name="feather-chevron-up" size={26} />
@@ -167,9 +191,12 @@ function IncrementButton(props: React.ComponentProps<'button'>) {
   );
 }
 
-function CalcInput(props: React.ComponentProps<'input'>) {
+function CalcInput(props: React.ComponentProps<"input">) {
   const { className, ...otherProps } = props;
   return (
-    <NumericInput className={clsx('mx-2 max-w-20 text-xl md:text-xl', className)} {...otherProps} />
+    <NumericInput
+      className={clsx("mx-2 max-w-20 text-xl md:text-xl", className)}
+      {...otherProps}
+    />
   );
 }

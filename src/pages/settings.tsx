@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { useNavigate } from 'react-router';
+import * as React from "react";
+import { useNavigate } from "react-router";
 import {
   appDefaultPartySize,
   appDefaultTipPercent,
   useDefaultPartySize,
   useDefaultTipPercent,
-} from '#/src/settings';
-import { NumericInput } from '#/src/shared/numeric-input';
-import { BrandButton } from '#/src/shared/brand-button';
-import { ToggleSwitch } from '#/src/shared/toggle-switch';
+} from "#/src/settings";
+import { NumericInput } from "#/src/shared/numeric-input";
+import { BrandButton } from "#/src/shared/brand-button";
+import { ToggleSwitch } from "#/src/shared/toggle-switch";
 
 export function SettingsPage() {
   const navigate = useNavigate();
@@ -17,14 +17,14 @@ export function SettingsPage() {
   const [partySize, setPartySize] = React.useState(String(defaultPartySize));
   const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
   const [isCurrentlyDark, setIsCurrentlyDark] = React.useState(
-    document.documentElement.classList.contains('dark'),
+    document.documentElement.classList.contains("dark"),
   );
 
   // TODO: improve this (listen for system and storage changes, maybe)
   const handleThemeToggle = () => {
     setIsCurrentlyDark(!isCurrentlyDark);
-    window.localStorage.setItem('darkMode', String(!isCurrentlyDark));
-    document.documentElement.classList.toggle('dark');
+    window.localStorage.setItem("darkMode", String(!isCurrentlyDark));
+    document.documentElement.classList.toggle("dark");
   };
 
   const saveSettings = () => {
@@ -32,7 +32,9 @@ export function SettingsPage() {
     const tipPercentNumber = Number.parseInt(tipPercent, 10);
 
     setDefaultPartySize(
-      Number.isNaN(partySizeNumber) || partySizeNumber < 1 ? appDefaultPartySize : partySizeNumber,
+      Number.isNaN(partySizeNumber) || partySizeNumber < 1
+        ? appDefaultPartySize
+        : partySizeNumber,
     );
 
     setDefaultTipPercent(
@@ -41,7 +43,7 @@ export function SettingsPage() {
         : tipPercentNumber,
     );
 
-    void navigate('/', { replace: true });
+    void navigate("/", { replace: true });
   };
 
   return (
@@ -49,7 +51,11 @@ export function SettingsPage() {
       <div className="mb-14 grid w-full gap-y-14 text-3xl md:text-4xl">
         <div className="flex items-center justify-between">
           <label htmlFor="dark-mode">Dark mode:</label>
-          <ToggleSwitch id="dark-mode" checked={isCurrentlyDark} onChange={handleThemeToggle} />
+          <ToggleSwitch
+            id="dark-mode"
+            checked={isCurrentlyDark}
+            onChange={handleThemeToggle}
+          />
         </div>
         <div>
           <label htmlFor="default-party-size">Default party size:</label>
@@ -63,7 +69,9 @@ export function SettingsPage() {
           />
         </div>
         <div>
-          <label htmlFor="default-tip-percentage">Default tip percentage:</label>
+          <label htmlFor="default-tip-percentage">
+            Default tip percentage:
+          </label>
           <NumericInput
             id="default-tip-percentage"
             name="default-tip-percentage"

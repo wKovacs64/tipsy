@@ -1,29 +1,29 @@
 {
   "name": "tipsy",
-  "private": true,
   "version": "2.2.0",
+  "private": true,
   "description": "A simple tip calculator and bill divider PWA",
-  "type": "module",
-  "imports": {
-    "#/*": "./*"
+  "bugs": {
+    "url": "https://github.com/wKovacs64/tipsy/issues"
   },
+  "license": "MIT",
   "author": {
     "name": "Justin Hall",
     "email": "justin.r.hall@gmail.com"
   },
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/wKovacs64/tipsy.git"
   },
-  "bugs": {
-    "url": "https://github.com/wKovacs64/tipsy/issues"
+  "type": "module",
+  "imports": {
+    "#/*": "./*"
   },
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "format": "prettier --cache --write .",
-    "format:check": "prettier --cache --check .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "preview": "vite --host 127.0.0.1 preview",
     "test": "pnpm run test:e2e:open",
@@ -31,7 +31,6 @@
     "test:e2e:run": "cross-env CI=true playwright test",
     "typecheck": "tsc"
   },
-  "packageManager": "pnpm@10.30.1",
   "dependencies": {
     "@fontsource/source-sans-3": "5.2.9",
     "clsx": "2.1.1",
@@ -55,13 +54,12 @@
     "@vitejs/plugin-react-swc": "4.2.3",
     "@wkovacs64/add-icon": "1.2.1",
     "@wkovacs64/eslint-config": "7.13.0",
-    "@wkovacs64/prettier-config": "4.2.4",
     "babel-plugin-react-compiler": "1.0.0",
     "cross-env": "10.1.0",
     "eslint": "9.39.3",
     "fs-extra": "11.3.3",
     "git-current-commit": "1.1.0",
-    "prettier": "3.8.1",
+    "oxfmt": "0.35.0",
     "type-fest": "5.4.4",
     "typescript": "5.9.3",
     "vite": "7.3.1",
@@ -70,5 +68,6 @@
     "vite-plugin-pwa": "1.2.0",
     "workbox-build": "7.4.0",
     "workbox-window": "7.4.0"
-  }
+  },
+  "packageManager": "pnpm@10.30.1"
 }

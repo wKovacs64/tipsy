@@ -1,5 +1,5 @@
-import { clsx } from 'clsx';
-import { Icon } from '#/src/icons/icon';
+import { clsx } from "clsx";
+import { Icon } from "#/src/icons/icon";
 
 export function ToggleSwitch({
   id,
@@ -17,20 +17,20 @@ export function ToggleSwitch({
   return (
     <div
       className={clsx(
-        'group relative inline-flex h-8 w-14 shrink-0 cursor-pointer rounded-full select-none',
-        'has-checked:bg-tipsy bg-gray-300 transition-colors duration-200',
-        'dark:has-checked:bg-tipsy dark:bg-gray-600',
-        'has-focus-visible:ring-tipsy has-focus-visible:ring-2 has-focus-visible:ring-offset-2',
-        disabled && 'cursor-not-allowed opacity-50',
+        "group relative inline-flex h-8 w-14 shrink-0 cursor-pointer rounded-full select-none",
+        "has-checked:bg-tipsy bg-gray-300 transition-colors duration-200",
+        "dark:has-checked:bg-tipsy dark:bg-gray-600",
+        "has-focus-visible:ring-tipsy has-focus-visible:ring-2 has-focus-visible:ring-offset-2",
+        disabled && "cursor-not-allowed opacity-50",
         className,
       )}
     >
       {/* Handle */}
       <span
         className={clsx(
-          'absolute top-1 left-1 flex h-6 w-6 items-center justify-center',
-          'rounded-full bg-white shadow-md',
-          'transition-transform duration-200 group-has-checked:translate-x-6',
+          "absolute top-1 left-1 flex h-6 w-6 items-center justify-center",
+          "rounded-full bg-white shadow-md",
+          "transition-transform duration-200 group-has-checked:translate-x-6",
         )}
       >
         {/* X icon (visible when unchecked) */}

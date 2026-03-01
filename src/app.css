@@ -1,11 +1,11 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-sans:
-    'Source Sans 3', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+    "Source Sans 3", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --color-tipsy: #8d6c9f;
   --color-accent: #f6d397;
@@ -15,11 +15,11 @@
 
 @layer base {
   button:not(:disabled),
-  [role='button']:not(:disabled) {
+  [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   button(:disabled),
-  [role='button'(:disabled)] {
+  [role="button"(:disabled)] {
     cursor: not-allowed;
   }
 }

@@ -1,1 +1,1 @@
-declare module 'git-current-commit';
+declare module "git-current-commit";

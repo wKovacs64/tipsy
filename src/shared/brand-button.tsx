@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-export function BrandButton(props: React.ComponentProps<'button'>) {
+export function BrandButton(props: React.ComponentProps<"button">) {
   return (
     <button
       type="button"

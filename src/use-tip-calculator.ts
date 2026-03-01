@@ -1,6 +1,6 @@
-import * as React from 'react';
-import currency from 'currency.js';
-import { getPreviousEvenDollar } from './utils';
+import * as React from "react";
+import currency from "currency.js";
+import { getPreviousEvenDollar } from "./utils";
 
 type State = {
   totalAmount: number;
@@ -17,7 +17,8 @@ function deriveValues(billAmount: number, state: State) {
 
   const tipAmount = currency(totalAmount).subtract(billAmount).value;
   const tipPercent = currency(tipAmount).divide(billAmount).multiply(100).value;
-  const eachPersonPays = currency(totalAmount).distribute(numberOfPeople)[0].value;
+  const eachPersonPays =
+    currency(totalAmount).distribute(numberOfPeople)[0].value;
 
   return { tipPercent, tipAmount, totalAmount, eachPersonPays };
 }
@@ -65,7 +66,10 @@ export function useTipCalculator(
     },
     incrementTipPercent: () => {
       setState((currentState) => {
-        const { tipPercent: currentTipPercent } = deriveValues(billAmount, currentState);
+        const { tipPercent: currentTipPercent } = deriveValues(
+          billAmount,
+          currentState,
+        );
         return {
           ...currentState,
           totalAmount: totalFromTipPercent(billAmount, currentTipPercent + 1),
@@ -74,7 +78,10 @@ export function useTipCalculator(
     },
     decrementTipPercent: () => {
       setState((currentState) => {
-        const { tipPercent: currentTipPercent } = deriveValues(billAmount, currentState);
+        const { tipPercent: currentTipPercent } = deriveValues(
+          billAmount,
+          currentState,
+        );
         const newPercent = currentTipPercent < 1 ? 0 : currentTipPercent - 1;
         return {
           ...currentState,
@@ -92,8 +99,13 @@ export function useTipCalculator(
     },
     incrementTipAmount: () => {
       setState((currentState) => {
-        const { tipAmount: currentTipAmount } = deriveValues(billAmount, currentState);
-        const newTipAmount = currency(currentTipAmount, { increment: 1 }).add(1).dollars();
+        const { tipAmount: currentTipAmount } = deriveValues(
+          billAmount,
+          currentState,
+        );
+        const newTipAmount = currency(currentTipAmount, { increment: 1 })
+          .add(1)
+          .dollars();
         return {
           ...currentState,
           totalAmount: totalFromTipAmount(billAmount, newTipAmount),
@@ -102,7 +114,10 @@ export function useTipCalculator(
     },
     decrementTipAmount: () => {
       setState((currentState) => {
-        const { tipAmount: currentTipAmount } = deriveValues(billAmount, currentState);
+        const { tipAmount: currentTipAmount } = deriveValues(
+          billAmount,
+          currentState,
+        );
         const newTipAmount = currency(currentTipAmount, { increment: 1 });
         const previousEvenDollar = getPreviousEvenDollar(newTipAmount);
         const finalTipAmount = newTipAmount.value < 1 ? 0 : previousEvenDollar;
@@ -123,14 +138,19 @@ export function useTipCalculator(
     incrementTotalAmount: () => {
       setState((currentState) => ({
         ...currentState,
-        totalAmount: currency(currentState.totalAmount, { increment: 1 }).add(1).dollars(),
+        totalAmount: currency(currentState.totalAmount, { increment: 1 })
+          .add(1)
+          .dollars(),
       }));
     },
     decrementTotalAmount: () => {
       setState((currentState) => {
-        const newTotalAmount = currency(currentState.totalAmount, { increment: 1 });
+        const newTotalAmount = currency(currentState.totalAmount, {
+          increment: 1,
+        });
         const previousEvenDollar = getPreviousEvenDollar(newTotalAmount);
-        const finalTotalAmount = previousEvenDollar < billAmount ? billAmount : previousEvenDollar;
+        const finalTotalAmount =
+          previousEvenDollar < billAmount ? billAmount : previousEvenDollar;
         return { ...currentState, totalAmount: finalTotalAmount };
       });
     },
@@ -152,7 +172,10 @@ export function useTipCalculator(
       setState((currentState) =>
         currentState.numberOfPeople < 2
           ? currentState
-          : { ...currentState, numberOfPeople: currentState.numberOfPeople - 1 },
+          : {
+              ...currentState,
+              numberOfPeople: currentState.numberOfPeople - 1,
+            },
       );
     },
 
@@ -160,30 +183,51 @@ export function useTipCalculator(
     changeEachPersonPays: (amount: number) => {
       setState((currentState) => ({
         ...currentState,
-        totalAmount: totalFromEachPersonPays(amount, currentState.numberOfPeople),
+        totalAmount: totalFromEachPersonPays(
+          amount,
+          currentState.numberOfPeople,
+        ),
       }));
     },
     incrementEachPersonPays: () => {
       setState((currentState) => {
-        const { eachPersonPays: currentEachPersonPays } = deriveValues(billAmount, currentState);
-        const newPerPerson = currency(currentEachPersonPays, { increment: 1 }).add(1).dollars();
+        const { eachPersonPays: currentEachPersonPays } = deriveValues(
+          billAmount,
+          currentState,
+        );
+        const newPerPerson = currency(currentEachPersonPays, { increment: 1 })
+          .add(1)
+          .dollars();
         return {
           ...currentState,
-          totalAmount: totalFromEachPersonPays(newPerPerson, currentState.numberOfPeople),
+          totalAmount: totalFromEachPersonPays(
+            newPerPerson,
+            currentState.numberOfPeople,
+          ),
         };
       });
     },
     decrementEachPersonPays: () => {
       setState((currentState) => {
-        const { eachPersonPays: currentEachPersonPays } = deriveValues(billAmount, currentState);
-        const newEachPersonPays = currency(currentEachPersonPays, { increment: 1 });
+        const { eachPersonPays: currentEachPersonPays } = deriveValues(
+          billAmount,
+          currentState,
+        );
+        const newEachPersonPays = currency(currentEachPersonPays, {
+          increment: 1,
+        });
         const previousEvenDollar = getPreviousEvenDollar(newEachPersonPays);
-        const minPerPerson = currency(billAmount).distribute(currentState.numberOfPeople)[0].value;
+        const minPerPerson = currency(billAmount).distribute(
+          currentState.numberOfPeople,
+        )[0].value;
         const finalEachPersonPays =
           previousEvenDollar < minPerPerson ? minPerPerson : previousEvenDollar;
         return {
           ...currentState,
-          totalAmount: totalFromEachPersonPays(finalEachPersonPays, currentState.numberOfPeople),
+          totalAmount: totalFromEachPersonPays(
+            finalEachPersonPays,
+            currentState.numberOfPeople,
+          ),
         };
       });
     },
