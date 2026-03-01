@@ -1,12 +1,12 @@
-import { Link, useMatch } from 'react-router';
-import currency from 'currency.js';
-import { Icon } from '#/src/icons/icon';
-import { billFromUrlParam } from '#/src/utils';
+import { Link, useMatch } from "react-router";
+import currency from "currency.js";
+import { Icon } from "#/src/icons/icon";
+import { billFromUrlParam } from "#/src/utils";
 
 export function Header() {
-  const settingsMatch = useMatch('settings');
-  const calcMatch = useMatch('calc/:bill');
-  const homeMatch = useMatch({ path: '/', end: true });
+  const settingsMatch = useMatch("settings");
+  const calcMatch = useMatch("calc/:bill");
+  const homeMatch = useMatch({ path: "/", end: true });
 
   const bill = billFromUrlParam(calcMatch?.params.bill);
 

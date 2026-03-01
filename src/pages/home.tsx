@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { useNavigate } from 'react-router';
-import { billToUrlParam, toCurrency } from '#/src/utils';
-import { BrandButton } from '#/src/shared/brand-button';
-import { NumericInput } from '#/src/shared/numeric-input';
+import * as React from "react";
+import { useNavigate } from "react-router";
+import { billToUrlParam, toCurrency } from "#/src/utils";
+import { BrandButton } from "#/src/shared/brand-button";
+import { NumericInput } from "#/src/shared/numeric-input";
 
 export function HomePage() {
   const navigate = useNavigate();
-  const [bill, setBill] = React.useState('');
+  const [bill, setBill] = React.useState("");
   const [isFormValid, setIsFormValid] = React.useState(false);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -14,11 +14,13 @@ export function HomePage() {
     void navigate(`calc/${billToUrlParam(bill)}`, { replace: true });
   };
 
-  const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleBillChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
     const { value } = event.currentTarget;
     const valueAsCurrency = toCurrency(value);
     setBill(valueAsCurrency);
-    setIsFormValid(Boolean(valueAsCurrency) && valueAsCurrency !== '0.00');
+    setIsFormValid(Boolean(valueAsCurrency) && valueAsCurrency !== "0.00");
   };
 
   return (

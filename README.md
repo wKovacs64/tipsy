@@ -28,11 +28,9 @@ have been made with phone usage in mind (and particularly those with larger scre
 
 [![Deploy to Netlify][deploy-image]][deploy-link]
 
-[ci-image]:
-  https://img.shields.io/github/actions/workflow/status/wKovacs64/tipsy/ci.yml?logo=github&style=flat-square
+[ci-image]: https://img.shields.io/github/actions/workflow/status/wKovacs64/tipsy/ci.yml?logo=github&style=flat-square
 [ci-url]: https://github.com/wKovacs64/tipsy/actions?query=workflow%3Aci
-[release-please-image]:
-  https://img.shields.io/badge/release--please-4285F4?logo=google-cloud&logoColor=white&style=flat-square
+[release-please-image]: https://img.shields.io/badge/release--please-4285F4?logo=google-cloud&logoColor=white&style=flat-square
 [release-please-url]: https://github.com/googleapis/release-please
 [nip-the-tip]: https://github.com/wKovacs64/NipTheTip
 [pwa]: https://developers.google.com/web/progressive-web-apps/

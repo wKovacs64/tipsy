@@ -1,6 +1,6 @@
-import { clsx } from 'clsx';
+import { clsx } from "clsx";
 
-export function NumericInput(props: React.ComponentProps<'input'>) {
+export function NumericInput(props: React.ComponentProps<"input">) {
   const { className, ...otherProps } = props;
 
   return (
@@ -11,9 +11,9 @@ export function NumericInput(props: React.ComponentProps<'input'>) {
       autoComplete="off"
       autoCorrect="off"
       className={clsx(
-        'w-full text-center',
-        'bg-transparent focus:placeholder-transparent',
-        'focus:border-accent dark:focus:border-accent border-b-2 border-black outline-hidden dark:border-gray-100',
+        "w-full text-center",
+        "bg-transparent focus:placeholder-transparent",
+        "focus:border-accent dark:focus:border-accent border-b-2 border-black outline-hidden dark:border-gray-100",
         className,
       )}
       {...otherProps}
