@@ -1,10 +1,10 @@
 import path from "node:path";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 import gitCommit from "git-current-commit";
-import babel from "vite-plugin-babel";
+import babel from "@rolldown/plugin-babel";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { iconsSpritesheet } from "vite-plugin-icons-spritesheet";
 
 export default defineConfig({
@@ -15,13 +15,7 @@ export default defineConfig({
     tailwindcss(),
     react(),
     babel({
-      exclude: ["**/node_modules/**"],
-      filter: /\.[jt]sx?$/u,
-      loader: "jsx",
-      babelConfig: {
-        presets: ["@babel/preset-typescript"],
-        plugins: [["babel-plugin-react-compiler"]],
-      },
+      presets: [reactCompilerPreset()],
     }),
     iconsSpritesheet({
       inputDir: path.resolve("./src/assets/svg-icons"),
