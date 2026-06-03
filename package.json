@@ -60,7 +60,7 @@
     "fs-extra": "11.3.5",
     "git-current-commit": "1.1.0",
     "oxfmt": "0.52.0",
-    "type-fest": "5.6.0",
+    "type-fest": "5.7.0",
     "typescript": "5.9.3",
     "vite": "8.0.14",
     "vite-plugin-icons-spritesheet": "3.0.1",
