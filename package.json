@@ -38,7 +38,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-router": "7.17.0",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.1",
     "use-local-storage-state": "19.5.0"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "@babel/plugin-syntax-jsx": "7.29.7",
     "@playwright/test": "1.60.0",
     "@rolldown/plugin-babel": "0.2.3",
-    "@tailwindcss/vite": "4.3.0",
+    "@tailwindcss/vite": "4.3.1",
     "@types/fs-extra": "11.0.4",
     "@types/node": "24.13.2",
     "@types/react": "19.2.17",
