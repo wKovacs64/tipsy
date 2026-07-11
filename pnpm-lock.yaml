@@ -44,16 +44,16 @@ importers:
         version: 1.61.1
       '@rolldown/plugin-babel':
         specifier: 0.2.3
-        version: 0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
+        version: 0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
       '@tailwindcss/vite':
         specifier: 4.3.2
-        version: 4.3.2(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
+        version: 4.3.2(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
       '@types/fs-extra':
         specifier: 11.0.4
         version: 11.0.4
       '@types/node':
-        specifier: 24.13.2
-        version: 24.13.2
+        specifier: 24.13.3
+        version: 24.13.3
       '@types/react':
         specifier: 19.2.17
         version: 19.2.17
@@ -62,7 +62,7 @@ importers:
         version: 19.2.3(@types/react@19.2.17)
       '@vitejs/plugin-react':
         specifier: 6.0.3
-        version: 6.0.3(@rolldown/plugin-babel@0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)))(babel-plugin-react-compiler@1.0.0)(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
+        version: 6.0.3(@rolldown/plugin-babel@0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)))(babel-plugin-react-compiler@1.0.0)(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
       '@wkovacs64/add-icon':
         specifier: 1.2.2
         version: 1.2.2
@@ -95,13 +95,13 @@ importers:
         version: 6.0.3
       vite:
         specifier: 8.1.3
-        version: 8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
+        version: 8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
       vite-plugin-icons-spritesheet:
         specifier: 3.1.0
-        version: 3.1.0(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
+        version: 3.1.0(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
       vite-plugin-pwa:
         specifier: 1.3.0
-        version: 1.3.0(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))(workbox-build@7.4.1)(workbox-window@7.4.1)
+        version: 1.3.0(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))(workbox-build@7.4.1)(workbox-window@7.4.1)
       workbox-build:
         specifier: 7.4.1
         version: 7.4.1
@@ -1542,11 +1542,8 @@ packages:
   '@types/jsonfile@6.1.4':
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
 
-  '@types/node@24.13.1':
-    resolution: {integrity: sha512-RSpUJGmvsJ1ZeBehQZFhIdpsz+bIpES0nIQXko4Ybq+N+kX6XvOq3Jo+iJ82FWLdblFq85AsMikd3m35jgezYg==}
-
-  '@types/node@24.13.2':
-    resolution: {integrity: sha512-fRa09kZTgu8o71KFcDjUFuc7F+dEbZYZmkI0mg5YBTRs0yMKjYHsq/c0urDKeDb+D5qVgXOdFcuu+DZPKOITwA==}
+  '@types/node@24.13.3':
+    resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
@@ -4745,14 +4742,14 @@ snapshots:
   '@rolldown/binding-win32-x64-msvc@1.1.3':
     optional: true
 
-  '@rolldown/plugin-babel@0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))':
+  '@rolldown/plugin-babel@0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))':
     dependencies:
       '@babel/core': 8.0.1
       picomatch: 4.0.4
       rolldown: 1.1.3
     optionalDependencies:
       '@babel/runtime': 7.28.4
-      vite: 8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
+      vite: 8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
 
   '@rolldown/pluginutils@1.0.1': {}
 
@@ -4935,12 +4932,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.2
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.2
 
-  '@tailwindcss/vite@4.3.2(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))':
+  '@tailwindcss/vite@4.3.2(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))':
     dependencies:
       '@tailwindcss/node': 4.3.2
       '@tailwindcss/oxide': 4.3.2
       tailwindcss: 4.3.2
-      vite: 8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
+      vite: 8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
 
   '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1':
     dependencies:
@@ -4964,7 +4961,7 @@ snapshots:
   '@types/fs-extra@11.0.4':
     dependencies:
       '@types/jsonfile': 6.1.4
-      '@types/node': 24.13.1
+      '@types/node': 24.13.3
 
   '@types/gensync@1.0.5': {}
 
@@ -4974,13 +4971,9 @@ snapshots:
 
   '@types/jsonfile@6.1.4':
     dependencies:
-      '@types/node': 24.13.1
+      '@types/node': 24.13.3
 
-  '@types/node@24.13.1':
-    dependencies:
-      undici-types: 7.18.2
-
-  '@types/node@24.13.2':
+  '@types/node@24.13.3':
     dependencies:
       undici-types: 7.18.2
 
@@ -5197,12 +5190,12 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vitejs/plugin-react@6.0.3(@rolldown/plugin-babel@0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)))(babel-plugin-react-compiler@1.0.0)(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))':
+  '@vitejs/plugin-react@6.0.3(@rolldown/plugin-babel@0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)))(babel-plugin-react-compiler@1.0.0)(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
-      vite: 8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
+      vite: 8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
     optionalDependencies:
-      '@rolldown/plugin-babel': 0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
+      '@rolldown/plugin-babel': 0.2.3(@babel/core@8.0.1)(@babel/runtime@7.28.4)(rolldown@1.1.3)(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))
       babel-plugin-react-compiler: 1.0.0
 
   '@vitest/eslint-plugin@1.6.17(@typescript-eslint/eslint-plugin@8.59.3(@typescript-eslint/parser@8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3)':
@@ -7141,26 +7134,26 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-plugin-icons-spritesheet@3.1.0(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)):
+  vite-plugin-icons-spritesheet@3.1.0(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)):
     dependencies:
       chalk: 5.6.2
       glob: 11.1.0
       node-html-parser: 7.0.2
       tinyexec: 0.3.2
-      vite: 8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
+      vite: 8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
 
-  vite-plugin-pwa@1.3.0(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))(workbox-build@7.4.1)(workbox-window@7.4.1):
+  vite-plugin-pwa@1.3.0(vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1))(workbox-build@7.4.1)(workbox-window@7.4.1):
     dependencies:
       debug: 4.4.3
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.16
-      vite: 8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
+      vite: 8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1)
       workbox-build: 7.4.1
       workbox-window: 7.4.1
     transitivePeerDependencies:
       - supports-color
 
-  vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1):
+  vite@8.1.3(@types/node@24.13.3)(esbuild@0.27.2)(jiti@2.7.0)(terser@5.44.1):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
@@ -7168,7 +7161,7 @@ snapshots:
       rolldown: 1.1.3
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 24.13.2
+      '@types/node': 24.13.3
       esbuild: 0.27.2
       fsevents: 2.3.3
       jiti: 2.7.0
