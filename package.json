@@ -37,7 +37,7 @@
     "currency.js": "2.0.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-router": "8.2.0",
+    "react-router": "8.3.0",
     "tailwindcss": "4.3.3",
     "use-local-storage-state": "20.0.0"
   },
