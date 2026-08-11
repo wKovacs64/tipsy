@@ -4,6 +4,5 @@ allowBuilds:
 
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
-  - "@wkovacs64/oxlint-config"
   # Renovate security update: react-router@8.3.0
   - react-router@8.3.0
