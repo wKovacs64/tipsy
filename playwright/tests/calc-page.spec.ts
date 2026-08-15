@@ -1,4 +1,3 @@
-/* eslint-disable playwright/expect-expect */
 import { expect, test, type Page } from "@playwright/test";
 
 async function changeDefaults(

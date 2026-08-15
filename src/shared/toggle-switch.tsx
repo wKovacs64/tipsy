@@ -51,6 +51,7 @@ export function ToggleSwitch({
         role="switch"
         id={id}
         checked={checked}
+        aria-checked={checked}
         onChange={(e) => onChange(e.target.checked)}
         disabled={disabled}
         className="absolute inset-0 cursor-pointer appearance-none focus:outline-hidden disabled:cursor-not-allowed"
