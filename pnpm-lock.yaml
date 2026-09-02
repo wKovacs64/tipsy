@@ -70,8 +70,8 @@ importers:
         specifier: 8.0.3
         version: 8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@typescript-eslint/eslint-plugin@8.67.0(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@7.0.2))(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@7.0.2))(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@7.0.2))(@typescript-eslint/utils@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@7.0.2))(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@7.0.2)
       '@wkovacs64/oxlint-config':
-        specifier: 0.2.1
-        version: 0.2.1(oxlint-tsgolint@7.0.2001)(oxlint@1.80.0(oxlint-tsgolint@7.0.2001))
+        specifier: 0.2.2
+        version: 0.2.2(oxlint-tsgolint@7.0.2001)(oxlint@1.80.0(oxlint-tsgolint@7.0.2001))
       babel-plugin-react-compiler:
         specifier: 1.0.0
         version: 1.0.0
@@ -2120,8 +2120,8 @@ packages:
     resolution: {integrity: sha512-VenLJRBzEVZbAiJ0LXk8MDvCfr8PDvKT8FibkCGjTIyNT+8NhsbNZ6OawZIVZOXEc/aGyPIFtsVnoQNXRFZDmg==}
     engines: {node: ^18.18.0 || >=20.0.0}
 
-  '@wkovacs64/oxlint-config@0.2.1':
-    resolution: {integrity: sha512-5Sb5K5pKP/PmWSlY+JJ0FqX5x/8XqzjINBTHyePwTU03mMO85Pe47FODc+WMHL4HCmYDSEdY9MyrfZOd6p66mA==}
+  '@wkovacs64/oxlint-config@0.2.2':
+    resolution: {integrity: sha512-CEFeVHclhGQztEkWSnVMl7iVsrc5nSXiYJ7T2XNsD8Xx26Bzsw+E8sZjE9RRRIjn4MUJiNK/Xirv9zfFFtE5Uw==}
     engines: {node: '>=24'}
     peerDependencies:
       oxlint: '>=1.79.0 <2'
@@ -5720,7 +5720,7 @@ snapshots:
       - typescript
       - vitest
 
-  '@wkovacs64/oxlint-config@0.2.1(oxlint-tsgolint@7.0.2001)(oxlint@1.80.0(oxlint-tsgolint@7.0.2001))':
+  '@wkovacs64/oxlint-config@0.2.2(oxlint-tsgolint@7.0.2001)(oxlint@1.80.0(oxlint-tsgolint@7.0.2001))':
     dependencies:
       oxlint: 1.80.0(oxlint-tsgolint@7.0.2001)
       oxlint-tsgolint: 7.0.2001
