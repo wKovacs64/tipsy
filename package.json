@@ -44,7 +44,7 @@
   "devDependencies": {
     "@babel/core": "8.0.7",
     "@babel/plugin-syntax-jsx": "8.0.1",
-    "@playwright/test": "1.63.0",
+    "@playwright/test": "1.64.0",
     "@rolldown/plugin-babel": "0.2.4",
     "@tailwindcss/vite": "4.3.3",
     "@types/fs-extra": "11.0.4",
