@@ -167,8 +167,8 @@ importers:
   .:
     dependencies:
       '@fontsource/source-sans-3':
-        specifier: 5.3.0
-        version: 5.3.0
+        specifier: 5.3.1
+        version: 5.3.1
       clsx:
         specifier: 2.1.1
         version: 2.1.1
@@ -1034,8 +1034,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fontsource/source-sans-3@5.3.0':
-    resolution: {integrity: sha512-VrWixSgF93kOVSEkwjs9ImnAbxrBew4PgcnaJYEitG9TyJSwxjFUNJIgzB1XFP/acyAWcTDg7+sWe7JI8LTB9w==}
+  '@fontsource/source-sans-3@5.3.1':
+    resolution: {integrity: sha512-O3YxvbotUOgYI2Zx0bBcEMNjnwitRf9P2+9pd54sMoux1NHrdXnMwZusw2P78lFhEzOPN4glOEQmX0ASaS68uA==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -4189,7 +4189,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.2':
     optional: true
 
-  '@fontsource/source-sans-3@5.3.0': {}
+  '@fontsource/source-sans-3@5.3.1': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
