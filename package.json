@@ -51,7 +51,7 @@
     "@types/node": "26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "@vitejs/plugin-react": "6.1.2",
+    "@vitejs/plugin-react": "6.2.1",
     "@wkovacs64/add-icon": "1.2.2",
     "@wkovacs64/oxlint-config": "0.4.0",
     "babel-plugin-react-compiler": "1.0.0",
