@@ -9,7 +9,7 @@ export function HomePage() {
   const [bill, setBill] = React.useState("");
   const [isFormValid, setIsFormValid] = React.useState(false);
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     void navigate(`calc/${billToUrlParam(bill)}`, { replace: true });
   };

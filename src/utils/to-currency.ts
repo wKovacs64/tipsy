@@ -22,15 +22,19 @@ const removeLeadingZeros = (number: string) =>
 
 const addDecimalToNumber = (number: string) => {
   const centsStartingPosition = number.length - 2;
+
   const dollars = removeLeadingZeros(
     number.substring(0, centsStartingPosition),
   );
+
   const cents = number.substring(centsStartingPosition);
+
   return `${dollars}.${cents}`;
 };
 
 export const toCurrency = (value: string): string => {
   const digits = getDigitsFromValue(value);
   const digitsWithPadding = padDigits(digits);
+
   return addDecimalToNumber(digitsWithPadding);
 };

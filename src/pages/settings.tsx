@@ -16,6 +16,7 @@ export function SettingsPage() {
   const [defaultTipPercent, setDefaultTipPercent] = useDefaultTipPercent();
   const [partySize, setPartySize] = React.useState(String(defaultPartySize));
   const [tipPercent, setTipPercent] = React.useState(String(defaultTipPercent));
+
   const [isCurrentlyDark, setIsCurrentlyDark] = React.useState(
     document.documentElement.classList.contains("dark"),
   );

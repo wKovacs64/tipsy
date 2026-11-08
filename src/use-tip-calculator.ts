@@ -17,6 +17,7 @@ function deriveValues(billAmount: number, state: State) {
 
   const tipAmount = currency(totalAmount).subtract(billAmount).value;
   const tipPercent = currency(tipAmount).divide(billAmount).multiply(100).value;
+
   const eachPersonPays =
     currency(totalAmount).distribute(numberOfPeople)[0].value;
 
@@ -26,6 +27,7 @@ function deriveValues(billAmount: number, state: State) {
 // Compute totalAmount from various inputs
 function totalFromTipPercent(billAmount: number, percent: number) {
   const tipAmount = currency(billAmount).multiply(percent).divide(100).value;
+
   return currency(billAmount).add(tipAmount).value;
 }
 
@@ -70,6 +72,7 @@ export function useTipCalculator(
           billAmount,
           currentState,
         );
+
         return {
           ...currentState,
           totalAmount: totalFromTipPercent(billAmount, currentTipPercent + 1),
@@ -82,7 +85,9 @@ export function useTipCalculator(
           billAmount,
           currentState,
         );
+
         const newPercent = currentTipPercent < 1 ? 0 : currentTipPercent - 1;
+
         return {
           ...currentState,
           totalAmount: totalFromTipPercent(billAmount, newPercent),
@@ -103,9 +108,11 @@ export function useTipCalculator(
           billAmount,
           currentState,
         );
+
         const newTipAmount = currency(currentTipAmount, { increment: 1 })
           .add(1)
           .dollars();
+
         return {
           ...currentState,
           totalAmount: totalFromTipAmount(billAmount, newTipAmount),
@@ -118,9 +125,11 @@ export function useTipCalculator(
           billAmount,
           currentState,
         );
+
         const newTipAmount = currency(currentTipAmount, { increment: 1 });
         const previousEvenDollar = getPreviousEvenDollar(newTipAmount);
         const finalTipAmount = newTipAmount.value < 1 ? 0 : previousEvenDollar;
+
         return {
           ...currentState,
           totalAmount: totalFromTipAmount(billAmount, finalTipAmount),
@@ -148,9 +157,12 @@ export function useTipCalculator(
         const newTotalAmount = currency(currentState.totalAmount, {
           increment: 1,
         });
+
         const previousEvenDollar = getPreviousEvenDollar(newTotalAmount);
+
         const finalTotalAmount =
           previousEvenDollar < billAmount ? billAmount : previousEvenDollar;
+
         return { ...currentState, totalAmount: finalTotalAmount };
       });
     },
@@ -195,9 +207,11 @@ export function useTipCalculator(
           billAmount,
           currentState,
         );
+
         const newPerPerson = currency(currentEachPersonPays, { increment: 1 })
           .add(1)
           .dollars();
+
         return {
           ...currentState,
           totalAmount: totalFromEachPersonPays(
@@ -213,15 +227,20 @@ export function useTipCalculator(
           billAmount,
           currentState,
         );
+
         const newEachPersonPays = currency(currentEachPersonPays, {
           increment: 1,
         });
+
         const previousEvenDollar = getPreviousEvenDollar(newEachPersonPays);
+
         const minPerPerson = currency(billAmount).distribute(
           currentState.numberOfPeople,
         )[0].value;
+
         const finalEachPersonPays =
           previousEvenDollar < minPerPerson ? minPerPerson : previousEvenDollar;
+
         return {
           ...currentState,
           totalAmount: totalFromEachPersonPays(

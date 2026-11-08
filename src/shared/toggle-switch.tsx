@@ -21,7 +21,7 @@ export function ToggleSwitch({
         "has-checked:bg-tipsy bg-gray-300 transition-colors duration-200",
         "dark:has-checked:bg-tipsy dark:bg-gray-600",
         "has-focus-visible:ring-tipsy has-focus-visible:ring-2 has-focus-visible:ring-offset-2",
-        disabled && "cursor-not-allowed opacity-50",
+        disabled === true && "cursor-not-allowed opacity-50",
         className,
       )}
     >
