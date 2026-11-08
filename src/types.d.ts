@@ -1,6 +1,2 @@
-declare global {
-  // statically replaced by Vite define config at build time
-  var __VERSION__: string;
-}
-
-export {};
+// statically replaced by Vite define config at build time
+declare var __VERSION__: string;

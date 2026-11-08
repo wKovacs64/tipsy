@@ -17,7 +17,7 @@ export function CalcPage() {
   const [initialPartySize] = useDefaultPartySize();
   const [initialTipPercent] = useDefaultTipPercent();
 
-  const billAmount = Number.parseFloat(bill) || 0;
+  const billAmount = toNumber(bill);
 
   const tipCalc = useTipCalculator(
     billAmount,
@@ -149,6 +149,7 @@ type CellProps = React.ComponentProps<"div">;
 
 function Cell(props: CellProps) {
   const { className, ...otherProps } = props;
+
   return (
     <div className={clsx("flex items-center", className)} {...otherProps} />
   );
@@ -156,6 +157,7 @@ function Cell(props: CellProps) {
 
 function HeroCell(props: CellProps) {
   const { className, ...otherProps } = props;
+
   return (
     <Cell
       className={clsx("border-y border-black py-10 font-semibold", className)}
@@ -166,6 +168,7 @@ function HeroCell(props: CellProps) {
 
 function IconButton(props: React.ComponentProps<"button">) {
   const { className, ...otherProps } = props;
+
   return (
     <button
       type="button"
@@ -193,6 +196,7 @@ function IncrementButton(props: React.ComponentProps<"button">) {
 
 function CalcInput(props: React.ComponentProps<"input">) {
   const { className, ...otherProps } = props;
+
   return (
     <NumericInput
       className={clsx("mx-2 max-w-20 text-xl md:text-xl", className)}

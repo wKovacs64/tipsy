@@ -3,6 +3,8 @@ import { readJsonSync } from "fs-extra/esm";
 import type { PackageJson } from "type-fest";
 
 const packageJsonUrl = new URL("../../package.json", import.meta.url);
+
+// SAFETY: path is this repo's own package.json, a valid package manifest.
 const packageJsonObj = readJsonSync(packageJsonUrl) as PackageJson;
 
 async function fillOutSettings(page: Page) {
