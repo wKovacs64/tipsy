@@ -1,5 +1,5 @@
 import path from "node:path";
-import { defineConfig } from "vite";
+import { defineConfig, type PluginOption } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 import gitCommit from "git-current-commit";
@@ -17,13 +17,15 @@ export default defineConfig({
     babel({
       presets: [reactCompilerPreset()],
     }),
+    // SAFETY: vite-plugin-icons-spritesheet declares an `any` return type, but
+    // returns an array of Vite plugin objects.
     iconsSpritesheet({
       inputDir: path.resolve("./src/assets/svg-icons"),
       outputDir: path.resolve("./src/icons"),
       fileName: "icons-sprite.svg",
       iconNameTransformer: (fileName) => fileName,
       withTypes: true,
-    }),
+    }) as PluginOption,
     {
       name: "html-commit",
       transformIndexHtml(html) {

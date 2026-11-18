@@ -1,11 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { readJsonSync } from "fs-extra/esm";
-import type { PackageJson } from "type-fest";
-
-const packageJsonUrl = new URL("../../package.json", import.meta.url);
-
-// SAFETY: path is this repo's own package.json, a valid package manifest.
-const packageJsonObj = readJsonSync(packageJsonUrl) as PackageJson;
+import packageJson from "#/package.json" with { type: "json" };
 
 async function fillOutSettings(page: Page) {
   await page.getByLabel(/default party size/i).fill("24");
@@ -18,7 +12,7 @@ test.describe("Settings Page", () => {
   });
 
   test("displays the version", async ({ page }) => {
-    await expect(page.getByText(`v${packageJsonObj.version}`)).toBeVisible();
+    await expect(page.getByText(`v${packageJson.version}`)).toBeVisible();
   });
 
   test("toggles dark mode", async ({ page }) => {
