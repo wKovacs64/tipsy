@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <title>Tipsy</title>
     <meta name="application-name" content="Tipsy" />
@@ -19,43 +19,60 @@
       property="og:description"
       content="A simple tip calculator and bill divider"
     />
-    <!-- <meta property="og:image" content="" /> -->
-    <!-- <meta property="og:image:alt" content="Tipsy" /> -->
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Tipsy" />
     <meta
       name="twitter:description"
       content="A simple tip calculator and bill divider"
     />
-    <!-- <meta name="twitter:image" content="" /> -->
-    <!-- <meta name="twitter:image:alt" content="Tipsy" /> -->
     <link rel="icon" sizes="any" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="msapplication-TileColor" content="#8d6c9f" />
-    <meta name="theme-color" content="#8d6c9f" />
-  </head>
-  <body
-    class="sans bg-white font-extralight text-gray-900 dark:bg-black dark:text-gray-100"
-  >
-    <script type="text/javascript">
-      function prefersDark() {
-        const storedPreference = window.localStorage.getItem("darkMode");
-        const hasStoredPreference = typeof storedPreference === "string";
-        if (hasStoredPreference) return storedPreference === "true";
-
-        const mediaQuery = "(prefers-color-scheme: dark)";
-        const mql = window.matchMedia(mediaQuery);
-        const hasSystemPreference = typeof mql.matches === "boolean";
-        if (hasSystemPreference) return mql.matches ? true : false;
-
-        return false;
-      }
-
-      if (prefersDark()) {
-        document.documentElement.classList.add("dark");
+    <!-- The app renders from script, so without these the two fonts on the
+         calculator screen would only start loading after the first paint. -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="/node_modules/@fontsource/bagel-fat-one/files/bagel-fat-one-latin-400-normal.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="/node_modules/@fontsource/figtree/files/figtree-latin-700-normal.woff2"
+    />
+    <meta
+      name="theme-color"
+      content="#f1d496"
+      media="(prefers-color-scheme: light)"
+      data-theme="light"
+    />
+    <meta
+      name="theme-color"
+      content="#24122c"
+      media="(prefers-color-scheme: dark)"
+      data-theme="dark"
+    />
+    <script>
+      // Applies a stored theme before first paint. Mirrors applyTheme in
+      // src/theme.ts, which this script cannot import.
+      {
+        const theme = window.localStorage.getItem("theme");
+        if (theme) {
+          document.documentElement.dataset.theme = theme;
+          for (const meta of document.querySelectorAll(
+            'meta[name="theme-color"]',
+          )) {
+            meta.media = meta.dataset.theme === theme ? "all" : "not all";
+          }
+        }
       }
     </script>
+  </head>
+  <body class="bg-background font-body font-medium text-foreground">
     <noscript>
       <p class="p-4">This application requires JavaScript.</p>
     </noscript>

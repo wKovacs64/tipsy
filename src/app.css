@@ -1,25 +1,105 @@
 @import "tailwindcss";
-
-@custom-variant dark (&:is(.dark *));
+@import "@fontsource/bagel-fat-one/latin-400.css";
+@import "@fontsource/figtree/latin-500.css";
+@import "@fontsource/figtree/latin-700.css";
 
 @theme {
-  --font-sans:
-    "Source Sans 3", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-*: initial;
+  --font-*: initial;
 
-  --color-tipsy: #8d6c9f;
-  --color-accent: #f6d397;
+  --palette-cream-50: oklch(0.97 0.03 85);
+  --palette-cream-100: oklch(0.95 0.05 85);
+  --palette-cream-200: oklch(0.88 0.085 85);
+  --palette-plum-500: oklch(0.52 0.085 315);
+  --palette-plum-600: oklch(0.48 0.09 315);
+  --palette-plum-900: oklch(0.27 0.075 315);
+  --palette-plum-950: oklch(0.22 0.055 315);
 
-  --shadow-tipsy: 4px 4px 8px 0px rgba(141, 108, 159, 0.4);
+  --color-background: light-dark(
+    var(--palette-cream-200),
+    var(--palette-plum-950)
+  );
+  --color-foreground: light-dark(
+    var(--palette-plum-900),
+    var(--palette-cream-200)
+  );
+  --color-muted: color-mix(
+    in oklch,
+    var(--color-foreground) 11%,
+    var(--color-background)
+  );
+  --color-muted-foreground: color-mix(
+    in oklch,
+    var(--color-foreground) 72%,
+    var(--color-background)
+  );
+  --color-primary: light-dark(var(--palette-plum-500), var(--palette-plum-600));
+  --color-primary-foreground: light-dark(
+    var(--palette-cream-50),
+    var(--palette-cream-100)
+  );
+  --color-backdrop: oklch(0.12 0.04 315 / 0.65);
+
+  --font-display: "Bagel Fat One", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, sans-serif;
+
+  --text-label: 0.95rem;
+
+  /* Coin buttons and the dark mode switch knob. */
+  --spacing-coin: clamp(2.3rem, 5.6cqh, 2.75rem);
+
+  /* Widest the calculator grows: a large phone. */
+  --container-phone: 430px;
+
+  --animate-wobble: wobble 420ms cubic-bezier(0.3, 1.4, 0.5, 1);
+
+  @keyframes wobble {
+    0% {
+      rotate: -3deg;
+    }
+    45% {
+      rotate: 1.6deg;
+    }
+    75% {
+      rotate: -0.6deg;
+    }
+    100% {
+      rotate: 0deg;
+    }
+  }
 }
 
 @layer base {
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  :root {
+    color-scheme: light dark;
+  }
+
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  button:not(:disabled) {
     cursor: pointer;
   }
-  button:disabled,
-  [role="button"]:disabled {
-    cursor: not-allowed;
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 2px;
+  }
+}
+
+/* Keys, coins and pills shrink while held. */
+@utility pressable {
+  &:active:not(:disabled) {
+    scale: 0.95;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: scale 120ms ease-out;
   }
 }

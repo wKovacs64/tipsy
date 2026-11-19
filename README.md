@@ -20,9 +20,10 @@ using web technologies.
 
 ### Usage
 
-Tipsy is a [progressive web app][pwa], intended to be used exclusively on mobile phones. Because it
-is on the web, you can access it from any device with a modern web browser - but all design choices
-have been made with phone usage in mind (and particularly those with larger screens).
+Tipsy is a [progressive web app][pwa], intended to be used on mobile phones. Because it is on the
+web, you can access it from any device with a modern web browser, but it is designed for phone
+screens: the whole calculator, keypad included, fits on one screen without scrolling. On a computer,
+the number keys and Backspace type into the selected field.
 
 ### Run your own
 
