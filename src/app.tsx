@@ -12,7 +12,14 @@ import { SettingsSheet } from "./settings-sheet";
 import { Stepper } from "./stepper";
 import { useTipsy } from "./use-tipsy";
 
-const steppers: Field[] = ["people", "percent", "each", "tip"];
+/** The steppers, two by two when upright, with where each sits sideways. */
+const steppers = [
+  { field: "people", sideways: "sideways:order-3" },
+  { field: "percent", sideways: "sideways:order-1" },
+  { field: "each", sideways: "sideways:order-4" },
+  { field: "tip", sideways: "sideways:order-2" },
+] satisfies { field: Field; sideways: string }[];
+
 const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const keyClass =
@@ -137,13 +144,13 @@ export function App() {
         </div>
 
         <div className="mb-[clamp(0.6rem,2cqh,1.1rem)] grid grid-cols-2 gap-x-2.75 gap-y-[clamp(0.35rem,1.2cqh,0.7rem)] sideways:row-span-2 sideways:mb-0 sideways:grid-cols-1 sideways:content-center">
-          {steppers.map((field) => {
+          {steppers.map(({ field, sideways }) => {
             const value = fieldLabel(ui.state, field);
 
             return (
               <div
                 key={field}
-                className="grid gap-0.5 sideways:grid-cols-[3.5rem_1fr] sideways:items-center"
+                className={`grid gap-0.5 sideways:grid-cols-[3.5rem_1fr] sideways:items-center ${sideways}`}
               >
                 <Label className="ps-2.5">{fieldNames[field]}</Label>
                 <Stepper
