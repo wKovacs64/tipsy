@@ -26,7 +26,6 @@ const totalOf = (calc: Calc) => derive(calc).total;
 
 const tipAfter = (from: Calc) => derive(stepField(from, "tip", -1)).tip;
 
-/** Bill $12.35 with the total set to $15.00, so the tip is 21.457%. */
 const offGrid: Calc = {
   bill: 1235,
   percent: 20,
@@ -134,7 +133,6 @@ describe("stepField", () => {
   });
 
   test("percent steps on a bill too small to tell percents apart", () => {
-    // 23% and 24% of $0.50 both round to a 12 cent tip.
     const small = setField(withBill(50), "percent", 24);
     const down = stepField(small, "percent", -1);
 

@@ -24,9 +24,8 @@ export default defineConfig({
         );
       },
     },
-    // A new version waits until the app is closed, rather than reloading the
-    // page mid-calculation. Nothing prompts for it.
     VitePWA({
+      // With no onNeedRefresh in pwa.ts, "prompt" defers a new version to the next launch instead of reloading mid-calculation.
       registerType: "prompt",
       manifest: {
         short_name: "Tipsy",
@@ -45,7 +44,6 @@ export default defineConfig({
         ],
         start_url: "/",
         display: "standalone",
-        // The splash screen cannot follow the theme, so it uses the dark one.
         theme_color: "#24122c",
         background_color: "#24122c",
       },

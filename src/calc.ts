@@ -1,47 +1,26 @@
-// The calculator model. Every value is an integer (cents, whole percent,
-// people), so there is no float math and typing a key appends a digit to an
-// integer for every field.
-
 export type Field = "bill" | "percent" | "tip" | "total" | "people" | "each";
 
 export type Key = number | "back";
 
 export type Calc = {
   bill: number;
-  /** The tip percent, and the one a new bill returns the total to. */
   percent: number;
   people: number;
   total: Total;
 };
 
-/**
- * Where the total comes from.
- * - `percent`: the bill plus `percent` of it. Setting the bill or the
- *   percent, and Clear, lead here.
- * - `amount`: a fixed number of cents, set or stepped through the tip, total
- *   or each. Changing the split keeps it.
- */
 export type Total = { from: "percent" } | { from: "amount"; cents: number };
 
-/**
- * The field the keypad types into, and what its next digit does.
- * - `replace`: the next digit replaces the field's value. Selecting a field,
- *   stepping any field, and Clear lead here.
- * - `append`: the next digit appends to `digits`, the number typed so far.
- *   Any key leads here.
- */
 export type Entry =
   | { field: Field; mode: "replace" }
   | { field: Field; mode: "append"; digits: number };
 
-/** Everything the calculator screen holds besides the saved defaults. */
 export type CalcState = { calc: Calc; entry: Entry };
 
 export type Defaults = { percent: number; people: number };
 
 const maxMoney = 9_999_999;
 
-/** Largest value the keypad can type into each field. */
 export const maxEntry: Record<Field, number> = {
   bill: maxMoney,
   percent: 999,
@@ -64,8 +43,6 @@ export function derive(calc: Calc) {
 
   const tip = total - bill;
 
-  // A fixed amount shows the percent it works out to. With no bill there is
-  // nothing to take a percent of, so the chosen percent stands.
   const measured = calc.total.from === "amount" && bill > 0;
   const percent = measured ? (tip / bill) * 100 : calc.percent;
 
@@ -94,8 +71,7 @@ export function cleared(defaults: Defaults): Calc {
 
 const fromPercent: Total = { from: "percent" };
 
-/** A fixed total, never below the bill, so the tip is never negative. */
-const amount = (calc: Calc, cents: number): Total => ({
+const amountNotBelowBill = (calc: Calc, cents: number): Total => ({
   from: "amount",
   cents: Math.max(calc.bill, cents),
 });
@@ -103,12 +79,15 @@ const amount = (calc: Calc, cents: number): Total => ({
 const setters: Record<Field, (calc: Calc, value: number) => Calc> = {
   bill: (calc, value) => ({ ...calc, bill: value, total: fromPercent }),
   percent: (calc, value) => ({ ...calc, percent: value, total: fromPercent }),
-  tip: (calc, value) => ({ ...calc, total: amount(calc, calc.bill + value) }),
-  total: (calc, value) => ({ ...calc, total: amount(calc, value) }),
+  tip: (calc, value) => ({
+    ...calc,
+    total: amountNotBelowBill(calc, calc.bill + value),
+  }),
+  total: (calc, value) => ({ ...calc, total: amountNotBelowBill(calc, value) }),
   people: (calc, value) => ({ ...calc, people: Math.max(1, value) }),
   each: (calc, value) => ({
     ...calc,
-    total: amount(calc, value * calc.people),
+    total: amountNotBelowBill(calc, value * calc.people),
   }),
 };
 
@@ -121,7 +100,6 @@ const nextDollar = (cents: number) => (Math.floor(cents / 100) + 1) * 100;
 const previousDollar = (cents: number) =>
   cents % 100 === 0 ? cents - 100 : Math.floor(cents / 100) * 100;
 
-/** The value one step from the current one, for every field but the bill. */
 const steps: Record<
   Exclude<Field, "bill">,
   (d: Derived, direction: 1 | -1) => number
@@ -153,7 +131,6 @@ export function stepField(calc: Calc, field: Field, direction: 1 | -1) {
   return setField(calc, field, steps[field](derive(calc), direction));
 }
 
-/** Applies one step and ends any typing, so the field shows its new value. */
 export function stepState(
   state: CalcState,
   field: Field,
@@ -165,10 +142,6 @@ export function stepState(
   };
 }
 
-/**
- * Types `key` into the entry's field. Digits past `maxEntry` are ignored.
- * Backspace before any digit starts from the value the field shows.
- */
 export function pressKey(state: CalcState, key: Key): CalcState {
   const { calc, entry } = state;
   const { field } = entry;
@@ -223,11 +196,6 @@ export function displayValue(d: Derived, field: Field) {
   return money(d[field]);
 }
 
-/**
- * What a field shows: the digits being typed into it, else its value. The
- * two differ while a typed number is still below the field's minimum, such
- * as the first digits of a total.
- */
 export function fieldLabel({ calc, entry }: CalcState, field: Field) {
   if (entry.field !== field || entry.mode === "replace") {
     return displayValue(derive(calc), field);

@@ -20,9 +20,7 @@ export function Stepper({
   );
 }
 
-// The tap area reaches past the coin, outward and up and down, but not toward
-// the value between the coins, which is tappable too.
-const reach = {
+const outwardHitArea = {
   start: "after:[inset-inline:-9px_0]",
   end: "after:[inset-inline:0_-9px]",
 };
@@ -33,7 +31,7 @@ function Coin({
   onClick,
   children,
 }: {
-  side: keyof typeof reach;
+  side: keyof typeof outwardHitArea;
   label: string;
   onClick: () => void;
   children: React.ReactNode;
@@ -42,7 +40,7 @@ function Coin({
     <button
       type="button"
       aria-label={label}
-      className={`relative aspect-square w-coin pressable rounded-full bg-primary text-2xl leading-none font-bold text-primary-foreground after:absolute after:[inset-block:-6px] ${reach[side]}`}
+      className={`relative aspect-square w-coin pressable rounded-full bg-primary text-2xl leading-none font-bold text-primary-foreground after:absolute after:[inset-block:-6px] ${outwardHitArea[side]}`}
       onClick={onClick}
     >
       {children}

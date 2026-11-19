@@ -12,21 +12,19 @@ import { SettingsSheet } from "./settings-sheet";
 import { Stepper } from "./stepper";
 import { useTipsy } from "./use-tipsy";
 
-/** The steppers, two by two when upright, with where each sits sideways. */
 const steppers = [
-  { field: "people", sideways: "sideways:order-3" },
-  { field: "percent", sideways: "sideways:order-1" },
-  { field: "each", sideways: "sideways:order-4" },
-  { field: "tip", sideways: "sideways:order-2" },
-] satisfies { field: Field; sideways: string }[];
+  { field: "people", sidewaysOrder: "sideways:order-3" },
+  { field: "percent", sidewaysOrder: "sideways:order-1" },
+  { field: "each", sidewaysOrder: "sideways:order-4" },
+  { field: "tip", sidewaysOrder: "sideways:order-2" },
+] satisfies { field: Field; sidewaysOrder: string }[];
 
 const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const keyClass =
   "pressable grid h-[clamp(2.7rem,7cqh,3.8rem)] place-items-center rounded-full sideways:h-auto";
 
-/** Feeds a value's length to font sizes that shrink long values to fit. */
-function chars(text: string) {
+function charCountStyle(text: string) {
   const style: React.CSSProperties & Record<`--${string}`, number> = {
     "--chars": text.length,
   };
@@ -49,7 +47,6 @@ export function App() {
   const total = fieldLabel(ui.state, "total");
 
   const onKeyDown = React.useEffectEvent((event: KeyboardEvent) => {
-    // Shift stays allowed: some layouts need it for the digit row.
     const modified = event.altKey || event.ctrlKey || event.metaKey;
 
     if (modified || sheet.current?.open === true) return;
@@ -72,9 +69,6 @@ export function App() {
   }, []);
 
   return (
-    // The column is the size container its `cqh`/`cqw` clamps measure, so
-    // the calculator fits the viewport without scrolling. Sideways, it spans
-    // the screen in three columns: readout, steppers, keypad.
     <div className="[container-type:size] mx-auto h-dvh max-w-phone touch-manipulation pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] select-none [-webkit-tap-highlight-color:transparent] sideways:max-w-none">
       <main className="grid h-full grid-rows-[auto_minmax(0,1fr)_auto_auto] px-4.5 pt-3 pb-3.5 sideways:grid-cols-[1fr_1.2fr_0.9fr] sideways:grid-rows-[auto_minmax(0,1fr)] sideways:gap-x-6">
         <header className="flex items-center justify-between sideways:col-start-1 sideways:row-start-1">
@@ -115,16 +109,10 @@ export function App() {
               aria-label={`${fieldNames.total} ${total}`}
               aria-pressed={selected("total")}
               className="group justify-self-start font-display text-[min(23cqw,calc(96cqw/var(--chars)),15cqh)] leading-none tabular-nums sideways:text-[min(15cqh,calc(22cqw/var(--chars)))]"
-              style={chars(total)}
+              style={charCountStyle(total)}
               onClick={selectOnDoubleTap("total")}
             >
-              {/* Keyed so each new total replays the wobble. */}
-              <span
-                key={total}
-                className="block origin-[20%_100%] border-b-4 border-transparent group-aria-pressed:border-primary motion-safe:animate-wobble"
-              >
-                {total}
-              </span>
+              <WobbleOnChange text={total} />
             </button>
             <div className="grid gap-1.5">
               <Pill
@@ -145,13 +133,13 @@ export function App() {
         </div>
 
         <div className="mb-[clamp(0.6rem,2cqh,1.1rem)] grid grid-cols-2 gap-x-2.75 gap-y-[clamp(0.35rem,1.2cqh,0.7rem)] sideways:row-span-2 sideways:mb-0 sideways:grid-cols-1 sideways:content-center">
-          {steppers.map(({ field, sideways }) => {
+          {steppers.map(({ field, sidewaysOrder }) => {
             const value = fieldLabel(ui.state, field);
 
             return (
               <div
                 key={field}
-                className={`grid gap-0.5 sideways:grid-cols-[3.5rem_1fr] sideways:items-center ${sideways}`}
+                className={`grid gap-0.5 sideways:grid-cols-[3.5rem_1fr] sideways:items-center ${sidewaysOrder}`}
               >
                 <Label className="ps-2.5">{fieldNames[field]}</Label>
                 <Stepper
@@ -162,9 +150,8 @@ export function App() {
                     name={fieldNames[field]}
                     value={value}
                     selected={selected(field)}
-                    // Long amounts shrink to stay between the coins.
                     className="pt-1 text-[min(1.3rem,calc(36cqw/var(--chars)))] sideways:text-[min(1.3rem,calc(16cqw/var(--chars)))]"
-                    style={chars(value)}
+                    style={charCountStyle(value)}
                     onClick={selectOnDoubleTap(field)}
                   />
                 </Stepper>
@@ -208,15 +195,19 @@ export function App() {
   );
 }
 
-/** Taps closer together than this count as a double tap. */
 const doubleTapMs = 350;
 
-/**
- * Selects a field for typing on a double tap. The bill is the only field
- * typed into often, so it alone selects on a single tap. A press from a
- * keyboard or assistive tech has no pointer (`detail` is 0) and selects at
- * once.
- */
+function WobbleOnChange({ text }: { text: string }) {
+  return (
+    <span
+      key={text}
+      className="block origin-[20%_100%] border-b-4 border-transparent group-aria-pressed:border-primary motion-safe:animate-wobble"
+    >
+      {text}
+    </span>
+  );
+}
+
 function useDoubleTap(select: (field: Field) => void) {
   const lastTap = React.useRef<{ field: Field; at: number } | null>(null);
 
@@ -226,7 +217,9 @@ function useDoubleTap(select: (field: Field) => void) {
     const second =
       previous?.field === field && event.timeStamp - previous.at < doubleTapMs;
 
-    if (event.detail === 0 || second) {
+    const fromKeyboard = event.detail === 0;
+
+    if (fromKeyboard || second) {
       lastTap.current = null;
       select(field);
     } else {
