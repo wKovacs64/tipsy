@@ -1,17 +1,22 @@
 import useLocalStorageState from "use-local-storage-state";
+import type { Defaults } from "./calc";
 
-export const appDefaultDarkMode = false;
-export const appDefaultPartySize = 1;
-export const appDefaultTipPercent = 20;
+export const appDefaults: Defaults = { percent: 20, people: 1 };
 
-export function useDefaultPartySize() {
-  return useLocalStorageState("defaultPartySize", {
-    defaultValue: appDefaultPartySize,
+export function useDefaults() {
+  const [percent, setPercent] = useLocalStorageState("defaultTipPercent", {
+    defaultValue: appDefaults.percent,
   });
-}
 
-export function useDefaultTipPercent() {
-  return useLocalStorageState("defaultTipPercent", {
-    defaultValue: appDefaultTipPercent,
+  const [people, setPeople] = useLocalStorageState("defaultPartySize", {
+    defaultValue: appDefaults.people,
   });
+
+  return {
+    defaults: { percent, people },
+    setDefault: (field: keyof Defaults, value: number) => {
+      if (field === "percent") setPercent(value);
+      else setPeople(value);
+    },
+  };
 }

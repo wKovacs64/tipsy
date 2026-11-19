@@ -165,7 +165,3 @@ yarn.lock
 /playwright/report/
 /playwright/.cache/
 
-# Generated
-/src/icons/icons-sprite.svg
-/src/icons/types.ts
-

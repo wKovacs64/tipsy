@@ -1,11 +1,9 @@
-import path from "node:path";
-import { defineConfig, type PluginOption } from "vite";
+import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 import gitCommit from "git-current-commit";
 import babel from "@rolldown/plugin-babel";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
-import { iconsSpritesheet } from "vite-plugin-icons-spritesheet";
 
 export default defineConfig({
   define: {
@@ -17,15 +15,6 @@ export default defineConfig({
     babel({
       presets: [reactCompilerPreset()],
     }),
-    // SAFETY: vite-plugin-icons-spritesheet declares an `any` return type, but
-    // returns an array of Vite plugin objects.
-    iconsSpritesheet({
-      inputDir: path.resolve("./src/assets/svg-icons"),
-      outputDir: path.resolve("./src/icons"),
-      fileName: "icons-sprite.svg",
-      iconNameTransformer: (fileName) => fileName,
-      withTypes: true,
-    }) as PluginOption,
     {
       name: "html-commit",
       transformIndexHtml(html) {
@@ -35,8 +24,10 @@ export default defineConfig({
         );
       },
     },
+    // A new version waits until the app is closed, rather than reloading the
+    // page mid-calculation. Nothing prompts for it.
     VitePWA({
-      registerType: "autoUpdate",
+      registerType: "prompt",
       manifest: {
         short_name: "Tipsy",
         name: "Tipsy",
@@ -54,14 +45,15 @@ export default defineConfig({
         ],
         start_url: "/",
         display: "standalone",
-        theme_color: "#8d6c9f",
-        background_color: "#ffffff",
+        // The splash screen cannot follow the theme, so it uses the dark one.
+        theme_color: "#24122c",
+        background_color: "#24122c",
       },
       workbox: {
         globPatterns: [
           "icon-*.png",
           "**/**.{js,css,html,ico,webmanifest}",
-          "assets/*.woff?(2)",
+          "assets/*.woff2",
         ],
       },
     }),

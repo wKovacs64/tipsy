@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "sortTailwindcss": {
-    "functions": ["clsx", "cn"]
+    "stylesheet": "./src/app.css"
   },
   "ignorePatterns": ["CHANGELOG.md", "pnpm-lock.yaml"]
 }
