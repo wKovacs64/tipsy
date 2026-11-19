@@ -42,6 +42,7 @@ export function App() {
   const { calc, d } = ui;
   const sheet = React.useRef<HTMLDialogElement>(null);
   const selected = (field: Field) => ui.entry.field === field;
+  const selectOnDoubleTap = useDoubleTap(ui.select);
 
   const down = derive(stepField(calc, "total", -1)).total;
   const up = derive(stepField(calc, "total", 1)).total;
@@ -103,7 +104,7 @@ export function App() {
               value={fieldLabel(ui.state, "bill")}
               selected={selected("bill")}
               className="text-[clamp(2rem,5.4cqh,2.8rem)]"
-              onSelect={() => ui.select("bill")}
+              onClick={() => ui.select("bill")}
             />
           </div>
 
@@ -115,7 +116,7 @@ export function App() {
               aria-pressed={selected("total")}
               className="group justify-self-start font-display text-[min(23cqw,calc(96cqw/var(--chars)),15cqh)] leading-none tabular-nums sideways:text-[min(15cqh,calc(22cqw/var(--chars)))]"
               style={chars(total)}
-              onClick={() => ui.select("total")}
+              onClick={selectOnDoubleTap("total")}
             >
               {/* Keyed so each new total replays the wobble. */}
               <span
@@ -164,7 +165,7 @@ export function App() {
                     // Long amounts shrink to stay between the coins.
                     className="pt-1 text-[min(1.3rem,calc(36cqw/var(--chars)))] sideways:text-[min(1.3rem,calc(16cqw/var(--chars)))]"
                     style={chars(value)}
-                    onSelect={() => ui.select(field)}
+                    onClick={selectOnDoubleTap(field)}
                   />
                 </Stepper>
               </div>
@@ -207,6 +208,33 @@ export function App() {
   );
 }
 
+/** Taps closer together than this count as a double tap. */
+const doubleTapMs = 350;
+
+/**
+ * Selects a field for typing on a double tap. The bill is the only field
+ * typed into often, so it alone selects on a single tap. A press from a
+ * keyboard or assistive tech has no pointer (`detail` is 0) and selects at
+ * once.
+ */
+function useDoubleTap(select: (field: Field) => void) {
+  const lastTap = React.useRef<{ field: Field; at: number } | null>(null);
+
+  return (field: Field) => (event: React.MouseEvent) => {
+    const previous = lastTap.current;
+
+    const second =
+      previous?.field === field && event.timeStamp - previous.at < doubleTapMs;
+
+    if (event.detail === 0 || second) {
+      lastTap.current = null;
+      select(field);
+    } else {
+      lastTap.current = { field, at: event.timeStamp };
+    }
+  };
+}
+
 function Label({
   className = "",
   children,
@@ -227,14 +255,14 @@ function FieldButton({
   selected,
   className,
   style,
-  onSelect,
+  onClick,
 }: {
   name: string;
   value: string;
   selected: boolean;
   className: string;
   style?: React.CSSProperties;
-  onSelect: () => void;
+  onClick: React.MouseEventHandler;
 }) {
   return (
     <button
@@ -243,7 +271,7 @@ function FieldButton({
       aria-pressed={selected}
       className={`border-b-4 border-transparent font-display leading-none tabular-nums aria-pressed:border-primary ${className}`}
       style={style}
-      onClick={onSelect}
+      onClick={onClick}
     >
       {value}
     </button>

@@ -47,7 +47,7 @@ test("a total typed below the bill leaves the tip at zero", async ({
   page,
 }) => {
   await type(page, "5000");
-  await field(page, "Total 60.00").click();
+  await field(page, "Total 60.00").dblclick();
   await type(page, "6");
   await expect(field(page, "Total 0.06")).toBeVisible();
   await expect(field(page, "Tip 0.00")).toBeVisible();
