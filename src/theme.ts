@@ -1,9 +1,3 @@
-// The theme the user chose, stored under `theme` in localStorage.
-// - `system`: nothing stored. `color-scheme: light dark` and the media queries
-//   on the two theme-color metas follow the system setting.
-// - `light` / `dark`: stored, and set as `data-theme` on <html>, which pins
-//   `color-scheme` and the browser bar color.
-// The inline script in index.html applies a stored choice before first paint.
 import * as React from "react";
 
 export const themeChoices = ["system", "light", "dark"] as const;
@@ -15,7 +9,6 @@ const storageKey = "theme";
 const parse = (value: string | null | undefined): ThemeChoice =>
   value === "light" || value === "dark" ? value : "system";
 
-/** Shows `choice` on the page and in the browser bar. */
 function applyTheme(choice: ThemeChoice) {
   const root = document.documentElement;
 
@@ -34,7 +27,6 @@ function applyTheme(choice: ThemeChoice) {
   }
 }
 
-/** Applies a choice made in another tab. */
 function onStorage(event: StorageEvent) {
   if (event.key === storageKey) applyTheme(parse(event.newValue));
 }

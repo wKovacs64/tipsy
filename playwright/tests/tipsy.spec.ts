@@ -9,7 +9,6 @@ async function type(page: Page, digits: string) {
   }
 }
 
-// The service worker would answer requests that page.route() needs to see.
 test.use({ serviceWorkers: "block" });
 
 test.beforeEach(async ({ page }) => {
@@ -31,6 +30,26 @@ test("the physical keyboard types into the selected field", async ({
   await expect(field(page, "Bill 12.34")).toBeVisible();
   await page.keyboard.press("Backspace");
   await expect(field(page, "Bill 1.23")).toBeVisible();
+});
+
+test("the physical keyboard takes digits typed with Shift", async ({
+  page,
+}) => {
+  await page.evaluate(() =>
+    window.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "5", shiftKey: true }),
+    ),
+  );
+  await expect(field(page, "Bill 0.05")).toBeVisible();
+});
+
+test("a field selects at once from the keyboard", async ({ page }) => {
+  await field(page, "Total 0.00").focus();
+  await page.keyboard.press("Enter");
+  await expect(field(page, "Total 0.00")).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
 });
 
 test("the physical keyboard is ignored with a modifier or in settings", async ({
@@ -126,14 +145,14 @@ test("follows the system theme until one is chosen", async ({ page }) => {
   expect(await page.evaluate(() => localStorage.getItem("theme"))).toBeNull();
 });
 
-test("a chosen theme survives a reload without a flash", async ({ page }) => {
+test("a chosen theme applies before any script file loads", async ({
+  page,
+}) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.getByRole("button", { name: "Settings" }).click();
   await page.getByRole("radio", { name: "Dark" }).check();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
-  // With every script file blocked, only the inline script in index.html can
-  // set the theme, so it is in place before the app renders.
   await page.route("**/*", (route) =>
     route.request().resourceType() === "script"
       ? route.abort()
@@ -141,12 +160,33 @@ test("a chosen theme survives a reload without a flash", async ({ page }) => {
   );
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(
+    page.locator('meta[name="theme-color"][data-theme="dark"]'),
+  ).toHaveAttribute("media", "all");
+  await expect(
+    page.locator('meta[name="theme-color"][data-theme="light"]'),
+  ).toHaveAttribute("media", "not all");
   await expect(page.getByRole("button", { name: "Settings" })).toHaveCount(0);
 
   await page.unroute("**/*");
   await page.reload();
   await page.getByRole("button", { name: "Settings" }).click();
   await expect(page.getByRole("radio", { name: "Dark" })).toBeChecked();
+});
+
+test("a tap on the backdrop closes settings, a tap on the sheet's edge does not", async ({
+  page,
+}) => {
+  await page.getByRole("button", { name: "Settings" }).click();
+
+  const sheet = page.getByRole("dialog");
+
+  const box = await sheet.boundingBox();
+
+  await sheet.click({ position: { x: 2, y: (box?.height ?? 0) / 2 } });
+  await expect(sheet).not.toHaveAttribute("data-closing");
+  await page.mouse.click(5, 5);
+  await expect(sheet).toBeHidden();
 });
 
 test("a theme chosen in another tab applies here", async ({
@@ -161,15 +201,19 @@ test("a theme chosen in another tab applies here", async ({
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });
 
-const sizes = [
+const upright = [
   { width: 375, height: 667 },
   { width: 390, height: 844 },
   { width: 430, height: 932 },
-  // Sideways in a browser, with its toolbars taking part of the height.
+];
+
+const sidewaysWithBrowserToolbars = [
   { width: 667, height: 260 },
   { width: 844, height: 300 },
   { width: 932, height: 340 },
 ];
+
+const sizes = [...upright, ...sidewaysWithBrowserToolbars];
 
 for (const size of sizes) {
   for (const colorScheme of ["light", "dark"] as const) {
@@ -185,7 +229,6 @@ for (const size of sizes) {
       const overflow = await page.evaluate(() => {
         const root = document.documentElement;
 
-        // A value wider than its pill would slide under the coins beside it.
         const crowded = [...document.querySelectorAll("[aria-pressed]")].filter(
           (value) => {
             const box = value.getBoundingClientRect();
@@ -203,7 +246,17 @@ for (const size of sizes) {
           },
         );
 
-        // No two controls may cover each other.
+        const coinStealsValueTap = [
+          ...document.querySelectorAll("[aria-pressed]"),
+        ].filter((value) => {
+          const box = value.getBoundingClientRect();
+          const y = box.top + box.height / 2;
+
+          return [box.left + 1, box.right - 1].some(
+            (x) => !value.contains(document.elementFromPoint(x, y)),
+          );
+        });
+
         const boxes = [...document.querySelectorAll("main button")].flatMap(
           (button) => {
             const box = button.getBoundingClientRect();
@@ -233,6 +286,9 @@ for (const size of sizes) {
           vertical: root.scrollHeight - window.innerHeight,
           horizontal: root.scrollWidth - window.innerWidth,
           crowded: crowded.map((value) => value.getAttribute("aria-label")),
+          coinStealsValueTap: coinStealsValueTap.map((value) =>
+            value.getAttribute("aria-label"),
+          ),
         };
       });
 
@@ -241,6 +297,7 @@ for (const size of sizes) {
         vertical: 0,
         horizontal: 0,
         crowded: [],
+        coinStealsValueTap: [],
       });
       await expect(
         page.getByRole("button", { name: "Delete digit" }),

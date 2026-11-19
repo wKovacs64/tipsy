@@ -44,7 +44,6 @@ export function useTipsy() {
     clear: () => {
       setState({ calc: cleared(defaults), entry: billEntry });
     },
-    /** Saves a default. With no bill yet, it also applies right away. */
     stepDefault: (field: keyof Defaults, direction: 1 | -1) => {
       const value = Math.max(
         field === "people" ? 1 : 0,

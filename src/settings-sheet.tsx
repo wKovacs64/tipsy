@@ -9,12 +9,8 @@ const themeNames: Record<ThemeChoice, string> = {
   dark: "Dark",
 };
 
-/**
- * Closes the sheet once its slide down has played. `data-closing` starts the
- * slide; with reduced motion there is nothing to wait for. Safari closes a
- * dialog without its exit transition, so the attribute does the work there.
- */
-async function dismiss(dialog: HTMLDialogElement) {
+// Safari skips a dialog's exit transition on close(), so we slide it down first.
+async function slideDownThenClose(dialog: HTMLDialogElement) {
   if ("closing" in dialog.dataset) return;
 
   dialog.dataset.closing = "";
@@ -36,28 +32,25 @@ export function SettingsSheet({
   const titleId = React.useId();
   const themeId = React.useId();
 
-  // Every way out (Done, a tap on the backdrop, Escape) slides the sheet
-  // down first. A click on the dialog element itself can only land on the
-  // backdrop: the padding lives on the inner grid.
   React.useEffect(() => {
     const dialog = ref.current;
 
     if (!dialog) return undefined;
 
-    const onClick = (event: MouseEvent) => {
-      if (event.target === dialog) void dismiss(dialog);
+    const onBackdropClick = (event: MouseEvent) => {
+      if (event.target === dialog) void slideDownThenClose(dialog);
     };
 
     const onCancel = (event: Event) => {
       event.preventDefault();
-      void dismiss(dialog);
+      void slideDownThenClose(dialog);
     };
 
-    dialog.addEventListener("click", onClick);
+    dialog.addEventListener("click", onBackdropClick);
     dialog.addEventListener("cancel", onCancel);
 
     return () => {
-      dialog.removeEventListener("click", onClick);
+      dialog.removeEventListener("click", onBackdropClick);
       dialog.removeEventListener("cancel", onCancel);
     };
   }, [ref]);
@@ -84,7 +77,6 @@ export function SettingsSheet({
                 key={choice}
                 className="relative grid h-coin place-items-center rounded-full text-base has-checked:bg-primary has-checked:text-primary-foreground"
               >
-                {/* The radio covers its label so it takes the tap itself. */}
                 <input
                   type="radio"
                   name="theme"
@@ -119,7 +111,7 @@ export function SettingsSheet({
           type="button"
           className="h-13.5 rounded-full bg-primary font-display text-[1.4rem] leading-none text-primary-foreground active:scale-97"
           onClick={() => {
-            if (ref.current) void dismiss(ref.current);
+            if (ref.current) void slideDownThenClose(ref.current);
           }}
         >
           Done

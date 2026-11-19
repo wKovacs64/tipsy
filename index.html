@@ -28,8 +28,6 @@
     <link rel="icon" sizes="any" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <!-- The app renders from script, so without these the two fonts on the
-         calculator screen would only start loading after the first paint. -->
     <link
       rel="preload"
       as="font"
@@ -57,8 +55,6 @@
       data-theme="dark"
     />
     <script>
-      // Applies a stored theme before first paint. Mirrors applyTheme in
-      // src/theme.ts, which this script cannot import.
       {
         const theme = window.localStorage.getItem("theme");
         if (theme === "light" || theme === "dark") {
