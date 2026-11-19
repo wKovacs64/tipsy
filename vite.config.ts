@@ -24,8 +24,10 @@ export default defineConfig({
         );
       },
     },
+    // A new version waits until the app is closed, rather than reloading the
+    // page mid-calculation. Nothing prompts for it.
     VitePWA({
-      registerType: "autoUpdate",
+      registerType: "prompt",
       manifest: {
         short_name: "Tipsy",
         name: "Tipsy",
