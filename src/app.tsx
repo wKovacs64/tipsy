@@ -12,7 +12,7 @@ import { SettingsSheet } from "./settings-sheet";
 import { Stepper } from "./stepper";
 import { useTipsy } from "./use-tipsy";
 
-const steppers: Field[] = ["percent", "tip", "people", "each"];
+const steppers: Field[] = ["people", "percent", "each", "tip"];
 const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const keyClass =
