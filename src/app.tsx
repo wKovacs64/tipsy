@@ -16,7 +16,16 @@ const steppers: Field[] = ["percent", "tip", "people", "each"];
 const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const keyClass =
-  "pressable grid h-[clamp(2.7rem,7cqh,3.8rem)] place-items-center rounded-full";
+  "pressable grid h-[clamp(2.7rem,7cqh,3.8rem)] place-items-center rounded-full sideways:h-auto";
+
+/** Feeds a value's length to font sizes that shrink long values to fit. */
+function chars(text: string) {
+  const style: React.CSSProperties & Record<`--${string}`, number> = {
+    "--chars": text.length,
+  };
+
+  return style;
+}
 
 const digitKeyClass = `${keyClass} bg-primary font-display text-[1.7rem] leading-none text-primary-foreground`;
 const quietKeyClass = `${keyClass} text-[1.05rem] leading-none font-bold inset-ring-2 inset-ring-foreground`;
@@ -56,10 +65,11 @@ export function App() {
 
   return (
     // The column is the size container its `cqh`/`cqw` clamps measure, so
-    // the calculator fits the viewport without scrolling.
-    <div className="[container-type:size] mx-auto h-dvh max-w-phone touch-manipulation pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] select-none [-webkit-tap-highlight-color:transparent]">
-      <main className="grid h-full grid-rows-[auto_minmax(0,1fr)_auto_auto] px-4.5 pt-3 pb-3.5">
-        <header className="flex items-center justify-between">
+    // the calculator fits the viewport without scrolling. Sideways, it spans
+    // the screen in three columns: readout, steppers, keypad.
+    <div className="[container-type:size] mx-auto h-dvh max-w-phone touch-manipulation pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] select-none [-webkit-tap-highlight-color:transparent] sideways:max-w-none">
+      <main className="grid h-full grid-rows-[auto_minmax(0,1fr)_auto_auto] px-4.5 pt-3 pb-3.5 sideways:grid-cols-[1fr_1.2fr_0.9fr] sideways:grid-rows-[auto_minmax(0,1fr)] sideways:gap-x-6">
+        <header className="flex items-center justify-between sideways:col-start-1 sideways:row-start-1">
           <h1 className="inline-block origin-bottom-left -rotate-7 font-display text-3xl leading-none">
             Tipsy
           </h1>
@@ -78,7 +88,7 @@ export function App() {
           onStepDefault={ui.stepDefault}
         />
 
-        <div className="grid content-center gap-[clamp(0.5rem,3cqh,1.75rem)]">
+        <div className="grid content-center gap-[clamp(0.5rem,3cqh,1.75rem)] sideways:col-start-1 sideways:row-start-2">
           <div className="flex items-baseline justify-between">
             <Label>{fieldNames.bill}</Label>
             <FieldButton
@@ -96,10 +106,8 @@ export function App() {
               type="button"
               aria-label={`${fieldNames.total} ${total}`}
               aria-pressed={selected("total")}
-              className="group justify-self-start font-display leading-none tabular-nums"
-              style={{
-                fontSize: `min(23cqw, ${96 / total.length}cqw, 15cqh)`,
-              }}
+              className="group justify-self-start font-display text-[min(23cqw,calc(96cqw/var(--chars)),15cqh)] leading-none tabular-nums sideways:text-[min(15cqh,calc(22cqw/var(--chars)))]"
+              style={chars(total)}
               onClick={() => ui.select("total")}
             >
               {/* Keyed so each new total replays the wobble. */}
@@ -128,12 +136,15 @@ export function App() {
           </div>
         </div>
 
-        <div className="mb-[clamp(0.6rem,2cqh,1.1rem)] grid grid-cols-2 gap-x-2.75 gap-y-[clamp(0.35rem,1.2cqh,0.7rem)]">
+        <div className="mb-[clamp(0.6rem,2cqh,1.1rem)] grid grid-cols-2 gap-x-2.75 gap-y-[clamp(0.35rem,1.2cqh,0.7rem)] sideways:row-span-2 sideways:mb-0 sideways:grid-cols-1 sideways:content-center">
           {steppers.map((field) => {
             const value = fieldLabel(ui.state, field);
 
             return (
-              <div key={field} className="grid gap-0.5">
+              <div
+                key={field}
+                className="grid gap-0.5 sideways:grid-cols-[3.5rem_1fr] sideways:items-center"
+              >
                 <Label className="ps-2.5">{fieldNames[field]}</Label>
                 <Stepper
                   name={fieldNames[field]}
@@ -143,11 +154,9 @@ export function App() {
                     name={fieldNames[field]}
                     value={value}
                     selected={selected(field)}
-                    className="pt-1"
                     // Long amounts shrink to stay between the coins.
-                    style={{
-                      fontSize: `min(1.3rem, ${36 / value.length}cqw)`,
-                    }}
+                    className="pt-1 text-[min(1.3rem,calc(36cqw/var(--chars)))] sideways:text-[min(1.3rem,calc(16cqw/var(--chars)))]"
+                    style={chars(value)}
                     onSelect={() => ui.select(field)}
                   />
                 </Stepper>
@@ -156,7 +165,7 @@ export function App() {
           })}
         </div>
 
-        <div className="grid grid-cols-3 gap-x-2.25 gap-y-[clamp(0.35rem,1cqh,0.55rem)]">
+        <div className="grid grid-cols-3 gap-x-2.25 gap-y-[clamp(0.35rem,1cqh,0.55rem)] sideways:row-span-2 sideways:grid-rows-4">
           {digits.map((digit) => (
             <button
               key={digit}

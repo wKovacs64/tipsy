@@ -3,6 +3,9 @@
 @import "@fontsource/figtree/latin-500.css";
 @import "@fontsource/figtree/latin-700.css";
 
+/* A phone on its side: too short for the stacked layout. */
+@custom-variant sideways (@media (orientation: landscape) and (max-height: 30rem));
+
 @theme {
   --color-*: initial;
   --font-*: initial;

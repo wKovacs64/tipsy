@@ -165,6 +165,10 @@ const sizes = [
   { width: 375, height: 667 },
   { width: 390, height: 844 },
   { width: 430, height: 932 },
+  // Sideways in a browser, with its toolbars taking part of the height.
+  { width: 667, height: 260 },
+  { width: 844, height: 300 },
+  { width: 932, height: 340 },
 ];
 
 for (const size of sizes) {
@@ -199,14 +203,45 @@ for (const size of sizes) {
           },
         );
 
+        // No two controls may cover each other.
+        const boxes = [...document.querySelectorAll("main button")].flatMap(
+          (button) => {
+            const box = button.getBoundingClientRect();
+
+            const name =
+              button.getAttribute("aria-label") ?? button.textContent;
+
+            return box.width > 0 ? [{ name, box }] : [];
+          },
+        );
+
+        const overlapping = boxes.flatMap((a, index) =>
+          boxes
+            .slice(index + 1)
+            .flatMap((b) =>
+              a.box.left < b.box.right &&
+              b.box.left < a.box.right &&
+              a.box.top < b.box.bottom &&
+              b.box.top < a.box.bottom
+                ? [`${a.name} / ${b.name}`]
+                : [],
+            ),
+        );
+
         return {
+          overlapping,
           vertical: root.scrollHeight - window.innerHeight,
           horizontal: root.scrollWidth - window.innerWidth,
           crowded: crowded.map((value) => value.getAttribute("aria-label")),
         };
       });
 
-      expect(overflow).toEqual({ vertical: 0, horizontal: 0, crowded: [] });
+      expect(overflow).toEqual({
+        overlapping: [],
+        vertical: 0,
+        horizontal: 0,
+        crowded: [],
+      });
       await expect(
         page.getByRole("button", { name: "Delete digit" }),
       ).toBeInViewport({ ratio: 1 });
