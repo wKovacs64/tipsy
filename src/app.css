@@ -119,14 +119,17 @@
       }
     }
 
+    /* Leaving, it eases in and out over the whole slide, rather than the
+       opening curve's fast start, which would look like a jump. */
     &[data-closing] {
       translate: 0 100%;
-      transition-duration: 200ms;
+      transition-duration: 260ms;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     &[data-closing]::backdrop {
       opacity: 0;
-      transition-duration: 200ms;
+      transition-duration: 260ms;
     }
   }
 }
