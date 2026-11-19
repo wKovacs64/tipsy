@@ -9,6 +9,20 @@ const themeNames: Record<ThemeChoice, string> = {
   dark: "Dark",
 };
 
+/**
+ * Closes the sheet once its slide down has played. `data-closing` starts the
+ * slide; with reduced motion there is nothing to wait for. Safari closes a
+ * dialog without its exit transition, so the attribute does the work there.
+ */
+async function dismiss(dialog: HTMLDialogElement) {
+  if ("closing" in dialog.dataset) return;
+
+  dialog.dataset.closing = "";
+  await Promise.allSettled(dialog.getAnimations().map((a) => a.finished));
+  dialog.close();
+  delete dialog.dataset.closing;
+}
+
 export function SettingsSheet({
   ref,
   defaults,
@@ -22,25 +36,37 @@ export function SettingsSheet({
   const titleId = React.useId();
   const themeId = React.useId();
 
-  // A click on the dialog element itself can only land on the backdrop: the
-  // padding lives on the inner grid. Escape closes it natively.
+  // Every way out (Done, a tap on the backdrop, Escape) slides the sheet
+  // down first. A click on the dialog element itself can only land on the
+  // backdrop: the padding lives on the inner grid.
   React.useEffect(() => {
     const dialog = ref.current;
 
+    if (!dialog) return undefined;
+
     const onClick = (event: MouseEvent) => {
-      if (event.target === dialog) dialog?.close();
+      if (event.target === dialog) void dismiss(dialog);
     };
 
-    dialog?.addEventListener("click", onClick);
+    const onCancel = (event: Event) => {
+      event.preventDefault();
+      void dismiss(dialog);
+    };
 
-    return () => dialog?.removeEventListener("click", onClick);
+    dialog.addEventListener("click", onClick);
+    dialog.addEventListener("cancel", onCancel);
+
+    return () => {
+      dialog.removeEventListener("click", onClick);
+      dialog.removeEventListener("cancel", onCancel);
+    };
   }, [ref]);
 
   return (
     <dialog
       ref={ref}
       aria-labelledby={titleId}
-      className="fixed inset-x-0 top-auto bottom-0 mx-auto w-full max-w-phone rounded-t-4xl bg-background text-foreground ring-2 ring-muted backdrop:bg-backdrop motion-safe:open:transition-transform motion-safe:open:duration-280 motion-safe:open:ease-[cubic-bezier(0.2,0.9,0.3,1)] motion-safe:open:starting:translate-y-full"
+      className="fixed inset-x-0 top-auto bottom-0 mx-auto w-full max-w-phone sheet rounded-t-4xl bg-background text-foreground ring-2 ring-muted backdrop:bg-backdrop"
     >
       <div className="grid gap-5.5 px-5 pt-5.5 pb-[calc(env(safe-area-inset-bottom)+1.1rem)]">
         <h2 id={titleId} className="font-display text-[1.7rem] leading-none">
@@ -92,7 +118,9 @@ export function SettingsSheet({
         <button
           type="button"
           className="h-13.5 rounded-full bg-primary font-display text-[1.4rem] leading-none text-primary-foreground active:scale-97"
-          onClick={() => ref.current?.close()}
+          onClick={() => {
+            if (ref.current) void dismiss(ref.current);
+          }}
         >
           Done
         </button>
