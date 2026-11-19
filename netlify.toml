@@ -15,3 +15,14 @@ Referrer-Policy = "strict-origin-when-cross-origin"
 for = "/manifest.webmanifest"
 [headers.values]
 Content-Type = "application/manifest+json"
+
+# Pages from before the single-screen redesign.
+[[redirects]]
+from = "/calc/*"
+to = "/"
+status = 301
+
+[[redirects]]
+from = "/settings"
+to = "/"
+status = 301
