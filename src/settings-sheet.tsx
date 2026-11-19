@@ -1,7 +1,13 @@
 import * as React from "react";
 import type { Defaults } from "./calc";
 import { Stepper } from "./stepper";
-import { useTheme } from "./theme";
+import { themeChoices, useTheme, type ThemeChoice } from "./theme";
+
+const themeNames: Record<ThemeChoice, string> = {
+  system: "Auto",
+  light: "Light",
+  dark: "Dark",
+};
 
 export function SettingsSheet({
   ref,
@@ -12,10 +18,9 @@ export function SettingsSheet({
   defaults: Defaults;
   onStepDefault: (field: keyof Defaults, direction: 1 | -1) => void;
 }) {
-  const { theme, setTheme } = useTheme();
-  const dark = theme === "dark";
+  const theme = useTheme();
   const titleId = React.useId();
-  const darkId = React.useId();
+  const themeId = React.useId();
 
   // A click on the dialog element itself can only land on the backdrop: the
   // padding lives on the inner grid. Escape closes it natively.
@@ -42,17 +47,29 @@ export function SettingsSheet({
           Settings
         </h2>
         <div className="grid grid-cols-[1fr_10rem] items-center gap-y-4 text-[1.15rem] font-bold">
-          <span id={darkId}>Dark mode</span>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={dark}
-            aria-labelledby={darkId}
-            className="group grid w-20 justify-self-end rounded-full bg-muted p-1"
-            onClick={() => setTheme(dark ? "light" : "dark")}
+          <span id={themeId}>Theme</span>
+          <div
+            role="radiogroup"
+            aria-labelledby={themeId}
+            className="grid grid-cols-3 rounded-full bg-muted p-1"
           >
-            <span className="aspect-square w-coin rounded-full bg-muted-foreground group-aria-checked:justify-self-end group-aria-checked:bg-primary group-aria-checked:shadow-[inset_0_0_0_0.45rem_var(--color-primary-foreground)]" />
-          </button>
+            {themeChoices.map((choice) => (
+              <label
+                key={choice}
+                className="relative grid h-coin place-items-center rounded-full text-base has-checked:bg-primary has-checked:text-primary-foreground"
+              >
+                {/* The radio covers its label so it takes the tap itself. */}
+                <input
+                  type="radio"
+                  name="theme"
+                  checked={theme.choice === choice}
+                  className="absolute inset-0 cursor-pointer appearance-none rounded-full"
+                  onChange={() => theme.choose(choice)}
+                />
+                {themeNames[choice]}
+              </label>
+            ))}
+          </div>
           <span>Default tip</span>
           <Stepper
             name="default tip"

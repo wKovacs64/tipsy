@@ -61,7 +61,7 @@
       // src/theme.ts, which this script cannot import.
       {
         const theme = window.localStorage.getItem("theme");
-        if (theme) {
+        if (theme === "light" || theme === "dark") {
           document.documentElement.dataset.theme = theme;
           for (const meta of document.querySelectorAll(
             'meta[name="theme-color"]',

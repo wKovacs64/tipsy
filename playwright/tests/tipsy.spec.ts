@@ -100,7 +100,7 @@ test("a default changed before a bill applies at once and at launch", async ({
   await expect(field(page, "Split 2")).toBeVisible();
 });
 
-test("follows the system theme when none is stored", async ({ page }) => {
+test("follows the system theme until one is chosen", async ({ page }) => {
   const background = () =>
     page.evaluate(() => getComputedStyle(document.body).backgroundColor);
 
@@ -109,25 +109,27 @@ test("follows the system theme when none is stored", async ({ page }) => {
   const light = await background();
 
   await page.emulateMedia({ colorScheme: "dark" });
-  expect(await background()).not.toBe(light);
+
+  const dark = await background();
+
+  expect(dark).not.toBe(light);
 
   await page.getByRole("button", { name: "Settings" }).click();
+  await expect(page.getByRole("radio", { name: "Auto" })).toBeChecked();
   await expect(page.locator("html")).not.toHaveAttribute("data-theme");
-  await expect(page.getByRole("switch", { name: "Dark mode" })).toHaveAttribute(
-    "aria-checked",
-    "true",
-  );
+
+  await page.getByRole("radio", { name: "Light" }).check();
+  expect(await background()).toBe(light);
+
+  await page.getByRole("radio", { name: "Auto" }).check();
+  expect(await background()).toBe(dark);
+  expect(await page.evaluate(() => localStorage.getItem("theme"))).toBeNull();
 });
 
-test("dark mode survives a reload without a flash", async ({ page }) => {
+test("a chosen theme survives a reload without a flash", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.getByRole("button", { name: "Settings" }).click();
-
-  const dark = page.getByRole("switch", { name: "Dark mode" });
-
-  await expect(dark).toHaveAttribute("aria-checked", "false");
-  await dark.click();
-  await expect(dark).toHaveAttribute("aria-checked", "true");
+  await page.getByRole("radio", { name: "Dark" }).check();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
   // With every script file blocked, only the inline script in index.html can
@@ -144,7 +146,19 @@ test("dark mode survives a reload without a flash", async ({ page }) => {
   await page.unroute("**/*");
   await page.reload();
   await page.getByRole("button", { name: "Settings" }).click();
-  await expect(dark).toHaveAttribute("aria-checked", "true");
+  await expect(page.getByRole("radio", { name: "Dark" })).toBeChecked();
+});
+
+test("a theme chosen in another tab applies here", async ({
+  page,
+  context,
+}) => {
+  const other = await context.newPage();
+
+  await other.goto("/");
+  await other.getByRole("button", { name: "Settings" }).click();
+  await other.getByRole("radio", { name: "Dark" }).check();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });
 
 const sizes = [

@@ -1,55 +1,69 @@
-// The inline script in index.html applies a stored theme before first paint.
-// With nothing stored, `color-scheme: light dark` and the media queries on
-// the two theme-color metas follow the system setting.
+// The theme the user chose, stored under `theme` in localStorage.
+// - `system`: nothing stored. `color-scheme: light dark` and the media queries
+//   on the two theme-color metas follow the system setting.
+// - `light` / `dark`: stored, and set as `data-theme` on <html>, which pins
+//   `color-scheme` and the browser bar color.
+// The inline script in index.html applies a stored choice before first paint.
 import * as React from "react";
 
-export type Theme = "light" | "dark";
+export const themeChoices = ["system", "light", "dark"] as const;
 
-const darkQuery = () => window.matchMedia("(prefers-color-scheme: dark)");
+export type ThemeChoice = (typeof themeChoices)[number];
 
-function subscribe(onChange: () => void) {
-  const media = darkQuery();
-  const observer = new MutationObserver(onChange);
+const storageKey = "theme";
 
-  media.addEventListener("change", onChange);
-  observer.observe(document.documentElement, {
-    attributeFilter: ["data-theme"],
-  });
+const parse = (value: string | null | undefined): ThemeChoice =>
+  value === "light" || value === "dark" ? value : "system";
 
-  return () => {
-    media.removeEventListener("change", onChange);
-    observer.disconnect();
-  };
-}
+/** Shows `choice` on the page and in the browser bar. */
+function applyTheme(choice: ThemeChoice) {
+  const root = document.documentElement;
 
-function themeInEffect(): Theme {
-  const chosen = document.documentElement.dataset.theme;
-
-  if (chosen === "light" || chosen === "dark") return chosen;
-
-  return darkQuery().matches ? "dark" : "light";
-}
-
-/** Sets the page theme and the matching browser bar color. */
-function applyTheme(theme: Theme) {
-  document.documentElement.dataset.theme = theme;
+  if (choice === "system") delete root.dataset.theme;
+  else root.dataset.theme = choice;
 
   const metas = document.querySelectorAll<HTMLMetaElement>(
     'meta[name="theme-color"]',
   );
 
   for (const meta of metas) {
-    meta.media = meta.dataset.theme === theme ? "all" : "not all";
+    const own = meta.dataset.theme;
+
+    if (choice === "system") meta.media = `(prefers-color-scheme: ${own})`;
+    else meta.media = own === choice ? "all" : "not all";
   }
 }
 
+/** Applies a choice made in another tab. */
+function onStorage(event: StorageEvent) {
+  if (event.key === storageKey) applyTheme(parse(event.newValue));
+}
+
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+
+  observer.observe(document.documentElement, {
+    attributeFilter: ["data-theme"],
+  });
+  window.addEventListener("storage", onStorage);
+
+  return () => {
+    observer.disconnect();
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+const currentChoice = () => parse(document.documentElement.dataset.theme);
+
 export function useTheme() {
-  const theme = React.useSyncExternalStore(subscribe, themeInEffect);
+  const choice = React.useSyncExternalStore(subscribe, currentChoice);
 
   return {
-    theme,
-    setTheme: (next: Theme) => {
-      window.localStorage.setItem("theme", next);
+    choice,
+    choose: (next: ThemeChoice) => {
+      if (next === "system") window.localStorage.removeItem(storageKey);
+      else window.localStorage.setItem(storageKey, next);
+
       applyTheme(next);
     },
   };

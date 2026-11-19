@@ -8,17 +8,31 @@ export type Key = number | "back";
 
 export type Calc = {
   bill: number;
-  /** Percent the tip snaps back to whenever the bill changes. */
+  /** The tip percent, and the one a new bill returns the total to. */
   percent: number;
-  total: number;
   people: number;
+  total: Total;
 };
 
 /**
- * The field the keypad types into, and the digits typed into it so far.
- * `typed` is null until the first key, which replaces the field's value.
+ * Where the total comes from.
+ * - `percent`: the bill plus `percent` of it. Setting the bill or the
+ *   percent, and Clear, lead here.
+ * - `amount`: a fixed number of cents, set or stepped through the tip, total
+ *   or each. Changing the split keeps it.
  */
-export type Entry = { field: Field; typed: number | null };
+export type Total = { from: "percent" } | { from: "amount"; cents: number };
+
+/**
+ * The field the keypad types into, and what its next digit does.
+ * - `replace`: the next digit replaces the field's value. Selecting a field,
+ *   stepping any field, and Clear lead here.
+ * - `append`: the next digit appends to `digits`, the number typed so far.
+ *   Any key leads here.
+ */
+export type Entry =
+  | { field: Field; mode: "replace" }
+  | { field: Field; mode: "append"; digits: number };
 
 /** Everything the calculator screen holds besides the saved defaults. */
 export type CalcState = { calc: Calc; entry: Entry };
@@ -41,23 +55,29 @@ const totalAtPercent = (bill: number, percent: number) =>
   bill + Math.round((bill * percent) / 100);
 
 export function derive(calc: Calc) {
-  const tip = calc.total - calc.bill;
+  const { bill, people } = calc;
 
-  // On a small bill several percents round to the same total, so the anchor
-  // is the percent whenever it still produces the total. With no bill there
-  // is nothing to take a percent of, so the anchor stands.
-  const atAnchor =
-    calc.bill === 0 || totalAtPercent(calc.bill, calc.percent) === calc.total;
+  const total =
+    calc.total.from === "percent"
+      ? totalAtPercent(bill, calc.percent)
+      : calc.total.cents;
 
-  const percent = atAnchor ? calc.percent : (tip / calc.bill) * 100;
+  const tip = total - bill;
+
+  // A fixed amount shows the percent it works out to. With no bill there is
+  // nothing to take a percent of, so the chosen percent stands.
+  const measured = calc.total.from === "amount" && bill > 0;
+  const percent = measured ? (tip / bill) * 100 : calc.percent;
 
   return {
-    ...calc,
+    bill,
+    people,
+    total,
     tip,
     percent,
     percentIsWhole:
-      atAnchor || totalAtPercent(calc.bill, Math.round(percent)) === calc.total,
-    each: Math.ceil(calc.total / calc.people),
+      !measured || totalAtPercent(bill, Math.round(percent)) === total,
+    each: Math.ceil(total / people),
   };
 }
 
@@ -67,29 +87,28 @@ export function cleared(defaults: Defaults): Calc {
   return {
     bill: 0,
     percent: defaults.percent,
-    total: 0,
     people: defaults.people,
+    total: fromPercent,
   };
 }
 
-/** The total never drops below the bill, so the tip is never negative. */
+const fromPercent: Total = { from: "percent" };
+
+/** A fixed total, never below the bill, so the tip is never negative. */
+const amount = (calc: Calc, cents: number): Total => ({
+  from: "amount",
+  cents: Math.max(calc.bill, cents),
+});
+
 const setters: Record<Field, (calc: Calc, value: number) => Calc> = {
-  bill: (calc, value) => ({
-    ...calc,
-    bill: value,
-    total: totalAtPercent(value, calc.percent),
-  }),
-  percent: (calc, value) => ({
-    ...calc,
-    percent: value,
-    total: totalAtPercent(calc.bill, value),
-  }),
-  tip: (calc, value) => ({ ...calc, total: calc.bill + value }),
-  total: (calc, value) => ({ ...calc, total: Math.max(calc.bill, value) }),
+  bill: (calc, value) => ({ ...calc, bill: value, total: fromPercent }),
+  percent: (calc, value) => ({ ...calc, percent: value, total: fromPercent }),
+  tip: (calc, value) => ({ ...calc, total: amount(calc, calc.bill + value) }),
+  total: (calc, value) => ({ ...calc, total: amount(calc, value) }),
   people: (calc, value) => ({ ...calc, people: Math.max(1, value) }),
   each: (calc, value) => ({
     ...calc,
-    total: Math.max(calc.bill, value * calc.people),
+    total: amount(calc, value * calc.people),
   }),
 };
 
@@ -142,7 +161,7 @@ export function stepState(
 ): CalcState {
   return {
     calc: stepField(state.calc, field, direction),
-    entry: { field: state.entry.field, typed: null },
+    entry: { field: state.entry.field, mode: "replace" },
   };
 }
 
@@ -154,19 +173,23 @@ export function pressKey(state: CalcState, key: Key): CalcState {
   const { calc, entry } = state;
   const { field } = entry;
 
+  const typed = (digits: number): CalcState => ({
+    calc: setField(calc, field, digits),
+    entry: { field, mode: "append", digits },
+  });
+
   if (key === "back") {
     const d = derive(calc);
     const shown = field === "percent" ? Math.round(d.percent) : d[field];
-    const typed = Math.floor((entry.typed ?? shown) / 10);
 
-    return { calc: setField(calc, field, typed), entry: { field, typed } };
+    return typed(
+      Math.floor((entry.mode === "append" ? entry.digits : shown) / 10),
+    );
   }
 
-  const typed = (entry.typed ?? 0) * 10 + key;
+  const digits = (entry.mode === "append" ? entry.digits : 0) * 10 + key;
 
-  if (typed > maxEntry[field]) return state;
-
-  return { calc: setField(calc, field, typed), entry: { field, typed } };
+  return digits > maxEntry[field] ? state : typed(digits);
 }
 
 export function money(cents: number) {
@@ -205,14 +228,14 @@ export function displayValue(d: Derived, field: Field) {
  * two differ while a typed number is still below the field's minimum, such
  * as the first digits of a total.
  */
-export function fieldLabel(state: CalcState, field: Field) {
-  const typed = state.entry.field === field ? state.entry.typed : null;
+export function fieldLabel({ calc, entry }: CalcState, field: Field) {
+  if (entry.field !== field || entry.mode === "replace") {
+    return displayValue(derive(calc), field);
+  }
 
-  if (typed === null) return displayValue(derive(state.calc), field);
+  if (field === "percent") return `${entry.digits}%`;
 
-  if (field === "percent") return `${typed}%`;
+  if (field === "people") return String(entry.digits);
 
-  if (field === "people") return String(typed);
-
-  return money(typed);
+  return money(entry.digits);
 }

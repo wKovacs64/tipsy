@@ -13,7 +13,7 @@ import {
 } from "./calc";
 import { useDefaults } from "./settings";
 
-const billEntry: Entry = { field: "bill", typed: null };
+const billEntry: Entry = { field: "bill", mode: "replace" };
 
 export function useTipsy() {
   const { defaults, setDefault } = useDefaults();
@@ -30,7 +30,10 @@ export function useTipsy() {
     entry: state.entry,
     defaults,
     select: (field: Field) => {
-      setState((current) => ({ ...current, entry: { field, typed: null } }));
+      setState((current) => ({
+        ...current,
+        entry: { field, mode: "replace" },
+      }));
     },
     step: (field: Field, direction: 1 | -1) => {
       setState((current) => stepState(current, field, direction));
@@ -53,7 +56,7 @@ export function useTipsy() {
         current.calc.bill === 0
           ? {
               calc: setField(current.calc, field, value),
-              entry: { field: current.entry.field, typed: null },
+              entry: { field: current.entry.field, mode: "replace" },
             }
           : current,
       );
