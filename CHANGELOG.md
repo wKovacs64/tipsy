@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/wKovacs64/tipsy/compare/v3.0.0...v3.0.1) (2026-11-22)
+
+
+### Bug Fixes
+
+* deploy only from release build hook ([#428](https://github.com/wKovacs64/tipsy/issues/428)) ([c41b6f5](https://github.com/wKovacs64/tipsy/commit/c41b6f503262af4b18ac79d22fe8374329965d1e))
+
 ## [3.0.0](https://github.com/wKovacs64/tipsy/compare/v2.2.0...v3.0.0) (2026-11-19)
 
 
