@@ -47,7 +47,7 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.3.0",
-    "@wkovacs64/oxlint-config": "0.5.0",
+    "@wkovacs64/oxlint-config": "0.5.1",
     "babel-plugin-react-compiler": "1.0.0",
     "cross-env": "10.1.0",
     "git-current-commit": "1.1.0",
